@@ -12,9 +12,14 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Checkboxes from "../components/Checkboxes";
+import {Navigate, useLocation, useNavigate} from 'react-router-dom';
+
+
 
 function Copyright(props) {
+
+
+  
   return (
     <Typography
       variant="body2"
@@ -35,6 +40,8 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn(props) {
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,6 +50,10 @@ export default function SignIn(props) {
       password: data.get("password"),
     });
   };
+
+
+  const forgotPassPage = () => navigate('/forgotPassword', {replece: true})
+  const signUpPage = () => navigate('/Signup')
 
   return (
     <ThemeProvider theme={theme}>
@@ -78,7 +89,7 @@ export default function SignIn(props) {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              {props.type ? props.type : "Sign in"}
+              Sign in
             </Typography>
             <Box
               component="form"
@@ -122,13 +133,14 @@ export default function SignIn(props) {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link onClick={forgotPassPage} variant="body2">
                     Forgot password?
                   </Link>
+              
                 </Grid>
                 <Grid item>
                   <Link
-                    href={props.type ? "/BusinessSignup" : "/Signup"}
+                    onClick={signUpPage}
                     variant="body2"
                   >
                     {"Don't have an account? Sign Up"}

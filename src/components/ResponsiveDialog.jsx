@@ -7,15 +7,16 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(true);
   const [logOrSignin, setLogOrSignin] = useState("/Forbusiness");
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const navigate = useNavigate()
 
   const goToLogin = () => {
     setOpen(!open);
@@ -24,7 +25,9 @@ export default function ResponsiveDialog(props) {
   const goToSignin = () => {
     setOpen(!open);
   };
-  const again = () => {};
+  const again = () => {
+    setOpen(!open);
+  };
   return (
     <div
       style={{
@@ -50,13 +53,13 @@ export default function ResponsiveDialog(props) {
             style={{
               textDecoration: "none",
             }}
-            to="/BusinessSignup"
+            to="/Signup"
           >
             <Button autoFocus onClick={goToSignin}>
               Sign in
             </Button>
           </Link>
-          <Link  to="/BusinessSignin">
+          <Link  to="/Signin">
             {" "}
             <Button onClick={goToLogin} autoFocus>
               Login
