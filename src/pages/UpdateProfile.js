@@ -19,37 +19,45 @@ import { useAuth } from "../contexts/AuthContext";
 
 const theme = createTheme();
 
-export default function SignUp(props) {
+export default function UpdateProfile(props) {
 
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
-  const {signup, isLogin} = useAuth()
+  const {currentUser, updatePassword, updateEmail} = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
-  const signInPage = () => navigate('/Signin')
+  const homePage = () => navigate('/')
 
   
 
-  async function handleSubmit(e){
+function handleSubmit(e){
     e.preventDefault()
 
     if(passwordRef.current.value !== passwordConfirmRef.current.value){
       return setError('Passwords do not match')
     }
 
-    try {
-      setError('')
-      setLoading(true)
-     await signup(emailRef.current.value, passwordRef.current.value )
-     localStorage.setItem('show', true )
-     navigate('/')
-    } catch {
-      setError('Falied to create an account')
+    const promises = []
+    setLoading(true)
+    setError('')
+    if(emailRef.current.value !== currentUser.email){
+        promises.push(updateEmail(emailRef.current.value))
     }
 
-    setLoading(false)
+    if(passwordRef.current.value){
+        promises.push(updatePassword(passwordRef.current.value))
+    }
+
+
+    Promise.all(promises).then(() => {
+        navigate('/')
+    }).catch(() => {
+        setError('Failed to update account')
+    }).finally(() => {
+        setLoading(false)
+    })
     
   }
 
@@ -72,7 +80,7 @@ export default function SignUp(props) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            {props.type ? props.type : "Sign up"}
+            {props.type ? props.type : "Update Profile"}
           </Typography>
           {error && <h2 variant='danger'>{error}</h2>}
           <Box
@@ -86,6 +94,7 @@ export default function SignUp(props) {
               <Grid id='email' item xs={12}>
                 <input
                   ref={emailRef}
+                  defaultValue={currentUser.email}
                   required
                   id="email"
                   label="Email Address"
@@ -97,6 +106,7 @@ export default function SignUp(props) {
                 <input
                   ref={passwordRef}
                   required
+                  placeholder="Leave blank to keep the same"
                   name="password"
                   label="Password"
                   type="password"
@@ -108,6 +118,7 @@ export default function SignUp(props) {
                 <input
                   ref={passwordConfirmRef}
                   required
+                  placeholder="Leave blank to keep the same"
                   name="password"
                   label="Password-Confirmation"
                   type="password"
@@ -124,15 +135,15 @@ export default function SignUp(props) {
               disabled={loading}
               onClick={handleSubmit}
             >
-              Sign Up
+              Update
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link
-                  onClick={signInPage}
+                  onClick={homePage}
                   variant="body2"
                 >
-                  {"Already have an account? Sign in"}
+                  {"Cancel"}
                 </Link>
               </Grid>
             </Grid>

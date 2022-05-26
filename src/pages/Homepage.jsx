@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import '../App.css'
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import SearchIcon from '@mui/icons-material/Search';
-import FilterDialog from "../components/FilterDialog";
+import FilterDialog from "../components/FilterComponent";
 import {NavbarPhoto, SearchSection, SearchFilterArea, FilterPart, FilterAreaBtn, FilterTitle, InputPart, SearchInput, IconButton } from "../components/CssFolder/StyleHomePage";
 
 
@@ -53,10 +53,10 @@ export default function Homepage(props) {
         <NavbarPhoto>
           <SearchSection>
            <SearchFilterArea >
-              <FilterPart><FilterAreaBtn onClick={filterDialogShow} ><AppRegistrationIcon /><FilterTitle>Filters</FilterTitle></FilterAreaBtn></FilterPart>
+              {/* <FilterPart><FilterAreaBtn onClick={filterDialogShow} ><AppRegistrationIcon /><FilterTitle>Filters</FilterTitle></FilterAreaBtn></FilterPart> */}
               <InputPart><SearchInput type='text' label='foolwidth'  placeholder='Ereven, Armenia'></SearchInput><IconButton><SearchIcon style={{color: '#fff'}} /></IconButton></InputPart>
            </SearchFilterArea>
-           <FilterDialog onClose={handleClose} open={showFilterDialog} />
+           {/* <FilterDialog onClose={handleClose} open={showFilterDialog} /> */}
           </SearchSection>
         </NavbarPhoto>
 
@@ -72,6 +72,13 @@ export default function Homepage(props) {
           ) ;
         })}
         </ul> */}
+        <div style={{
+          width: '350px',
+          height: '800px',
+          backgroundColor: 'gray'
+        }}>
+          <FilterDialog />
+        </div>
       </div>
       
     </>
