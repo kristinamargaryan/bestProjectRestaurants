@@ -16,12 +16,16 @@ import BtnComp from "./BtnComp";
 import {Link} from "react-router-dom";
 import { useState } from "react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [userHave, setUserHave] = useState(false);
-
+  const navigate = useNavigate();
+  const dashboard = () => navigate('/Profile')
+  const {currentUser} = useAuth()
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -59,8 +63,8 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
+      <MenuItem onClick={handleMenuClose}><div>Settings</div></MenuItem>
+      <MenuItem onClick={handleMenuClose}><div onClick={dashboard}>Profile</div></MenuItem>
     </Menu>
   );
 
@@ -101,8 +105,8 @@ export default function PrimarySearchAppBar() {
         </IconButton> 
          <p>Favorite</p>
       </MenuItem>
-       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
+          onClick={dashboard}
           size="large"
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -110,9 +114,9 @@ export default function PrimarySearchAppBar() {
           color="inherit"
         >
           <AccountCircle />
+          <p>Profile</p>
         </IconButton>
-        <p>Profile</p> 
-      </MenuItem>
+        
     </Menu>
   );
 
@@ -140,44 +144,46 @@ export default function PrimarySearchAppBar() {
           >
             <BtnComp title={"Home "}></BtnComp>
           </Link>
-         {!userHave ? (
-           <>
-            <Link
-            style={{
-              textDecoration: "none",
-            }}
-            to="/Signin"
-          >
-            <BtnComp title={"Login "}></BtnComp>
-          </Link>
-          <Link
-            style={{
-              textDecoration: "none",
-            }}
-            to="/Signup"
-          >
-            <BtnComp title={"sign up "}></BtnComp>
-          </Link>
-          </>
+         {!!currentUser ? (
+                     <>
+                     <Link
+                     style={{
+                       textDecoration: "none",
+                     }}
+                     to="/About"
+                   > 
+                     <BtnComp title={"About"}></BtnComp>
+                     </Link>
+                     <Link
+                       style={{
+                         textDecoration: "none",
+                       }}
+                       to="/ContactUs"
+                     >
+                       <BtnComp title={"Contact Us"}></BtnComp>
+                     </Link>
+                   </>
+
          ) : (
+
           <>
-            <Link
-            style={{
-              textDecoration: "none",
-            }}
-            to="/About"
-          > 
-            <BtnComp title={"About"}></BtnComp>
-            </Link>
-            <Link
-              style={{
-                textDecoration: "none",
-              }}
-              to="/ContactUs"
-            >
-              <BtnComp title={"Contact Us"}></BtnComp>
-            </Link>
-          </>
+          <Link
+          style={{
+            textDecoration: "none",
+          }}
+          to="/Signin"
+        >
+          <BtnComp title={"Login "}></BtnComp>
+        </Link>
+        <Link
+          style={{
+            textDecoration: "none",
+          }}
+          to="/Signup"
+        >
+          <BtnComp title={"sign up "}></BtnComp>
+        </Link>
+        </>
          )}
           <Link
             style={{
@@ -200,7 +206,7 @@ export default function PrimarySearchAppBar() {
                 <MailIcon />
               </Badge>
             </IconButton> */}
-            {userHave ? (
+            {!!currentUser ? (
               <>
                 <IconButton
                   size="large"
@@ -235,12 +241,12 @@ export default function PrimarySearchAppBar() {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              {userHave ? <MoreIcon /> : null}
+              {!!currentUser ? <MoreIcon /> : null}
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
-      {userHave ? (
+      {!!currentUser ? (
         <>
           {renderMobileMenu}
           {renderMenu}

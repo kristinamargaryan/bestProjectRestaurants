@@ -9,30 +9,43 @@ import SignUp from "./pages/SignUp";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ContactUs from "./pages/ContactUs";
 import { useState } from "react";
+import AuthProvaider, { useAuth } from "./contexts/AuthContext";
+import Dashboard from "./pages/Dashboard";
+import UpdateProfile from "./pages/UpdateProfile";
+
+
 
 
 
 
 function App() {
-  const [userHave, setUserHave] = useState(false)
+  const {currentUser} = useAuth()
+
+  
   return (
-      <div className="App">
-           <Navbar />
-                <Routes>
-                  <Route path="/" element={<Homepage />} />
-                  {userHave ? (
+    <AuthProvaider>
+        <div className="App">
+            <Navbar />
+                  <Routes>
+                    <Route path="/" element={<Homepage />} />
+                    {!!currentUser ? (
                     <>
-                  <Route path="/About" element={<About />} />
-                  <Route path='ContactUs' element={<ContactUs />}/></>
-                  ): (
-                    <>
-                  <Route path="/Signin" element={<SignIn />} />
-                  <Route path="/Signup" element={<SignUp />} /></>
-                  )}
-                  <Route path="/Forbusiness" element={<ForBisness />} />
-                  <Route path='/ForgotPassword' element={<ForgotPasswordPage />} />
-                </Routes>
-      </div>
+                    <Route path="/About" element={<About data={currentUser}/>} />
+                    <Route path='/ContactUs' element={<ContactUs />}/>
+                    <Route path='/UpdateProfile' element={<UpdateProfile />} />
+                    </>
+                    ): (
+                      <>
+                    <Route path="/Signin" element={<SignIn />} />
+                    <Route path="/Signup" element={<SignUp />} />
+                    <Route path='/ForgotPassword' element={<ForgotPasswordPage />} />
+                    </>
+                    )}
+                    <Route path='/Profile' element={<Dashboard />} />
+                    <Route path="/Forbusiness" element={<ForBisness />} />
+                  </Routes>
+        </div>
+      </AuthProvaider>
 
   );
 }
