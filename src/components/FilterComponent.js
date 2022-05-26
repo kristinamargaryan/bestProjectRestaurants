@@ -1,8 +1,5 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogTitle from '@mui/material/DialogTitle';
 import CachedIcon from '@mui/icons-material/Cached';
 import FoodTypeMenu from '../components/FoodTypeMenu';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -22,9 +19,8 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import AccessibleIcon from '@mui/icons-material/Accessible';
 import SportsBarIcon from '@mui/icons-material/SportsBar';
 import NightlifeIcon from '@mui/icons-material/Nightlife';
-import { getValue } from '@testing-library/user-event/dist/utils';
 import { useState } from 'react';
-import styled from '@emotion/styled';
+
 
 
 // const MyUl = styled.ul`

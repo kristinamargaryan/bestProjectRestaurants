@@ -3,7 +3,6 @@ import React, {useRef, useState} from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -24,7 +23,7 @@ export default function Login(props) {
 
   const emailRef = useRef()
   const passwordRef = useRef()
-  const {login, isLogin} = useAuth()
+  const {login} = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
  

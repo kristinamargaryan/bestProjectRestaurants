@@ -2,7 +2,6 @@ import React, {useRef, useState} from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -12,6 +11,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+
 
 
 
@@ -29,7 +29,6 @@ export default function UpdateProfile(props) {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const homePage = () => navigate('/')
-
   
 
 function handleSubmit(e){
@@ -60,6 +59,10 @@ function handleSubmit(e){
     })
     
   }
+
+
+
+
 
 
 

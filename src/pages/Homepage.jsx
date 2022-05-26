@@ -60,7 +60,7 @@ export default function Homepage(props) {
           </SearchSection>
         </NavbarPhoto>
 
-        {/* <ul style={{display: 'flex', justifyContent: 'space-evenly', listStyle: 'none', flexWrap: 'wrap'}}>
+      {/* <ul style={{display: 'flex', justifyContent: 'space-evenly', listStyle: 'none', flexWrap: 'wrap'}}>
               {data.map((item) => {
           return  (
             <li key={item.idMeal}>
@@ -71,7 +71,7 @@ export default function Homepage(props) {
             </li>
           ) ;
         })}
-        </ul> */}
+        </ul>  */}
         <div style={{
           width: '350px',
           height: '800px',

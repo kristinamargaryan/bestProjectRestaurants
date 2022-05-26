@@ -131,7 +131,7 @@ export default function PrimarySearchAppBar() {
             sx={{ display: { xs: "none", sm: "block" } }}
           >
             {" "}
-            <img className="imgg" src="/restPhotos/logo.png" alt="" />
+            <Link to='/'><img className="imgg" src="/restPhotos/logo.png" alt="" /></Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1 }} />
@@ -165,7 +165,6 @@ export default function PrimarySearchAppBar() {
                    </>
 
          ) : (
-
           <>
           <Link
           style={{

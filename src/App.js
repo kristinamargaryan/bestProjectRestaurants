@@ -8,7 +8,6 @@ import ForBisness from "./pages/ForBisness";
 import SignUp from "./pages/SignUp";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ContactUs from "./pages/ContactUs";
-import { useState } from "react";
 import AuthProvaider, { useAuth } from "./contexts/AuthContext";
 import Dashboard from "./pages/Dashboard";
 import UpdateProfile from "./pages/UpdateProfile";
@@ -20,7 +19,7 @@ import UpdateProfile from "./pages/UpdateProfile";
 
 function App() {
   const {currentUser} = useAuth()
-
+  console.log(currentUser)
   
   return (
     <AuthProvaider>
