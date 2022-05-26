@@ -1,10 +1,10 @@
 import { ButtonBase, Grid } from '@mui/material'
-import { Button } from 'bootstrap';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-
+import Myprofile from './Myprofile';
+import { db } from '../firebase';
 export default function Dashboard() {
   const [error, setError] = useState('');
   const {currentUser, logout} = useAuth();
@@ -24,7 +24,9 @@ export default function Dashboard() {
   }
 
   return (
-    <div>
+    <div style={{
+      display:'flex'
+    }}>
       <div>
       <div style={{display: 'flex', flexDirection: 'column', width: '200px', height: '200px', border: '1px solid #333'}}>
         <h2>Profile</h2>
@@ -39,9 +41,12 @@ export default function Dashboard() {
          width: '105px'}}>
           Update Profile
         </Link>
+
       </div>
+      
           <button onClick={handleLogout}>Log Out</button>
       </div>
+      <Myprofile db={db}/>
     </div>
   )
 }

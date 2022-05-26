@@ -12,6 +12,9 @@ import { useState } from "react";
 import AuthProvaider, { useAuth } from "./contexts/AuthContext";
 import Dashboard from "./pages/Dashboard";
 import UpdateProfile from "./pages/UpdateProfile";
+import Myprofile from  "./pages/Myprofile"
+import { db } from "./firebase";
+
 
 
 
@@ -20,13 +23,14 @@ import UpdateProfile from "./pages/UpdateProfile";
 
 function App() {
   const {currentUser} = useAuth()
-
+  
   
   return (
     <AuthProvaider>
         <div className="App">
             <Navbar />
                   <Routes>
+                  
                     <Route path="/" element={<Homepage />} />
                     {!!currentUser ? (
                     <>
