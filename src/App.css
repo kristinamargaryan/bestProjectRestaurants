@@ -62,3 +62,44 @@
 
 
 
+
+
+
+
+/* aaaaaaa */
+
+.dialog{
+  display: flex
+}
+
+@media (max-width: 600px) {
+  .dialog {
+    display: none;
+  }
+  
+}
+
+ul li{
+  list-style-type: none;
+}
+
+ul{
+  margin: 0px;
+  padding-left: 10px;
+}
+ 
+ul li h5{
+  margin: 2px;
+  margin-top: 5px;
+}
+
+.optionBar button, .moodsBar button{
+  margin-bottom: 2px;
+  border: 1px solid;
+  border-radius: 8px
+}
+
+/* .selectPrice button{
+  width: 40px;
+  height: 40px;
+} */

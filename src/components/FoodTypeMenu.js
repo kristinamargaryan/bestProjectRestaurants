@@ -54,7 +54,7 @@ export default function MultipleSelectPlaceholder() {
 
   return (
     <div>
-      <FormControl sx={{width: 300 }}>
+      <FormControl sx={{width: '90%'}}>
         <Select
           multiple
           displayEmpty
