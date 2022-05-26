@@ -11,9 +11,11 @@ const app = firebase.initializeApp({
     storageBucket: 'auth-development-40d31.appspot.com',
     messagingSenderId: '757337040292',
     appId: '1:757337040292:web:1fc3ccccfa6752625f4d31'
-
-
 })
 
+export const db=app.firestore()
 export const auth = app.auth();
 export default app
+
+
+
