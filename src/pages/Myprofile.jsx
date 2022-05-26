@@ -122,7 +122,7 @@ export default function Myprofile(props) {
         type={foodTypes}
         name={"foodtypes"}
       />
-     <button onClick={savechanges}>send</button>
+     <button onClick={savechanges}>sendd</button>
     </>
   );
 }
