@@ -2,27 +2,37 @@ import { addDoc, collection } from "firebase/firestore/lite";
 import React, { useState } from "react";
 import MyCountry from "../components/Myprofile/MyCountry";
 import PriceInfo from "../components/Myprofile/PriceInfo";
-
 import RestCity from "../components/Myprofile/RestCity";
 import RestCityAddress from "../components/Myprofile/RestCityAddress";
-
 import Rest_types_options_moods from "../components/Myprofile/RestTypesOptionsMoods";
+import { useAuth } from "../contexts/AuthContext";
+import { db } from "../firebase";
+import RestPhotoUploadButton from "../components/Myprofile/RestPhotosUploadButton";
+import BtnSend from "../components/Myprofile/BtnSend";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function Myprofile(props) {
   const [options, setOptions] = useState([]);
   const [moods, setMoods] = useState([]);
   const [foodTypes, setFoodTypes] = useState([]);
   const [priceInfo, setPriceInfo] = useState("$$$");
-  const [city, setCity] = React.useState("");
-  const [address, setAddress] = React.useState("");
+  const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
+  const [datas, setDatas] = useState([]);
   const data = {
-    adss: address,
+    address: address,
     moodes: moods,
-    options:options,
+    options: options,
     foodTypes: foodTypes,
-    priceInfo:priceInfo,
-    city:city,
+    priceInfo: priceInfo,
+    city: city,
+    date:new Date().getTime()
+  };
 
+  const { currentUser } = useAuth();
+  let savechanges = async () => {
+    await db.collection("restaurants").doc(currentUser.uid).set(data);
   };
 
   const optionsList = [
@@ -38,10 +48,12 @@ export default function Myprofile(props) {
     { value: "Bar atmosphere", label: "Bar atmosphere" },
   ];
   const moodesList = [
-    { value: "english", label: "English" },
-    { value: "hindi", label: "Hindi" },
-    { value: "spanish", label: "Spanish" },
-    { value: "arabic", label: "Arabic" },
+    { value: "Romantic", label: "Romantic" },
+    { value: "Party", label: "Party" },
+    { value: "Busines", label: "Busines" },
+    { value: "Groups", label: "Groups" },
+    { value: "Children", label: "Children" },
+    { value: "Local", label: "Local" },
   ];
 
   const foodTypesList = [
@@ -83,26 +95,28 @@ export default function Myprofile(props) {
   const handleChangeAddress = (event) => {
     setAddress(event.target.value);
   };
-    
 
-    let savechanges = async () => {
-      await props.db.collection("restaurants").doc("newdataaaa").set(data);
-    };
   return (
-    <>
-      
-      {/* <MyCountry /> */}
+    <div
+      style={{
+        width: "500px",
+        margin: "0 auto",
+        alignItems: "center",
+      }}
+    >
       <div
         style={{
           display: "flex",
         }}
       >
-       
         <RestCity city={city} handleChangeCity={handleChangeCity} />
-        <RestCityAddress address={address} handleChangeAddress={handleChangeAddress}/>
+        <RestCityAddress
+          address={address}
+          handleChangeAddress={handleChangeAddress}
+        />
+        <RestPhotoUploadButton />
       </div>
 
-      <PriceInfo changePriceInfo={changePriceInfo} />
       <Rest_types_options_moods
         list={moodesList}
         handleChange={handleChangeMoods}
@@ -122,7 +136,16 @@ export default function Myprofile(props) {
         type={foodTypes}
         name={"foodtypes"}
       />
-     <button onClick={savechanges}>sendd</button>
-    </>
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        <PriceInfo changePriceInfo={changePriceInfo} />
+        <Link to='MyRest'><BtnSend savechanges={savechanges} /></Link>
+        
+      </div>
+     
+    </div>
   );
 }
