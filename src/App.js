@@ -12,45 +12,42 @@ import { useState } from "react";
 import AuthProvaider, { useAuth } from "./contexts/AuthContext";
 import Dashboard from "./pages/Dashboard";
 import UpdateProfile from "./pages/UpdateProfile";
-import Myprofile from  "./pages/Myprofile"
+import Myprofile from "./pages/Myprofile";
 import { db } from "./firebase";
-
-
-
-
-
-
+import MyRest from "./pages/MyRest";
 
 function App() {
-  const {currentUser} = useAuth()
-  
-  
-  return (
-    <AuthProvaider>
-        <div className="App">
-            <Navbar />
-                  <Routes>
-                  
-                    <Route path="/" element={<Homepage />} />
-                    {!!currentUser ? (
-                    <>
-                    <Route path="/About" element={<About data={currentUser}/>} />
-                    <Route path='/ContactUs' element={<ContactUs />}/>
-                    <Route path='/UpdateProfile' element={<UpdateProfile />} />
-                    </>
-                    ): (
-                      <>
-                    <Route path="/Signin" element={<SignIn />} />
-                    <Route path="/Signup" element={<SignUp />} />
-                    <Route path='/ForgotPassword' element={<ForgotPasswordPage />} />
-                    </>
-                    )}
-                    <Route path='/Profile' element={<Dashboard />} />
-                    <Route path="/Forbusiness" element={<ForBisness />} />
-                  </Routes>
-        </div>
-      </AuthProvaider>
+  const { currentUser } = useAuth();
 
+  return (
+    <div className="App">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        {!!currentUser ? (
+          <>
+            <Route path="/About" element={<About data={currentUser} />} />
+            <Route path="/ContactUs" element={<ContactUs />} />
+            <Route path="/UpdateProfile" element={<UpdateProfile />} />
+          </>
+        ) : (
+          <>
+            <Route path="/Signin" element={<SignIn />} />
+            <Route path="/Signup" element={<SignUp />} />
+            <Route path="/ForgotPassword" element={<ForgotPasswordPage />} />
+          </>
+        )}
+        <Route path="/Profile" element={<Dashboard />} />
+        <Route
+          path="/Forbusiness"
+          element={<ForBisness currentUser={currentUser} />}
+        />
+        <Route
+          path="Forbusiness/Myrest"
+          element={<MyRest currentUser={currentUser} />}
+        />
+      </Routes>
+    </div>
   );
 }
 

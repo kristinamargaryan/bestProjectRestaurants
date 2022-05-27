@@ -24,7 +24,8 @@ export default function PrimarySearchAppBar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [userHave, setUserHave] = useState(false);
   const navigate = useNavigate();
-  const dashboard = () => navigate('/Profile')
+  const dashboard = () => navigate('/Profile');
+  const myrest =()=> navigate('Forbusiness/Myrest')
   const {currentUser} = useAuth()
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -63,7 +64,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}><div>Settings</div></MenuItem>
+      <MenuItem onClick={handleMenuClose}><div onClick={myrest}>Settings</div></MenuItem>
       <MenuItem onClick={handleMenuClose}><div onClick={dashboard}>Profile</div></MenuItem>
     </Menu>
   );

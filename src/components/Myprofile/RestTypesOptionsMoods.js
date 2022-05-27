@@ -10,13 +10,21 @@ export default function RestTypesOptionsMoods(props) {
 
   return (
     <div style={{
-      width:'30%'
+      
+      border:'1px solid black',
+      
+      
     }} className={props.name}>
-      <h4>Select {props.name} your Restourant </h4>
+      <h3 style={{
+        margin:'2px',
+        textAlign:'center'
+      }}>Select {props.name}  </h3>
 
       <div className="title"></div>
       {props.list.map((x, i) => (
-        <label key={i}>
+        <label style={{
+          fontFamily:'sans-serif'
+        }} key={i}>
           <input
             type="checkbox"
             value={x.value}
@@ -27,7 +35,7 @@ export default function RestTypesOptionsMoods(props) {
       ))}
 
       <div style={{
-        backgroundColor:'yellow'
+        backgroundColor:'#318CE7  '
       }}>
         Selected Types: {props.type.length ? props.type.join(", ") : null}
       </div>
