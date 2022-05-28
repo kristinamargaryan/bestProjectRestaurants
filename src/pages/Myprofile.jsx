@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import MyCountry from "../components/Myprofile/MyCountry";
 import PriceInfo from "../components/Myprofile/PriceInfo";
 import RestCity from "../components/Myprofile/RestCity";
-import RestCityAddress from "../components/Myprofile/RestCityAddress";
+import NameAndAddress from "../components/Myprofile/NameAndAddress";
 import Rest_types_options_moods from "../components/Myprofile/RestTypesOptionsMoods";
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
@@ -11,7 +11,7 @@ import RestPhotoUploadButton from "../components/Myprofile/RestPhotosUploadButto
 import BtnSend from "../components/Myprofile/BtnSend";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-
+// import Porcnakan from "../components/Myprofile/Porcnakan";
 export default function Myprofile(props) {
   const [options, setOptions] = useState([]);
   const [moods, setMoods] = useState([]);
@@ -19,15 +19,17 @@ export default function Myprofile(props) {
   const [priceInfo, setPriceInfo] = useState("$$$");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
+  const [restName, setRestName] = useState("");
   const [datas, setDatas] = useState([]);
   const data = {
+    restName: restName,
     address: address,
-    moodes: moods,
+    moods: moods,
     options: options,
     foodTypes: foodTypes,
     priceInfo: priceInfo,
     city: city,
-    date:new Date().getTime()
+    date: new Date().getTime(),
   };
 
   const { currentUser } = useAuth();
@@ -95,11 +97,14 @@ export default function Myprofile(props) {
   const handleChangeAddress = (event) => {
     setAddress(event.target.value);
   };
+  const handleChangeRestName = (event) => {
+    setRestName(event.target.value);
+  };
 
   return (
     <div
       style={{
-        width: "500px",
+        width: "480px",
         margin: "0 auto",
         alignItems: "center",
       }}
@@ -107,14 +112,27 @@ export default function Myprofile(props) {
       <div
         style={{
           display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
         }}
       >
-        <RestCity city={city} handleChangeCity={handleChangeCity} />
-        <RestCityAddress
-          address={address}
-          handleChangeAddress={handleChangeAddress}
-        />
-        <RestPhotoUploadButton />
+        <div>
+          <NameAndAddress
+            forLabel="Restaurant Name"
+            info={restName}
+            handleChange={handleChangeRestName}
+          />
+
+          <NameAndAddress
+            forLabel="address"
+            info={address}
+            handleChange={handleChangeAddress}
+          />
+        </div>
+        <div>
+          <RestCity city={city} handleChangeCity={handleChangeCity} />
+          <RestPhotoUploadButton />
+        </div>
       </div>
 
       <Rest_types_options_moods
@@ -142,10 +160,10 @@ export default function Myprofile(props) {
         }}
       >
         <PriceInfo changePriceInfo={changePriceInfo} />
-        <Link to='MyRest'><BtnSend savechanges={savechanges} /></Link>
-        
+        <Link to="MyRest">
+          <BtnSend savechanges={savechanges} />
+        </Link>
       </div>
-     
     </div>
   );
 }

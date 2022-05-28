@@ -1,68 +1,93 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { auth } from '../firebase';
+import React, { useContext, useState, useEffect, useCallback } from "react";
+import { auth, db } from "../firebase";
 
- const AuthContext = React.createContext();
+const AuthContext = React.createContext();
 
 export function useAuth() {
-    return useContext(AuthContext)
+  return useContext(AuthContext);
 }
 
 export default function AuthProvaider({ children }) {
+  const [currentUser, setCurrentUser] = useState();
+  const [loading, setLoading] = useState(true);
+  const [userRestParams, setUserRestParams] = useState({});
+  const [userRestPhotos, setUserRestPhotos] = useState({});
+  async function allDataFirestore() {
+    const restRefPhotos = db
+      .collection("restaurantsPhoto")
+      .doc(currentUser.uid);
+    const restRefParams = db.collection("restaurants").doc(currentUser.uid);
 
-    const [currentUser, setCurrentUser] = useState()
-    const [loading, setLoading] = useState(true)
+    const docPhotos = await restRefPhotos.get();
+    const docParams = await restRefParams.get();
 
+    if (!docParams.exists || !docPhotos.exists) {
+      setUserRestPhotos({});
+      setUserRestParams({});
+      console.log("No such document!");
+    } else {
+      const dataParams = docParams.data();
+      const dataPhotos = docPhotos.data();
 
-    function signup(email, password){
-        return auth.createUserWithEmailAndPassword(email, password)
-         
+      setUserRestParams(dataParams);
+      setUserRestPhotos(dataPhotos.avatar);
     }
+  }
 
-    function login(email, password){
-        return auth.signInWithEmailAndPassword(email, password)
-        
+  function signup(email, password) {
+    return auth.createUserWithEmailAndPassword(email, password);
+  }
+
+  function login(email, password) {
+    return auth.signInWithEmailAndPassword(email, password);
+  }
+
+  function logout() {
+    return auth.signOut();
+  }
+
+  function resetPassword(email) {
+    return auth.sendPasswordResetEmail(email);
+  }
+
+  function updateEmail(email) {
+    return currentUser.updateEmail(email);
+  }
+
+  function updatePassword(password) {
+    return currentUser.updatePassword(password);
+  }
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
+
+    return unsubscribe;
+  }, []);
+  useEffect(() => {
+    if (currentUser) {
+      allDataFirestore();
     }
+  }, [currentUser]);
 
-    function logout(){
-      return auth.signOut()
-      
-    }
-
-    function resetPassword(email){
-        return auth.sendPasswordResetEmail(email)
-    }
-
-    function updateEmail(email){
-        return currentUser.updateEmail(email)
-    }
-
-    function updatePassword(password){
-        return currentUser.updatePassword(password)
-    }
-
-    useEffect(()=> {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user)
-            setLoading(false)
-        })
-
-        return unsubscribe
-    }, [])
-
-
-    const value = {
-        currentUser,
-        login,
-        signup,
-        logout,
-        resetPassword,
-        updateEmail,
-        updatePassword
-    }
+  const value = {
+    updater: allDataFirestore,
+    userRestParams,
+    userRestPhotos,
+    currentUser,
+    login,
+    signup,
+    logout,
+    resetPassword,
+    updateEmail,
+    updatePassword,
+  };
 
   return (
     <AuthContext.Provider value={value}>
-        {!loading && children}
+      {!loading && children}
     </AuthContext.Provider>
-  )
+  );
 }

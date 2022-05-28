@@ -11,8 +11,8 @@ export default function PriceInfo(props) {
   return (
     <FormControl
       style={{
-        border:'1px solid black',
-        width:'500px'
+        
+        
         
       }}
     >
