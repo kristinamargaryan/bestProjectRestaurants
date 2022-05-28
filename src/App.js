@@ -9,7 +9,7 @@ import SignUp from "./pages/SignUp";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ContactUs from "./pages/ContactUs";
 import { useState } from "react";
-import AuthProvaider, { useAuth } from "./contexts/AuthContext";
+import { useAuth } from "./contexts/AuthContext";
 import Dashboard from "./pages/Dashboard";
 import UpdateProfile from "./pages/UpdateProfile";
 import Myprofile from "./pages/Myprofile";
@@ -17,8 +17,7 @@ import { db } from "./firebase";
 import MyRest from "./pages/MyRest";
 
 function App() {
-  const { currentUser } = useAuth();
-
+  const { currentUser, userRestParams, userRestPhotos } = useAuth();
   return (
     <div className="App">
       <Navbar />

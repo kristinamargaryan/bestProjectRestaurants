@@ -3,10 +3,6 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 export default function RestCityAddress(props) {
- 
-
- 
-
   return (
     <Box
       component="form"
@@ -18,12 +14,13 @@ export default function RestCityAddress(props) {
     >
       <div>
         <TextField
+        size="small"
           id="outlined-multiline-flexible"
-          label="Address"
+          label={props.forLabel}
           multiline
           maxRows={4}
-          value={props.address}
-          onChange={props.handleChangeAddress}
+          value={props.info}
+          onChange={props.handleChange}
         />
       </div>
     </Box>

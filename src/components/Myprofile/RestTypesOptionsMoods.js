@@ -11,8 +11,6 @@ export default function RestTypesOptionsMoods(props) {
   return (
     <div style={{
       
-      border:'1px solid black',
-      
       
     }} className={props.name}>
       <h3 style={{
@@ -35,7 +33,8 @@ export default function RestTypesOptionsMoods(props) {
       ))}
 
       <div style={{
-        backgroundColor:'#318CE7  '
+        backgroundColor:'#318CE7',
+        marginTop:'5px'
       }}>
         Selected Types: {props.type.length ? props.type.join(", ") : null}
       </div>
