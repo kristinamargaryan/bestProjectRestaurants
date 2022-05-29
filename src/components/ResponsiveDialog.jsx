@@ -16,7 +16,7 @@ export default function ResponsiveDialog(props) {
   const [logOrSignin, setLogOrSignin] = useState("/Forbusiness");
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const goToLogin = () => {
     setOpen(!open);
@@ -59,7 +59,7 @@ export default function ResponsiveDialog(props) {
               Sign in
             </Button>
           </Link>
-          <Link  to="/Signin">
+          <Link to="/Signin">
             {" "}
             <Button onClick={goToLogin} autoFocus>
               Login

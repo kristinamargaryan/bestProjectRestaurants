@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,56 +13,47 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
-
-
-
-
 const theme = createTheme();
 
 export default function UpdateProfile(props) {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
+  const { currentUser, updatePassword, updateEmail } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const homePage = () => navigate("/");
 
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const passwordConfirmRef = useRef()
-  const {currentUser, updatePassword, updateEmail} = useAuth()
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
-  const homePage = () => navigate('/')
+  function handleSubmit(e) {
+    e.preventDefault();
 
-  
-
-function handleSubmit(e){
-    e.preventDefault()
-
-    if(passwordRef.current.value !== passwordConfirmRef.current.value){
-      return setError('Passwords do not match')
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      return setError("Passwords do not match");
     }
 
-    const promises = []
-    setLoading(true)
-    setError('')
-    if(emailRef.current.value !== currentUser.email){
-        promises.push(updateEmail(emailRef.current.value))
+    const promises = [];
+    setLoading(true);
+    setError("");
+    if (emailRef.current.value !== currentUser.email) {
+      promises.push(updateEmail(emailRef.current.value));
     }
 
-    if(passwordRef.current.value){
-        promises.push(updatePassword(passwordRef.current.value))
+    if (passwordRef.current.value) {
+      promises.push(updatePassword(passwordRef.current.value));
     }
 
-
-    Promise.all(promises).then(() => {
-        navigate('/')
-    }).catch(() => {
-        setError('Failed to update account')
-    }).finally(() => {
-        setLoading(false)
-    })
-    
+    Promise.all(promises)
+      .then(() => {
+        navigate("/");
+      })
+      .catch(() => {
+        setError("Failed to update account");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
-
-
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -82,7 +73,7 @@ function handleSubmit(e){
           <Typography component="h1" variant="h5">
             {props.type ? props.type : "Update Profile"}
           </Typography>
-          {error && <h2 variant='danger'>{error}</h2>}
+          {error && <h2 variant="danger">{error}</h2>}
           <Box
             component="form"
             noValidate
@@ -90,8 +81,7 @@ function handleSubmit(e){
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-
-              <Grid id='email' item xs={12}>
+              <Grid id="email" item xs={12}>
                 <input
                   ref={emailRef}
                   defaultValue={currentUser.email}
@@ -102,7 +92,7 @@ function handleSubmit(e){
                   autoComplete="email"
                 />
               </Grid>
-              <Grid id='password' item xs={12}>
+              <Grid id="password" item xs={12}>
                 <input
                   ref={passwordRef}
                   required
@@ -114,7 +104,7 @@ function handleSubmit(e){
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid id='password-confirm' item xs={12}>
+              <Grid id="password-confirm" item xs={12}>
                 <input
                   ref={passwordConfirmRef}
                   required
@@ -139,10 +129,7 @@ function handleSubmit(e){
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link
-                  onClick={homePage}
-                  variant="body2"
-                >
+                <Link onClick={homePage} variant="body2">
                   {"Cancel"}
                 </Link>
               </Grid>

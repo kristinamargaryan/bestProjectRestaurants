@@ -1,16 +1,22 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import '../App.css'
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import SearchIcon from '@mui/icons-material/Search';
+import "../App.css";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import SearchIcon from "@mui/icons-material/Search";
 import FilterDialog from "../components/FilterDialog";
-import {NavbarPhoto, SearchSection, SearchFilterArea, FilterPart, FilterAreaBtn, FilterTitle, InputPart, SearchInput, IconButton } from "../components/CssFolder/StyleHomePage";
-
-
-
+import {
+  NavbarPhoto,
+  SearchSection,
+  SearchFilterArea,
+  FilterPart,
+  FilterAreaBtn,
+  FilterTitle,
+  InputPart,
+  SearchInput,
+  IconButton,
+} from "../components/CssFolder/StyleHomePage";
 
 export default function Homepage(props) {
   const [showFilterDialog, setShowFilterDialog] = useState(false);
-
 
   const handleClickOpen = () => {
     setShowFilterDialog(!showFilterDialog);
@@ -21,10 +27,8 @@ export default function Homepage(props) {
   };
 
   const filterDialogShow = () => {
-    setShowFilterDialog(!showFilterDialog)
-  }
-
-
+    setShowFilterDialog(!showFilterDialog);
+  };
 
   // const [data, setData] = useState([]);
 
@@ -40,7 +44,6 @@ export default function Homepage(props) {
   //   f();
   // }, [f]);
 
-
   return (
     <>
       {/* {" "}
@@ -50,30 +53,34 @@ export default function Homepage(props) {
         <AllRestInfoContent rests={props.rests} />
       </div> */}
       <div>
-        <NavbarPhoto >
+        <NavbarPhoto>
           <SearchSection>
-           <SearchFilterArea >
+            <SearchFilterArea>
               <FilterPart>
-                <FilterAreaBtn onClick={filterDialogShow}  style={{display: 'none'}}>
+                <FilterAreaBtn
+                  onClick={filterDialogShow}
+                  style={{ display: "none" }}
+                >
                   <AppRegistrationIcon />
                   <FilterTitle>Filters</FilterTitle>
                 </FilterAreaBtn>
               </FilterPart>
 
               <InputPart>
-                <SearchInput type='text' label='foolwidth'  placeholder='Ereven, Armenia'>
-                </SearchInput>
-                
-                <IconButton>
-                  <SearchIcon style={{color: '#fff'}} />
-                </IconButton>
+                <SearchInput
+                  type="text"
+                  label="foolwidth"
+                  placeholder="Ereven, Armenia"
+                ></SearchInput>
 
+                <IconButton>
+                  <SearchIcon style={{ color: "#fff" }} />
+                </IconButton>
               </InputPart>
-           </SearchFilterArea>
+            </SearchFilterArea>
           </SearchSection>
         </NavbarPhoto>
 
-        
         <FilterDialog />
 
         {/* <ul style={{display: 'flex', justifyContent: 'space-evenly', listStyle: 'none', flexWrap: 'wrap'}}>
@@ -89,10 +96,6 @@ export default function Homepage(props) {
         })}
         </ul> */}
       </div>
-      
     </>
   );
-
-  
 }
-

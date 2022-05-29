@@ -91,22 +91,6 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {/* <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>  */}
-      <MenuItem>
-        <IconButton size="large" aria-label="" color="inherit">
-          <Badge badgeContent={0} color="error">
-            <FavoriteIcon />
-          </Badge>
-        </IconButton>
-        <p>Favorite</p>
-      </MenuItem>
       <IconButton
         onClick={dashboard}
         size="large"
@@ -145,45 +129,22 @@ export default function PrimarySearchAppBar() {
           >
             <BtnComp title={"Home "}></BtnComp>
           </Link>
-          {/* {!!currentUser ? ( */}
-            <>
-              <Link
-                style={{
-                  textDecoration: "none",
-                }}
-                to="/About"
-              >
-                <BtnComp title={"About"}></BtnComp>
-              </Link>
-              <Link
-                style={{
-                  textDecoration: "none",
-                }}
-                to="/ContactUs"
-              >
-                <BtnComp title={"Contact Us"}></BtnComp>
-              </Link>
-            </>
-          {/* ) : ( */}
-            <>
-              {/* <Link
-                style={{
-                  textDecoration: "none",
-                }}
-                to="/Signin"
-              >
-                <BtnComp title={"Login "}></BtnComp>
-              </Link>
-              <Link
-                style={{
-                  textDecoration: "none",
-                }}
-                to="/Signup"
-              >
-                <BtnComp title={"sign up "}></BtnComp>
-              </Link> */}
-            </>
-          {/* )} */}
+          <Link
+            style={{
+              textDecoration: "none",
+            }}
+            to="/About"
+          >
+            <BtnComp title={"About"}></BtnComp>
+          </Link>
+          <Link
+            style={{
+              textDecoration: "none",
+            }}
+            to="/ContactUs"
+          >
+            <BtnComp title={"Contact Us"}></BtnComp>
+          </Link>
           <Link
             style={{
               textDecoration: "none",
@@ -202,27 +163,8 @@ export default function PrimarySearchAppBar() {
           </Link>
 
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {/* <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton> */}
             {!!currentUser ? (
               <>
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  color="inherit"
-                >
-                  <Badge badgeContent={0} color="error">
-                    <FavoriteIcon />
-                  </Badge>
-                </IconButton>
-
                 <IconButton
                   size="large"
                   edge="end"
