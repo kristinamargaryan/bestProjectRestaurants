@@ -15,9 +15,9 @@ import UpdateProfile from "./pages/UpdateProfile";
 import Myprofile from "./pages/Myprofile";
 import { db } from "./firebase";
 import MyRest from "./pages/MyRest";
-
 function App() {
-  const { currentUser, userRestParams, userRestPhotos } = useAuth();
+  const { currentUser, userRestParams, userRestPhotos, } = useAuth();
+  
   return (
     <div className="App">
       <Navbar />
@@ -25,8 +25,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         {!!currentUser ? (
           <>
-            <Route path="/About" element={<About data={currentUser} />} />
-            <Route path="/ContactUs" element={<ContactUs />} />
+            
             <Route path="/UpdateProfile" element={<UpdateProfile />} />
           </>
         ) : (
@@ -36,7 +35,9 @@ function App() {
             <Route path="/ForgotPassword" element={<ForgotPasswordPage />} />
           </>
         )}
-        <Route path="/Profile" element={<Dashboard />} />
+        <Route path="/About" element={<About data={currentUser} />} />
+            <Route path="/ContactUs" element={<ContactUs />} />
+        <Route path={currentUser?currentUser.email:'/'} element={<Dashboard />} />
         <Route
           path="/Forbusiness"
           element={<ForBisness currentUser={currentUser} />}
