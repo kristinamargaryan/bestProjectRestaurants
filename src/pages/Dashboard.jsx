@@ -12,7 +12,6 @@ export default function Dashboard() {
 
   const navigate = useNavigate();
 
-  console.log(userRestPhotos[0]);
   async function handleLogout() {
     updater();
     setError("");
