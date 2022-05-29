@@ -21,6 +21,7 @@ export default function Myprofile(props) {
   const [address, setAddress] = useState("");
   const [restName, setRestName] = useState("");
   const [datas, setDatas] = useState([]);
+  const [fileUrl, setFileUrl] = useState([]);
   const data = {
     restName: restName,
     address: address,

@@ -25,7 +25,7 @@ export default function PrimarySearchAppBar() {
   const [userHave, setUserHave] = useState(false);
   const navigate = useNavigate();
 
-  const dashboard = () => navigate("/Profile");
+  const dashboard = () => navigate(currentUser.email);
   const myrest = () => navigate("Forbusiness/Myrest");
   const { currentUser, userRestParams, userRestPhotos } = useAuth();
   const isMenuOpen = Boolean(anchorEl);
@@ -145,7 +145,7 @@ export default function PrimarySearchAppBar() {
           >
             <BtnComp title={"Home "}></BtnComp>
           </Link>
-          {!!currentUser ? (
+          {/* {!!currentUser ? ( */}
             <>
               <Link
                 style={{
@@ -164,9 +164,9 @@ export default function PrimarySearchAppBar() {
                 <BtnComp title={"Contact Us"}></BtnComp>
               </Link>
             </>
-          ) : (
+          {/* ) : ( */}
             <>
-              <Link
+              {/* <Link
                 style={{
                   textDecoration: "none",
                 }}
@@ -181,9 +181,9 @@ export default function PrimarySearchAppBar() {
                 to="/Signup"
               >
                 <BtnComp title={"sign up "}></BtnComp>
-              </Link>
+              </Link> */}
             </>
-          )}
+          {/* )} */}
           <Link
             style={{
               textDecoration: "none",

@@ -3,11 +3,18 @@ import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 
 
 
 export default function RestTypesOptionsMoods(props) {
-
+  let [bul,setBul]=useState(false)
+  const { currentUser, userRestParams, userRestPhotos, } = useAuth();
+  // console.log(userRestParams,props.list)
+//  let  wrapper=()=>{
+//   setBul(!bul)
+//   props.handleChange
+//   }
   return (
     <div style={{
       
@@ -19,16 +26,18 @@ export default function RestTypesOptionsMoods(props) {
       }}>Select {props.name}  </h3>
 
       <div className="title"></div>
-      {props.list.map((x, i) => (
+      {props.list.map((item, index) => (
+        
         <label style={{
           fontFamily:'sans-serif'
-        }} key={i}>
+        }} key={index}>
           <input
+          // checked={bul}
             type="checkbox"
-            value={x.value}
+            value={item.value}
             onChange={props.handleChange}
           />{" "}
-          {x.label}
+          {item.label}
         </label>
       ))}
 

@@ -8,24 +8,23 @@ import app, { auth } from "../../firebase";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../firebase";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
 
 const Input = styled("input")({
   display: "none",
 });
-//  const fetchPhotos= async ()=>{
-//    const photoCollection=await db.collection('restaurantsPhoto').get()
-//    console.log(photoCollection)
 
-//  }
-//  fetchPhotos()
 export default function RestPhotoUploadButton() {
   const { currentUser } = useAuth();
   const [fileUrl, setFileUrl] = useState([]);
-  const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(false);
   let count = 0;
   let urls = [];
 
   const onFileChange = async (e) => {
+    console.log("aaa");
+    setLoading(!loading);
     for (let file of e.target.files) {
       const storageRef = app.storage().ref();
       const fileRef = storageRef.child(currentUser.uid + count++);
@@ -40,6 +39,7 @@ export default function RestPhotoUploadButton() {
         avatar: fileUrl,
       });
     }
+    setLoading(!loading);
   }, [fileUrl]);
 
   return (
@@ -53,10 +53,17 @@ export default function RestPhotoUploadButton() {
             multiple
             type="file"
           />
-
-          <Button size="small" variant="contained" component="span">
-            Upload photos
-          </Button>
+          {loading ? (
+            <Button size="small" variant="contained" component="span">
+              Upload photos
+            </Button>
+          ) : (
+            <Stack direction="row" spacing={2}>
+              <LoadingButton loading variant="outlined">
+                Submit
+              </LoadingButton>
+            </Stack>
+          )}
 
           <div>Uploded Photos {fileUrl.length}</div>
           {fileUrl.map((url) => (
