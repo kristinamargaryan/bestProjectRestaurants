@@ -3,20 +3,11 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import { useState } from "react";
-
+import * as uuid from "uuid";
 export default function PriceInfo(props) {
   let prices = ["$", "$$", "$$$", "$$$$", "$$$$$"];
   return (
-    <FormControl
-      style={{
-        
-        
-        
-      }}
-    >
-      
+    <FormControl style={{}}>
       <RadioGroup
         row
         aria-labelledby="demo-row-radio-buttons-group-label"
@@ -25,6 +16,7 @@ export default function PriceInfo(props) {
         {prices.map((item) => {
           return (
             <FormControlLabel
+              key={uuid.v4()}
               onChange={props.changePriceInfo}
               value={item}
               control={<Radio />}

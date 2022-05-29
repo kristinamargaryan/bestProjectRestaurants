@@ -29,7 +29,6 @@ export default function Myprofile(props) {
     foodTypes: foodTypes,
     priceInfo: priceInfo,
     city: city,
-    date: new Date().getTime(),
   };
 
   const { currentUser } = useAuth();
@@ -161,7 +160,7 @@ export default function Myprofile(props) {
       >
         <PriceInfo changePriceInfo={changePriceInfo} />
         <Link to="MyRest">
-          <BtnSend savechanges={savechanges} />
+          <BtnSend data={data} savechanges={savechanges} />
         </Link>
       </div>
     </div>
