@@ -1,5 +1,5 @@
-import { useAuth } from "../contexts/AuthContext";
-import { db } from "../firebase";
+import { useAuth } from "../AuthContext";
+import { db } from "../../firebase";
 import { useState, useEffect } from "react";
 import * as React from "react";
 import { styled } from "@mui/material/styles";

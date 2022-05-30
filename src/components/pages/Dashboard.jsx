@@ -1,10 +1,10 @@
 import { ButtonBase, Grid } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import Myprofile from "./Myprofile";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 export default function Dashboard() {
   const [error, setError] = useState("");
 

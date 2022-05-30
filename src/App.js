@@ -1,17 +1,17 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
-import Homepage from "./pages/Homepage";
-import About from "./pages/About";
-import ForBisness from "./pages/ForBisness";
-import ContactUs from "./pages/ContactUs";
+import Homepage from "./components/pages/Homepage";
+import About from "./components/pages/About";
+import ForBisness from "./components/pages/ForBisness";
+import ContactUs from "./components/pages/ContactUs";
 import { useState } from "react";
-import { useAuth } from "./contexts/AuthContext";
-import Dashboard from "./pages/Dashboard";
-import UpdateProfile from "./pages/UpdateProfile";
-import Myprofile from "./pages/Myprofile";
+import { useAuth } from "./components/AuthContext";
+import Dashboard from "./components/pages/Dashboard";
+import UpdateProfile from "./components/pages/UpdateProfile";
+import Myprofile from "./components/pages/Myprofile";
 import { db } from "./firebase";
-import MyRest from "./pages/MyRest";
+import MyRest from "./components/pages/MyRest";
 import { Navigate } from "react-router-dom";
 function App() {
   const { currentUser, userRestParams, userRestPhotos } = useAuth();
@@ -24,7 +24,7 @@ function App() {
         {!!currentUser ? (
           <Route path="/UpdateProfile" element={<UpdateProfile />} />
         ) : null}
-        <Route path="/About" element={<About data={currentUser} />} />
+        <Route path="/About" element={<About />} />
         <Route path="/ContactUs" element={<ContactUs />} />
         <Route
           path={currentUser ? currentUser.email : "/"}

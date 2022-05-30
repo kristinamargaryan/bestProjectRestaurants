@@ -4,20 +4,15 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import BtnComp from "./BtnComp";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "./AuthContext";
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -92,6 +87,17 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       <IconButton
+        onClick={myrest}
+        size="large"
+        aria-label="account of current user"
+        aria-controls="primary-search-account-menu"
+        aria-haspopup="true"
+        color="inherit"
+      >
+        <AccountCircle />
+        <p>Settings</p>
+      </IconButton>
+      <IconButton
         onClick={dashboard}
         size="large"
         aria-label="account of current user"
@@ -113,22 +119,23 @@ export default function PrimarySearchAppBar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            // sx={{ display: { xs: "none", sm: "block" } }}
           >
             {" "}
-            <img className="imgg" src="/restPhotos/logo.png" alt="" />
+            <Link to="/">
+              <img
+                className="imgg"
+                style={{
+                  width: "80px",
+                  height: "50px",
+                  objectPosition: "center",
+                }}
+                src="https://clipart.world/wp-content/uploads/2020/08/restaurant-logo-with-red-chef-hat-png-transparent.png"
+                alt=""
+              />
+            </Link>
           </Typography>
-
           <Box sx={{ flexGrow: 1 }} />
-
-          <Link
-            style={{
-              textDecoration: "none",
-            }}
-            to="/"
-          >
-            <BtnComp title={"Home "}></BtnComp>
-          </Link>
           <Link
             style={{
               textDecoration: "none",
