@@ -1,29 +1,21 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
+import styled from "@emotion/styled";
+import {BigDiv, MyInput, TitleDiv, GoHomeBtn, 
+  LogTitle, InputArea, ButtonPart, PartBtn, LogBtn} from '../components/CssFolder/ModalLoginCss'
 
-export default function ModalLoginDialog({ currentUser }) {
+export default function ModalLoginDialog() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
   const { login, signup, resetPassword } = useAuth();
   const [error, setError] = useState("");
-  const [errorSignIn, setErrorSignIn] = useState("");
   const [loading, setLoading] = useState(false);
   const [signInUp, setSignInUp] = useState(true);
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const goHome = () => navigate("/");
   const [forgotPass, setForgotPass] = useState(false);
   const [message, setMessage] = useState("");
@@ -49,7 +41,6 @@ export default function ModalLoginDialog({ currentUser }) {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      setOpen(false);
       setSignInUp(false);
     } catch {
       setError("Falied to log in");
@@ -66,64 +57,130 @@ export default function ModalLoginDialog({ currentUser }) {
     }
 
     try {
-      setErrorSignIn("");
+      setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
-      setOpen(false);
       setSignInUp(false);
     } catch {
-      setErrorSignIn("Falied to create an account");
+      setError("Falied to create an account");
     }
 
     setLoading(false);
   }
 
+  const BigDiv = styled.div`
+    padding: 10px;
+    width: 460px;
+    background-color: rgba(0, 0, 0, 0.8);
+
+    @media screen and (max-width: 768px) {
+      width: calc(100% - 20px);
+      height: 48%;
+    }
+  `;
+
+  const MyInput = styled.input`
+    width: 80%;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0);
+    color: #fff;
+    border: none;
+    outline: 1px solid gray;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+    &::placeholder {
+      color: #fff;
+    }
+
+    &:focus {
+      outline: 1px solid #fff;
+    }
+  `;
+
+  const TitleDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    padding-bottom: 10px;
+  `;
+
+  const GoHomeBtn = styled.button`
+    cursor: pointer;
+    color: #fff;
+    text-decoration: underline;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    font-size: 20px;
+  `;
+
+  const LogTitle = styled.div`
+    padding: 0;
+    margin: 0;
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+  `;
+
+  const InputArea = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0;
+    padding: 0;
+  `;
+
+  const ButtonPart = styled.div`
+    display: flex;
+    justify-content: space-between;
+  `;
+
+  const PartBtn = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  `;
+
+  const LogBtn = styled.div`
+    display: flex;
+    align-self: flex-end;
+  `;
+
   return (
-    <Dialog
-      style={{ padding: "15px" }}
-      fullScreen={fullScreen}
-      open
-      aria-labelledby="responsive-dialog-title"
-    >
-      <DialogTitle id="responsive-dialog-title">
+    <BigDiv>
+      <TitleDiv>
         {forgotPass
-          ? "reset password"
+          ? "With this field you can recover a forgotten password"
           : signInUp
           ? "You can access it through the open field of your Page"
-          : "register page"}
-      </DialogTitle>
-      <Button onClick={goHome}>Go Home</Button>
-      <DialogContent>
-        <DialogContentText style={{ textAlign: "center" }}>
-          <h1 style={{ padding: 0, margin: 0 }}>
-            {!forgotPass ? (signInUp ? "Log In" : "Sign Up") : "reset password"}
-          </h1>
-        </DialogContentText>
-        {message || error}
-      </DialogContent>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100px",
-          alignItems: "center",
-          justifyContent: "space-evenly",
-        }}
-      >
+          : "You can register through the field opened on our website"}
+      </TitleDiv>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <GoHomeBtn onClick={goHome}>Go Home</GoHomeBtn>
+      </div>
+      <div>
+        <LogTitle>
+          {!forgotPass ? (signInUp ? "Log In" : "Sign Up") : "Reset Password"}
+        </LogTitle>
+      </div>
+      <div style={{ color: "green", textAlign: "center" }}>{message}</div>
+      <div style={{ color: "red", textAlign: "center" }}>{error}</div>
+      <InputArea>
         {!forgotPass ? (
           <>
-            <input
+            <MyInput
               ref={emailRef}
-              style={{ width: "80%", fontSize: "20px" }}
               id="email"
               placeholder="Email Address"
               name="email"
               autoComplete="email"
               required
             />
-            <input
+            <MyInput
               ref={passwordRef}
-              style={{ width: "80%", fontSize: "20px" }}
               name="password"
               placeholder="Password"
               type="password"
@@ -132,11 +189,11 @@ export default function ModalLoginDialog({ currentUser }) {
               required
             />
             {!signInUp ? (
-              <input
+              <MyInput
                 ref={passwordConfirmRef}
                 required
                 name="password"
-                label="Password-Confirmation"
+                placeholder="Password-Confirmation"
                 type="password"
                 id="password-Confirmation"
                 autoComplete="new-password"
@@ -144,9 +201,8 @@ export default function ModalLoginDialog({ currentUser }) {
             ) : null}
           </>
         ) : (
-          <input
+          <MyInput
             ref={emailRef}
-            style={{ width: "80%", fontSize: "20px" }}
             id="email"
             placeholder="Email Address"
             name="email"
@@ -154,19 +210,11 @@ export default function ModalLoginDialog({ currentUser }) {
             required
           />
         )}
-      </div>
-      <DialogActions
-        style={{ display: "flex", justifyContent: "space-between" }}
-      >
+      </InputArea>
+      <ButtonPart>
         {!forgotPass ? (
           signInUp ? (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-              }}
-            >
+            <PartBtn>
               <Button
                 onClick={() => {
                   setForgotPass(true);
@@ -179,7 +227,7 @@ export default function ModalLoginDialog({ currentUser }) {
               <Button onClick={() => setSignInUp(!signInUp)}>
                 Don't have an account? Sign Up
               </Button>
-            </div>
+            </PartBtn>
           ) : (
             <Button
               onClick={() => {
@@ -190,14 +238,7 @@ export default function ModalLoginDialog({ currentUser }) {
             </Button>
           )
         ) : (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              justifyContent: "center",
-            }}
-          >
+          <PartBtn>
             <Button
               onClick={() => {
                 setSignInUp(true);
@@ -218,9 +259,9 @@ export default function ModalLoginDialog({ currentUser }) {
             >
               Don't have an account? Sign Up
             </Button>
-          </div>
+          </PartBtn>
         )}
-        <div>
+        <LogBtn>
           <Button
             onClick={
               !forgotPass
@@ -233,8 +274,8 @@ export default function ModalLoginDialog({ currentUser }) {
           >
             {!forgotPass ? (signInUp ? "Log In" : "Sign Up") : "reset password"}
           </Button>
-        </div>
-      </DialogActions>
-    </Dialog>
+        </LogBtn>
+      </ButtonPart>
+    </BigDiv>
   );
 }

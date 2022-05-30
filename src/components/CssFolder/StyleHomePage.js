@@ -7,6 +7,7 @@ export const NavbarPhoto = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   padding-bottom: 10px;
+  text-decoration: u;
 `;
 export const SearchSection = styled.div`
   display: flex;

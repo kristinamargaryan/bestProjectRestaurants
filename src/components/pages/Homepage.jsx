@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import "../App.css";
+import "../../App.css";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import SearchIcon from "@mui/icons-material/Search";
-import FilterDialog from "../components/FilterDialog";
+import FilterDialog from "../FilterDialog";
 import {
   NavbarPhoto,
   SearchSection,
@@ -13,7 +13,7 @@ import {
   InputPart,
   SearchInput,
   IconButton,
-} from "../components/CssFolder/StyleHomePage";
+} from "../CssFolder/StyleHomePage";
 
 export default function Homepage(props) {
   const [showFilterDialog, setShowFilterDialog] = useState(false);
