@@ -1,105 +1,179 @@
-
-
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+	height: 40vmin;
+	pointer-events: none;
 }
 
-
-
-.imgg{
-  height: 20px;
-  width: 200px;
+.imgg {
+	height: 20px;
+	width: 200px;
 }
-.filtercss{
-  background-image: url();
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  
-  
-  
+.filtercss {
+	background-image: url();
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
-.checkboxdiv{
-  display: flex;
-  border-right: 1px solid  black;
-  margin: 2px;
-  align-items: center;
-  
-  
-  
+.checkboxdiv {
+	display: flex;
+	border-right: 1px solid black;
+	margin: 2px;
+	align-items: center;
 }
-.flexik{
-  display: flex;
+.flexik {
+	display: flex;
 }
-.homeflex{
-  display: flex;
+.homeflex {
+	display: flex;
 }
-.contentik{
-  display: flex;
-  flex-wrap: wrap;
+.contentik {
+	display: flex;
+	flex-wrap: wrap;
 }
-.apush{
-  background-color: red !important
+.apush {
+	background-color: red !important;
 }
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
 }
 
 .App-link {
-  color: #61dafb;
+	color: #61dafb;
 }
-
-
-
-
-
-
-
 
 /* aaaaaaa */
 
-.dialog{
-  display: flex
+.dialog {
+	display: flex;
 }
 
 @media (max-width: 600px) {
-  .dialog {
-    display: none;
-  }
-  
+	.dialog {
+		display: none;
+	}
 }
 
-ul li{
-  list-style-type: none;
+ul li {
+	list-style-type: none;
 }
 
-ul{
-  margin: 0px;
-  padding-left: 10px;
-}
- 
-ul li h5{
-  margin: 2px;
-  margin-top: 5px;
+ul {
+	margin: 0px;
+	padding-left: 10px;
 }
 
-.optionBar button, .moodsBar button{
-  margin-bottom: 2px;
-  border: 1px solid;
-  border-radius: 8px
+ul li h5 {
+	margin: 2px;
+	margin-top: 5px;
 }
 
 /* .selectPrice button{
   width: 40px;
   height: 40px;
 } */
+
+/* .filterList button:hover{
+  background-color: dimgray;
+  width: 110%
+} */
+
+.filterList button {
+	display: inline-block;
+	vertical-align: middle;
+	-webkit-transform: perspective(1px) translateZ(0);
+	transform: perspective(1px) translateZ(0);
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+	position: relative;
+}
+
+.filterList button:before {
+	pointer-events: none;
+	position: absolute;
+	content: '';
+	height: 0;
+	width: 0;
+	top: 0;
+	right: 0;
+	background: white;
+
+	background: linear-gradient(225deg, white 45%, #aaa 50%, #ccc 56%, white 80%);
+	box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.4);
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-property: width, height;
+	transition-property: width, height;
+}
+.filterList button:hover:before,
+.filterList button:focus:before,
+.filterList button:active:before {
+	width: 15px;
+	height: 15px;
+}
+
+.filterList button:active {
+	background: #30d512;
+}
+
+/* .filterList button {
+	display: inline-block;
+	vertical-align: middle;
+	-webkit-transform: perspective(1px) translateZ(0);
+	transform: perspective(1px) translateZ(0);
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+	position: relative;
+	background: #e1e1e1;
+	-webkit-transition-property: color;
+	transition-property: color;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+
+.filterList button:before {
+	content: '';
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: darkslategrey;
+	-webkit-transform: scale(0);
+	transform: scale(0);
+	-webkit-transition-property: transform;
+	transition-property: transform;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-timing-function: ease-out;
+	transition-timing-function: ease-out;
+}
+.filterList button:hover,
+.filterList button:focus,
+.filterList button:active {
+	color: white;
+}
+.filterList button:hover:before,
+.filterList button:focus:before,
+.filterList button:active:before {
+	-webkit-transform: scale(1);
+	transform: scale(1);
+} */
+
+.optionBar button,
+.moodsBar button {
+	width: 45%;
+	margin: 4px;
+	display: flex;
+	margin-bottom: 2px;
+	border: 1px solid;
+	border-radius: 8px;
+	justify-content: flex-start;
+	align-items: center;
+}
