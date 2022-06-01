@@ -13,6 +13,7 @@ import Myprofile from "./components/pages/Myprofile";
 import { db } from "./firebase";
 import MyRest from "./components/pages/MyRest";
 import { Navigate } from "react-router-dom";
+import Footer from "./components/Footer";
 function App() {
   const { currentUser, userRestParams, userRestPhotos } = useAuth();
 
@@ -37,6 +38,7 @@ function App() {
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

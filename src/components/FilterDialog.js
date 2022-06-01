@@ -59,6 +59,8 @@ export default function FilterDialog() {
 	return (
 		<div
 			style={{
+				height: 'auto',
+				marginBottom:'50px',
 				alignItems: 'center',
 				justifyContent: 'space-left',
 				border: '1px solid',

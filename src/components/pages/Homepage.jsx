@@ -52,7 +52,7 @@ export default function Homepage(props) {
         <RestTypes />
         <AllRestInfoContent rests={props.rests} />
       </div> */}
-      <div>
+      <div  style={{ height: "auto" }}>
         <NavbarPhoto>
           <SearchSection>
             <SearchFilterArea>
