@@ -30,7 +30,23 @@ export default function MyRest(props) {
   useEffect(() => {
     updater();
   }, [profilePicture]);
-
+  let deletePhoto = (ev) => {
+    ev.preventDefault();
+    db.collection("restaurantsPhoto")
+      .doc(currentUser.uid)
+      .set({
+        avatar: userRestPhotos.filter((item, index) => {
+          return index != ev.target.id;
+        }),
+        profilePicture:
+          ev.target.id > profilePicture
+            ? profilePicture
+            : profilePicture == 0
+            ? profilePicture
+            : profilePicture - 1,
+      });
+    updater();
+  };
   let profilePhotoSet = (ev) => {
     db.collection("restaurantsPhoto").doc(currentUser.uid).set({
       avatar: userRestPhotos,
@@ -43,32 +59,46 @@ export default function MyRest(props) {
     <div
       style={{
         display: "flex",
-        
       }}
     >
-         {Object.keys(userRestPhotos).length !== 0 ? (
-           <div>
-          <ButtonBase sx={{ width: 400, height: 400 }}>
-            <AliceCarousel autoPlay autoPlayInterval="500">
-              {userRestPhotos.map((item, index) => (
-                <img
-                  style={{
-                    width: "400px",
-                    height: "400px",
-                    objectFit: "cover",
-                  }}
-                  id={index}
-                  onClick={profilePhotoSet}
-                  src={userRestPhotos[index]}
-                  className="sliderimg"
-                  alt=""
-                />
-                
-              ))}
-            </AliceCarousel>
-          </ButtonBase>
-          </div>
-        ) : null}
+      {Object.keys(userRestPhotos).length !== 0 ? (
+        <div
+          style={{
+            width: "50%",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
+          {userRestPhotos.map((item, index) => (
+            <div>
+              <img
+                style={{
+                  cursor: "pointer",
+                  width: "200px",
+                  height: "150px",
+                  objectFit: "cover",
+                }}
+                id={index}
+                onClick={profilePhotoSet}
+                src={userRestPhotos[index]}
+                className="sliderimg"
+                alt=""
+              />
+              <div
+                id={index}
+                onClick={deletePhoto}
+                style={{
+                  margin: "0 auto",
+                  cursor: "pointer",
+                  width: "5%",
+                }}
+              >
+                x
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : null}
       {userRestParams.restName ? (
         <Paper
           sx={{
@@ -123,7 +153,7 @@ export default function MyRest(props) {
           flexWrap: "wrap",
         }} */}
       {/* > */}
-     
+
       {/* </div> */}
     </div>
   );
