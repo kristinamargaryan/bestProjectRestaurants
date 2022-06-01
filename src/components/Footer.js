@@ -10,11 +10,7 @@ import TwitterIcon from  "@mui/icons-material/Twitter";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
-
-
 export default function Footer() {
-
-
     return (
     <footer style={{ backgroundColor:"black",color:"#48A14F",  paddingBottom: '15px'}}>
         <Box >
@@ -58,15 +54,12 @@ export default function Footer() {
                         </Box>
                     </Grid>
                     <Grid style={{ color: 'white'}} item xs={12} sm={4}>
-
                         <Box style={{ paddingBottom: '15px'}}>COMPANY INFO</Box>
                         <Box> <CallOutlinedIcon />   +374-77-77-77-77</Box>
                         <Box> <EmailOutlinedIcon />  rest_am@yahoo.com </Box>
                         <Box> <ContactMailOutlinedIcon />  Baghramyan Avenue </Box>
-                        
                     </Grid>
                 </Grid>
-
             </Container>
         </Box>
     </footer>

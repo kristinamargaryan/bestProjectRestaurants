@@ -5,15 +5,13 @@ import Homepage from "./components/pages/Homepage";
 import About from "./components/pages/About";
 import ForBisness from "./components/pages/ForBisness";
 import ContactUs from "./components/pages/ContactUs";
-import { useState } from "react";
 import { useAuth } from "./components/AuthContext";
 import Dashboard from "./components/pages/Dashboard";
 import UpdateProfile from "./components/pages/UpdateProfile";
-import Myprofile from "./components/pages/Myprofile";
-import { db } from "./firebase";
 import MyRest from "./components/pages/MyRest";
 import { Navigate } from "react-router-dom";
 import Footer from "./components/Footer";
+
 function App() {
   const { currentUser, userRestParams, userRestPhotos } = useAuth();
 
