@@ -12,6 +12,7 @@ export default function AuthProvaider({ children }) {
   const [loading, setLoading] = useState(true);
   const [userRestParams, setUserRestParams] = useState({});
   const [userRestPhotos, setUserRestPhotos] = useState({});
+  const [profilePicture, setProfilePicture] = useState(0);
   async function allDataFirestore() {
     const restRefPhotos = db
       .collection("restaurantsPhoto")
@@ -31,6 +32,7 @@ export default function AuthProvaider({ children }) {
 
       setUserRestParams(dataParams);
       setUserRestPhotos(dataPhotos.avatar);
+      setProfilePicture(dataPhotos.profilePicture);
     }
   }
 
@@ -74,6 +76,7 @@ export default function AuthProvaider({ children }) {
 
   const value = {
     updater: allDataFirestore,
+    profilePicture,
     userRestParams,
     userRestPhotos,
     currentUser,

@@ -7,6 +7,7 @@ import { useAuth } from "../AuthContext";
 
 export default function RestTypesOptionsMoods(props) {
   let [bul, setBul] = useState(false);
+  
   const { currentUser, userRestParams, userRestPhotos } = useAuth();
   // console.log(userRestParams,props.list)
   //  let  wrapper=()=>{

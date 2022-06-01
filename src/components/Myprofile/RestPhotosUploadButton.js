@@ -10,37 +10,33 @@ import { useAuth } from "../AuthContext";
 import { db } from "../../firebase";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
-
+import * as uuid from "uuid";
 const Input = styled("input")({
   display: "none",
 });
 
-export default function RestPhotoUploadButton() {
+export default function RestPhotoUploadButton(props) {
   const { currentUser } = useAuth();
-  const [fileUrl, setFileUrl] = useState([]);
+
   const [loading, setLoading] = useState(false);
   let count = 0;
-  let urls = [];
 
   const onFileChange = async (e) => {
-    console.log("aaa");
+    let urls = [];
+
     setLoading(!loading);
     for (let file of e.target.files) {
       const storageRef = app.storage().ref();
-      const fileRef = storageRef.child(currentUser.uid + count++);
+      console.log(storageRef);
+      const fileRef = storageRef.child(uuid.v4());
       await fileRef.put(file);
       urls.push(await fileRef.getDownloadURL());
     }
-    setFileUrl(urls);
+    props.newUrls(urls);
   };
   useEffect(() => {
-    if (fileUrl.length) {
-      db.collection("restaurantsPhoto").doc(currentUser.uid).set({
-        avatar: fileUrl,
-      });
-    }
     setLoading(!loading);
-  }, [fileUrl]);
+  }, [props.fileUrl]);
 
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
@@ -65,8 +61,8 @@ export default function RestPhotoUploadButton() {
             </Stack>
           )}
 
-          <div>Uploded Photos {fileUrl.length}</div>
-          {fileUrl.map((url) => (
+          <div>Uploded Photos {props.fileUrl.length}</div>
+          {props.fileUrl.map((url) => (
             <img
               style={{
                 height: "20px",
