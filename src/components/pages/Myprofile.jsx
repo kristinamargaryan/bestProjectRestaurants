@@ -21,7 +21,13 @@ export default function Myprofile(props) {
   const [address, setAddress] = useState("");
   const [restName, setRestName] = useState("");
   const [fileUrl, setFileUrl] = useState([]);
-  const { userRestParams, userRestPhotos, updater, profilePicture } = useAuth();
+  const {
+    userRestParams,
+    userRestPhotos,
+    updater,
+    updaterAll,
+    profilePicture,
+  } = useAuth();
 
   useEffect(() => {}, []);
   const { currentUser } = useAuth();
@@ -77,10 +83,11 @@ export default function Myprofile(props) {
       });
     await db.collection("restaurants").doc(currentUser.uid).set(data);
     updater();
+    updaterAll();
+
     navigate("MyRest");
   };
   let newUrls = (urls) => {
-    console.log(userRestPhotos);
     setFileUrl(urls);
   };
   let changePriceInfo = (ev) => {
