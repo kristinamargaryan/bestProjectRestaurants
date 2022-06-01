@@ -1,14 +1,12 @@
-import { ButtonBase, Grid } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
-import Myprofile from "./Myprofile";
-import { db } from "../../firebase";
 export default function Dashboard() {
   const [error, setError] = useState("");
 
-  const { currentUser, logout, userRestPhotos, updater } = useAuth();
+  const { currentUser, profilePicture, logout, userRestPhotos, updater } =
+    useAuth();
 
   const navigate = useNavigate();
 
@@ -62,7 +60,7 @@ export default function Dashboard() {
         <div>
           <div
             style={{
-              backgroundImage: `url(${userRestPhotos[0]}`,
+              backgroundImage: `url(${userRestPhotos[profilePicture]}`,
               backgroundSize: { userRestPhotos } ? "cover" : null,
               display: "flex",
               flexDirection: "column",

@@ -1,6 +1,5 @@
-import { addDoc, collection } from "firebase/firestore/lite";
 import React, { useState } from "react";
-import MyCountry from "../Myprofile/MyCountry";
+
 import PriceInfo from "../Myprofile/PriceInfo";
 import RestCity from "../Myprofile/RestCity";
 import NameAndAddress from "../Myprofile/NameAndAddress";
@@ -10,9 +9,10 @@ import { db } from "../../firebase";
 import RestPhotoUploadButton from "../Myprofile/RestPhotosUploadButton";
 import BtnSend from "../Myprofile/BtnSend";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
-// import Porcnakan from "../components/Myprofile/Porcnakan";
+import { Link, useNavigate } from "react-router-dom";
+
 export default function Myprofile(props) {
+  const navigate = useNavigate();
   const [options, setOptions] = useState([]);
   const [moods, setMoods] = useState([]);
   const [foodTypes, setFoodTypes] = useState([]);
@@ -20,8 +20,12 @@ export default function Myprofile(props) {
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
   const [restName, setRestName] = useState("");
-  const [datas, setDatas] = useState([]);
   const [fileUrl, setFileUrl] = useState([]);
+  const { userRestParams, userRestPhotos, updater, profilePicture } = useAuth();
+
+  useEffect(() => {}, []);
+  const { currentUser } = useAuth();
+
   const data = {
     restName: restName,
     address: address,
@@ -30,11 +34,6 @@ export default function Myprofile(props) {
     foodTypes: foodTypes,
     priceInfo: priceInfo,
     city: city,
-  };
-
-  const { currentUser } = useAuth();
-  let savechanges = async () => {
-    await db.collection("restaurants").doc(currentUser.uid).set(data);
   };
 
   const optionsList = [
@@ -49,6 +48,7 @@ export default function Myprofile(props) {
     { value: "Alcohol", label: "Alcohol" },
     { value: "Bar atmosphere", label: "Bar atmosphere" },
   ];
+
   const moodesList = [
     { value: "Romantic", label: "Romantic" },
     { value: "Party", label: "Party" },
@@ -64,6 +64,25 @@ export default function Myprofile(props) {
     { value: "China", label: "China" },
     { value: "Fransian", label: "Fransian" },
   ];
+
+  let savechanges = async (e) => {
+    e.preventDefault();
+    db.collection("restaurantsPhoto")
+      .doc(currentUser.uid)
+      .set({
+        profilePicture: profilePicture,
+        avatar: Array.isArray(userRestPhotos)
+          ? userRestPhotos.concat(fileUrl)
+          : fileUrl,
+      });
+    await db.collection("restaurants").doc(currentUser.uid).set(data);
+    updater();
+    navigate("MyRest");
+  };
+  let newUrls = (urls) => {
+    console.log(userRestPhotos);
+    setFileUrl(urls);
+  };
   let changePriceInfo = (ev) => {
     setPriceInfo(ev.target.value);
   };
@@ -131,7 +150,7 @@ export default function Myprofile(props) {
         </div>
         <div>
           <RestCity city={city} handleChangeCity={handleChangeCity} />
-          <RestPhotoUploadButton />
+          <RestPhotoUploadButton fileUrl={fileUrl} newUrls={newUrls} />
         </div>
       </div>
 
@@ -160,9 +179,8 @@ export default function Myprofile(props) {
         }}
       >
         <PriceInfo changePriceInfo={changePriceInfo} />
-        <Link to="MyRest">
-          <BtnSend data={data} savechanges={savechanges} />
-        </Link>
+
+        <BtnSend data={data} savechanges={savechanges} />
       </div>
     </div>
   );

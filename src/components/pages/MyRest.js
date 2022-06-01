@@ -8,25 +8,72 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 
+// import "./styles.css";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
 const Img = styled("img")({
   margin: "auto",
   display: "block",
   maxWidth: "100%",
   maxHeight: "100%",
 });
+
 export default function MyRest(props) {
-  const { currentUser, userRestParams, userRestPhotos, updater } = useAuth();
+  const {
+    currentUser,
+    userRestParams,
+    userRestPhotos,
+    profilePicture,
+    updater,
+  } = useAuth();
 
   useEffect(() => {
     updater();
-  }, []);
+  }, [profilePicture]);
+
+  let profilePhotoSet = (ev) => {
+    db.collection("restaurantsPhoto").doc(currentUser.uid).set({
+      avatar: userRestPhotos,
+      profilePicture: ev.target.id,
+    });
+
+    updater();
+  };
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        
+      }}
+    >
+         {Object.keys(userRestPhotos).length !== 0 ? (
+           <div>
+          <ButtonBase sx={{ width: 400, height: 400 }}>
+            <AliceCarousel autoPlay autoPlayInterval="500">
+              {userRestPhotos.map((item, index) => (
+                <img
+                  style={{
+                    width: "400px",
+                    height: "400px",
+                    objectFit: "cover",
+                  }}
+                  id={index}
+                  onClick={profilePhotoSet}
+                  src={userRestPhotos[index]}
+                  className="sliderimg"
+                  alt=""
+                />
+                
+              ))}
+            </AliceCarousel>
+          </ButtonBase>
+          </div>
+        ) : null}
       {userRestParams.restName ? (
         <Paper
           sx={{
             p: 2,
-            margin: "auto",
+
             maxWidth: 500,
             flexGrow: 1,
             backgroundColor: (theme) =>
@@ -35,8 +82,8 @@ export default function MyRest(props) {
         >
           <Grid container spacing={2}>
             <Grid item>
-              <ButtonBase sx={{ width: 128, height: 128 }}>
-                <Img alt="complex" src={userRestPhotos[0]} />
+              <ButtonBase sx={{ width: 300, height: 300 }}>
+                <Img alt="complex" src={userRestPhotos[profilePicture]} />
               </ButtonBase>
             </Grid>
             <Grid item xs={12} sm container>
@@ -70,25 +117,14 @@ export default function MyRest(props) {
           </Grid>
         </Paper>
       ) : null}
-    </>
+      {/* <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+        }} */}
+      {/* > */}
+     
+      {/* </div> */}
+    </div>
   );
 }
-//     <div>
-//       {" "}
-//       {userRestParams.length && (
-//         <div>
-//           {userRestParams.map((item) => (
-//             <div
-//               style={{
-//                 display: "flex",
-//               }}
-//             >
-//               <div>{item[0]}:</div>
-//               <div>{item[1] + ""}</div>
-//             </div>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-// }

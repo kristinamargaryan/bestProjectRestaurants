@@ -19,6 +19,7 @@
     "firebase": "^9.8.1",
     "picker": "^0.1.4",
     "react": "^18.1.0",
+    "react-alice-carousel": "^2.6.1",
     "react-dom": "^18.1.0",
     "react-google-map": "^3.1.1",
     "react-router-dom": "^6.3.0",
