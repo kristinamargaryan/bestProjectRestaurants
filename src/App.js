@@ -10,6 +10,7 @@ import Dashboard from "./components/pages/Dashboard";
 import UpdateProfile from "./components/pages/UpdateProfile";
 import MyRest from "./components/pages/MyRest";
 import { Navigate } from "react-router-dom";
+import Footer from "./components/Footer";
 
 function App() {
   const { currentUser, userRestParams, userRestPhotos } = useAuth();
@@ -35,6 +36,7 @@ function App() {
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

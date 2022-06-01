@@ -54,27 +54,29 @@ export default function FilterDialog() {
 
         } */
 
-  return (
-    <div
-      style={{
-        alignItems: "center",
-        justifyContent: "space-left",
-        border: "1px solid",
-        maxWidth: "280px",
-        borderRadius: "8px",
-        boxShadow: "0 0 15px black",
-      }}
-    >
-      <ul className="filterList">
-        <li>
-          <h5>Find by restaurnt name</h5>
-          <input
-            style={{ width: "90%", height: "20px", fontSize: "18px" }}
-            type="text"
-            placeholder="Find restaurant"
-          />
-        </li>
 
+	return (
+		<div
+			style={{
+				height: 'auto',
+				marginBottom:'50px',
+				alignItems: 'center',
+				justifyContent: 'space-left',
+				border: '1px solid',
+				maxWidth: '280px',
+				borderRadius: '8px',
+				boxShadow: '0 0 15px black',
+			}}
+		>
+			<ul className='filterList'>
+				<li>
+					<h5>Find by restaurnt name</h5>
+					<input
+						style={{ width: '90%', height: '20px', fontSize: '18px' }}
+						type='text'
+						placeholder='Find restaurant'
+					/>
+				</li>
         <li>
           <h5>Find by type of food</h5>
           <FoodTypeMenu style={{ height: "50px", width: "90%" }} />
