@@ -10,6 +10,7 @@ import Dashboard from "./components/pages/Dashboard";
 import UpdateProfile from "./components/pages/UpdateProfile";
 import MyRest from "./components/pages/MyRest";
 import { Navigate } from "react-router-dom";
+
 function App() {
   const { currentUser, userRestParams, userRestPhotos } = useAuth();
 

@@ -25,11 +25,13 @@ export default function MyRest(props) {
     userRestPhotos,
     profilePicture,
     updater,
+    updaterAll,
   } = useAuth();
 
   useEffect(() => {
     updater();
   }, [profilePicture]);
+
   let deletePhoto = (ev) => {
     ev.preventDefault();
     db.collection("restaurantsPhoto")
@@ -46,6 +48,7 @@ export default function MyRest(props) {
             : profilePicture - 1,
       });
     updater();
+    updaterAll();
   };
   let profilePhotoSet = (ev) => {
     db.collection("restaurantsPhoto").doc(currentUser.uid).set({
@@ -54,6 +57,7 @@ export default function MyRest(props) {
     });
 
     updater();
+    updaterAll();
   };
   return (
     <div
