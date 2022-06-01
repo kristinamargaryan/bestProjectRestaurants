@@ -12,6 +12,25 @@ export default function AuthProvaider({ children }) {
   const [loading, setLoading] = useState(true);
   const [userRestParams, setUserRestParams] = useState({});
   const [userRestPhotos, setUserRestPhotos] = useState({});
+  const [profilePicture, setProfilePicture] = useState(0);
+  const [photosArrayState, setPhotosArrayState] = useState();
+  const [paramsArrayState, setParamsArrayState] = useState();
+  const all = async function () {
+    let photosArray = [];
+    let paramsArray = [];
+    const photos = db.collection("restaurantsPhoto");
+    const allPhotos = await photos.get();
+    allPhotos.forEach((doc) => {
+      photosArray.push(doc.data());
+    });
+    const params = db.collection("restaurants");
+    const allParams = await params.get();
+    allParams.forEach((doc) => {
+      paramsArray.push(doc.data());
+    });
+    setPhotosArrayState(photosArray);
+    setParamsArrayState(paramsArray);
+  };
   async function allDataFirestore() {
     const restRefPhotos = db
       .collection("restaurantsPhoto")
@@ -31,6 +50,7 @@ export default function AuthProvaider({ children }) {
 
       setUserRestParams(dataParams);
       setUserRestPhotos(dataPhotos.avatar);
+      setProfilePicture(dataPhotos.profilePicture);
     }
   }
 
@@ -72,8 +92,16 @@ export default function AuthProvaider({ children }) {
     }
   }, [currentUser]);
 
+  useEffect(() => {
+    all();
+  }, []);
+
   const value = {
     updater: allDataFirestore,
+    updaterAll: all,
+    photosArrayState,
+    paramsArrayState,
+    profilePicture,
     userRestParams,
     userRestPhotos,
     currentUser,

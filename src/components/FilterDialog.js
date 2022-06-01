@@ -26,35 +26,34 @@ import "../App.css";
 import { height } from "@mui/system";
 
 export default function FilterDialog() {
-	const optionBar = [
-		{ tag: <EventSeatIcon />, title: 'Reservation' },
-		{ tag: <TakeoutDiningIcon />, title: 'TakeOut' },
-		{ tag: <CellWifiIcon />, title: 'WiFi' },
-		{ tag: <CreditScoreIcon />, title: 'CreditCard' },
-		{ tag: <DeckIcon />, title: 'OutDoor' },
-        { tag: <DirectionsCarIcon />, title: 'Parking' },
-		{ tag: <DeliveryDiningIcon />, title: 'Delivery' },
-		{ tag: <AccessibleIcon />, title: 'WhellChair' },
-		{ tag: <SportsBarIcon />, title: 'Alcohol' },
-		{ tag: <NightlifeIcon />, title: 'Atmosphere' },
-	];
+  const optionBar = [
+    { tag: <EventSeatIcon />, title: "Reservation" },
+    { tag: <TakeoutDiningIcon />, title: "TakeOut" },
+    { tag: <CellWifiIcon />, title: "WiFi" },
+    { tag: <CreditScoreIcon />, title: "CreditCard" },
+    { tag: <DeckIcon />, title: "OutDoor" },
+    { tag: <DirectionsCarIcon />, title: "Parking" },
+    { tag: <DeliveryDiningIcon />, title: "Delivery" },
+    { tag: <AccessibleIcon />, title: "WhellChair" },
+    { tag: <SportsBarIcon />, title: "Alcohol" },
+    { tag: <NightlifeIcon />, title: "Atmosphere" },
+  ];
 
-	const moodsBar = [
-		{ tag: <WineBarIcon />, title: 'Romantic' },
-		{ tag: <BusinessCenterIcon />, title: 'Busines' },
-		{ tag: <GroupsIcon />, title: 'Groups' },
-		{ tag: <CelebrationIcon />, title: 'Party' },
-		{ tag: <ChildCareIcon />, title: 'Children' },
-		{ tag: <TableBarIcon />, title: 'Local' },
-	];
+  const moodsBar = [
+    { tag: <WineBarIcon />, title: "Romantic" },
+    { tag: <BusinessCenterIcon />, title: "Busines" },
+    { tag: <GroupsIcon />, title: "Groups" },
+    { tag: <CelebrationIcon />, title: "Party" },
+    { tag: <ChildCareIcon />, title: "Children" },
+    { tag: <TableBarIcon />, title: "Local" },
+  ];
 
-    const price = ['$','$$','$$$','$$$$']
+  const price = ["$", "$$", "$$$", "$$$$"];
 
-
-
-	/* const attachMoneyIcons = () =>{
+  /* const attachMoneyIcons = () =>{
 
         } */
+
 
 	return (
 		<div
@@ -78,53 +77,50 @@ export default function FilterDialog() {
 						placeholder='Find restaurant'
 					/>
 				</li>
+        <li>
+          <h5>Find by type of food</h5>
+          <FoodTypeMenu style={{ height: "50px", width: "90%" }} />
+        </li>
 
-				<li>
-					<h5>Find by type of food</h5>
-					<FoodTypeMenu style={{ height: '50px', width: '90%' }} />
-				</li>
+        <li className="selectPrice">
+          <h5>Select Price</h5>
+          <div style={{ display: "flex", textAlign: "left" }}>
+            {price.map((elem) => (
+              <button>{elem}</button>
+            ))}
+          </div>
+        </li>
 
-				<li className='selectPrice'>
-					<h5>Select Price</h5>
-					<div style={{ display: 'flex', textAlign: 'left' }}>
+        <li className="moodsBar">
+          <h5>Moods</h5>
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            {moodsBar.map(function (element) {
+              return (
+                <button>
+                  {element.tag}
+                  <div>{element.title}</div>
+                </button>
+              );
+            })}
+          </div>
+        </li>
 
-                        {price.map((elem) => <button>{elem}</button>)}
-
-					</div>
-				</li>
-
-				<li className='moodsBar'>
-					<h5>Moods</h5>
-					<div style={{display: 'flex', flexWrap: 'wrap'}}>
-						
-							{moodsBar.map(function (element) {
-								return (
-									<button/*  onclick={useStyles={backgrounColor: 'red'}} */>
-										{element.tag}
-										<div>{element.title}</div>
-									</button>
-								);
-							})}
-						
-					</div>
-				</li>
-
-				<li>
-					<div className='optionBar'>
-						<h5>Option</h5>
-							<div style={{display: 'flex', flexWrap: 'wrap'}}>
-								{optionBar.map(function (element) {
-									return (
-										<button>
-											{element.tag}
-											<div>{element.title}</div>
-										</button>
-									);
-								})}
-              </div>
-					</div>
-				</li>
-			</ul>
-		</div>
-	);
+        <li>
+          <div className="optionBar">
+            <h5>Option</h5>
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
+              {optionBar.map(function (element) {
+                return (
+                  <button>
+                    {element.tag}
+                    <div>{element.title}</div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  );
 }

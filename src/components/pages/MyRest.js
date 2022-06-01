@@ -8,25 +8,106 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 
+// import "./styles.css";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
 const Img = styled("img")({
   margin: "auto",
   display: "block",
   maxWidth: "100%",
   maxHeight: "100%",
 });
+
 export default function MyRest(props) {
-  const { currentUser, userRestParams, userRestPhotos, updater } = useAuth();
+  const {
+    currentUser,
+    userRestParams,
+    userRestPhotos,
+    profilePicture,
+    updater,
+    updaterAll,
+  } = useAuth();
 
   useEffect(() => {
     updater();
-  }, []);
+  }, [profilePicture]);
+
+  let deletePhoto = (ev) => {
+    ev.preventDefault();
+    db.collection("restaurantsPhoto")
+      .doc(currentUser.uid)
+      .set({
+        avatar: userRestPhotos.filter((item, index) => {
+          return index != ev.target.id;
+        }),
+        profilePicture:
+          ev.target.id > profilePicture
+            ? profilePicture
+            : profilePicture == 0
+            ? profilePicture
+            : profilePicture - 1,
+      });
+    updater();
+    updaterAll();
+  };
+  let profilePhotoSet = (ev) => {
+    db.collection("restaurantsPhoto").doc(currentUser.uid).set({
+      avatar: userRestPhotos,
+      profilePicture: ev.target.id,
+    });
+
+    updater();
+    updaterAll();
+  };
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+      }}
+    >
+      {Object.keys(userRestPhotos).length !== 0 ? (
+        <div
+          style={{
+            width: "50%",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
+          {userRestPhotos.map((item, index) => (
+            <div>
+              <img
+                style={{
+                  cursor: "pointer",
+                  width: "200px",
+                  height: "150px",
+                  objectFit: "cover",
+                }}
+                id={index}
+                onClick={profilePhotoSet}
+                src={userRestPhotos[index]}
+                className="sliderimg"
+                alt=""
+              />
+              <div
+                id={index}
+                onClick={deletePhoto}
+                style={{
+                  margin: "0 auto",
+                  cursor: "pointer",
+                  width: "5%",
+                }}
+              >
+                x
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : null}
       {userRestParams.restName ? (
         <Paper
           sx={{
             p: 2,
-            margin: "auto",
+
             maxWidth: 500,
             flexGrow: 1,
             backgroundColor: (theme) =>
@@ -35,8 +116,8 @@ export default function MyRest(props) {
         >
           <Grid container spacing={2}>
             <Grid item>
-              <ButtonBase sx={{ width: 128, height: 128 }}>
-                <Img alt="complex" src={userRestPhotos[0]} />
+              <ButtonBase sx={{ width: 300, height: 300 }}>
+                <Img alt="complex" src={userRestPhotos[profilePicture]} />
               </ButtonBase>
             </Grid>
             <Grid item xs={12} sm container>
@@ -70,25 +151,14 @@ export default function MyRest(props) {
           </Grid>
         </Paper>
       ) : null}
-    </>
+      {/* <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+        }} */}
+      {/* > */}
+
+      {/* </div> */}
+    </div>
   );
 }
-//     <div>
-//       {" "}
-//       {userRestParams.length && (
-//         <div>
-//           {userRestParams.map((item) => (
-//             <div
-//               style={{
-//                 display: "flex",
-//               }}
-//             >
-//               <div>{item[0]}:</div>
-//               <div>{item[1] + ""}</div>
-//             </div>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-// }

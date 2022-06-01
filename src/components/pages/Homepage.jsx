@@ -3,6 +3,8 @@ import "../../App.css";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterDialog from "../FilterDialog";
+import { useAuth } from "../AuthContext";
+
 import {
   NavbarPhoto,
   SearchSection,
@@ -16,6 +18,17 @@ import {
 } from "../CssFolder/StyleHomePage";
 
 export default function Homepage(props) {
+  const {
+    userRestParams,
+    userRestPhotos,
+    updater,
+    updaterAll,
+    photosArrayState,
+    paramsArrayState,
+    profilePicture,
+  } = useAuth();
+  let [parametrs, setParametrs] = useState();
+  let [photos, setPhotos] = useState();
   const [showFilterDialog, setShowFilterDialog] = useState(false);
 
   const handleClickOpen = () => {
@@ -43,6 +56,13 @@ export default function Homepage(props) {
   // useEffect(() => {
   //   f();
   // }, [f]);
+
+  useEffect(() => {
+    if (paramsArrayState && photosArrayState) {
+      setParametrs(paramsArrayState);
+      setPhotos(photosArrayState);
+    }
+  }, [paramsArrayState]);
 
   return (
     <>
@@ -80,8 +100,41 @@ export default function Homepage(props) {
             </SearchFilterArea>
           </SearchSection>
         </NavbarPhoto>
-
-        <FilterDialog />
+        <div
+          style={{
+            display: "flex",
+          }}
+        >
+          <FilterDialog />{" "}
+          {parametrs
+            ? paramsArrayState.map((item, index) => {
+                return (
+                  <div
+                    style={{
+                      border: "1px solid black",
+                    }}
+                  >
+                    {" "}
+                    <img
+                      style={{
+                        height: "200px",
+                        width: "200px",
+                      }}
+                      src={photos[index].avatar[photos[index].profilePicture]}
+                      alt=""
+                    />
+                    <div>name:{item.restName}</div>
+                    <div>adress:{item.address}</div>
+                    <div>city:{item.city}</div>
+                    <div>moods:{item.moods}</div>
+                    <div>foodtypes:{item.foodTypes}</div>
+                    <div>options:{item.options}</div>
+                    <div>price:{item.priceInfo}</div>
+                  </div>
+                );
+              })
+            : null}
+        </div>
 
         {/* <ul style={{display: 'flex', justifyContent: 'space-evenly', listStyle: 'none', flexWrap: 'wrap'}}>
               {data.map((item) => {
