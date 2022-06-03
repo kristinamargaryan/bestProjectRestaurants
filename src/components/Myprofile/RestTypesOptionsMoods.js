@@ -35,6 +35,7 @@ export default function RestTypesOptionsMoods(props) {
         >
           <input
             // checked={bul}
+            checked={props.type.includes(item.value) ? true : false}
             type="checkbox"
             value={item.value}
             onChange={props.handleChange}

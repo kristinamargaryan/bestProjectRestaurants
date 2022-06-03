@@ -15,7 +15,6 @@ export default function Myprofile(props) {
   const navigate = useNavigate();
   const [options, setOptions] = useState([]);
   const [moods, setMoods] = useState([]);
-  const [foodTypes, setFoodTypes] = useState([]);
   const [priceInfo, setPriceInfo] = useState("$$$");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
@@ -27,11 +26,20 @@ export default function Myprofile(props) {
     updater,
     updaterAll,
     profilePicture,
+    currentUser
   } = useAuth();
+  const [foodTypes, setFoodTypes] = useState([]);
 
-  useEffect(() => {}, []);
-  const { currentUser } = useAuth();
+  useEffect(() => {
+    setFoodTypes(Object.keys(userRestParams).length === 0 ? [] : userRestParams.foodTypes)
+    setMoods(Object.keys(userRestParams).length === 0 ? [] : userRestParams.moods)
+    setOptions(Object.keys(userRestParams).length === 0 ? [] : userRestParams.options)
+    setCity(Object.keys(userRestParams).length === 0 ? '' : userRestParams.city)
+    setAddress(Object.keys(userRestParams).length === 0 ? '' : userRestParams.address)
+    setRestName(Object.keys(userRestParams).length === 0 ? '' : userRestParams.restName)
+  }, [userRestParams]);
 
+console.log(userRestPhotos)
   const data = {
     restName: restName,
     address: address,
@@ -111,12 +119,15 @@ export default function Myprofile(props) {
   };
   const handleChangeFoodTypes = (e) => {
     const { value, checked } = e.target;
-    if (checked) {
-      setFoodTypes((prev) => [...prev, value]);
-    } else {
-      setFoodTypes((prev) => prev.filter((x) => x !== value));
-    }
+   
+      if (checked && !foodTypes.includes(value)) {
+        setFoodTypes((prev) => [...prev, value]);
+      } else {
+        setFoodTypes((prev) => prev.filter((x) => x !== value));
+      }
   };
+
+  console.log(foodTypes)
   const handleChangeCity = (event) => {
     setCity(event.target.value);
   };
