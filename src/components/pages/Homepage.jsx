@@ -18,18 +18,47 @@ import {
 } from "../CssFolder/StyleHomePage";
 
 export default function Homepage(props) {
-  const {
-    userRestParams,
-    userRestPhotos,
-    updater,
-    updaterAll,
-    photosArrayState,
-    paramsArrayState,
-    profilePicture,
-  } = useAuth();
-  let [parametrs, setParametrs] = useState();
-  let [photos, setPhotos] = useState();
+  const { photosArrayState, paramsArrayState } = useAuth();
   const [showFilterDialog, setShowFilterDialog] = useState(false);
+  const [parametrs, setParametrs] = useState();
+  const [photos, setPhotos] = useState();
+  const [filteredMoods, setFilteredMoods] = useState([]);
+  const [filteredOptions, setFilteredOptions] = useState([]);
+  const [filteredPrices, setFilteredPrices] = useState([]);
+  useEffect(() => {
+    if (paramsArrayState && photosArrayState) {
+      setParametrs(paramsArrayState);
+      setPhotos(photosArrayState);
+    }
+  }, [paramsArrayState]);
+  const filterPriceCheckedFunction = (title, bul) => {
+    bul
+      ? setFilteredPrices(
+          filteredPrices.filter((item, index) => {
+            return index != filteredPrices.indexOf(title);
+          })
+        )
+      : setFilteredPrices([...filteredPrices, title]);
+  };
+  const filterOptionsCheckedFunction = (title, bul) => {
+    bul
+      ? setFilteredOptions(
+          filteredOptions.filter((item, index) => {
+            return index != filteredOptions.indexOf(title);
+          })
+        )
+      : setFilteredOptions([...filteredOptions, title]);
+  };
+
+  const filterMoodsCheckedFunction = (title, bul) => {
+    bul
+      ? setFilteredMoods(
+          filteredMoods.filter((item, index) => {
+            return index != filteredMoods.indexOf(title);
+          })
+        )
+      : setFilteredMoods([...filteredMoods, title]);
+  };
 
   const handleClickOpen = () => {
     setShowFilterDialog(!showFilterDialog);
@@ -43,36 +72,11 @@ export default function Homepage(props) {
     setShowFilterDialog(!showFilterDialog);
   };
 
-  // const [data, setData] = useState([]);
-
-  // const f = useCallback(async () => {
-  //   const response = await fetch(
-  //     "https://www.themealdb.com/api/json/v1/1/search.php?f=a"
-  //   );
-  //   let user = await response.json();
-  //   setData(user.meals);
-  // }, []);
-
-  // useEffect(() => {
-  //   f();
-  // }, [f]);
-
-  useEffect(() => {
-    if (paramsArrayState && photosArrayState) {
-      setParametrs(paramsArrayState);
-      setPhotos(photosArrayState);
-    }
-  }, [paramsArrayState]);
+  console.log(filteredMoods, filteredOptions, filteredPrices);
 
   return (
     <>
-      {/* {" "}
-      <AllParams allParams={props.allParams} />
-      <div className="homeflex">
-        <RestTypes />
-        <AllRestInfoContent rests={props.rests} />
-      </div> */}
-      <div  style={{ height: "auto" }}>
+      <div>
         <NavbarPhoto>
           <SearchSection>
             <SearchFilterArea>
@@ -105,49 +109,50 @@ export default function Homepage(props) {
             display: "flex",
           }}
         >
-          <FilterDialog />{" "}
-          {parametrs
-            ? paramsArrayState.map((item, index) => {
-                return (
-                  <div
-                    style={{
-                      border: "1px solid black",
-                    }}
-                  >
-                    {" "}
-                    <img
+          <FilterDialog
+            filteredPrices={filteredPrices}
+            filterPriceCheckedFunction={filterPriceCheckedFunction}
+            filteredOptions={filteredOptions}
+            filterOptionsCheckedFunction={filterOptionsCheckedFunction}
+            filteredMoods={filteredMoods}
+            filterMoodsCheckedFunction={filterMoodsCheckedFunction}
+          />{" "}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+            }}
+          >
+            {parametrs
+              ? paramsArrayState.map((item, index) => {
+                  return (
+                    <div
                       style={{
-                        height: "200px",
-                        width: "200px",
+                        border: "1px solid black",
                       }}
-                      src={photos[index].avatar[photos[index].profilePicture]}
-                      alt=""
-                    />
-                    <div>name:{item.restName}</div>
-                    <div>adress:{item.address}</div>
-                    <div>city:{item.city}</div>
-                    <div>moods:{item.moods}</div>
-                    <div>foodtypes:{item.foodTypes}</div>
-                    <div>options:{item.options}</div>
-                    <div>price:{item.priceInfo}</div>
-                  </div>
-                );
-              })
-            : null}
+                    >
+                      {" "}
+                      <img
+                        style={{
+                          height: "150px",
+                          width: "200px",
+                        }}
+                        src={photos[index].avatar[photos[index].profilePicture]}
+                        alt=""
+                      />
+                      <div>name:{item.restName}</div>
+                      <div>adress:{item.address}</div>
+                      <div>city:{item.city}</div>
+                      <div>moods:{item.moods}</div>
+                      <div>foodtypes:{item.foodTypes}</div>
+                      <div>options:{item.options}</div>
+                      <div>price:{item.priceInfo}</div>
+                    </div>
+                  );
+                })
+              : null}
+          </div>
         </div>
-
-        {/* <ul style={{display: 'flex', justifyContent: 'space-evenly', listStyle: 'none', flexWrap: 'wrap'}}>
-              {data.map((item) => {
-          return  (
-            <li key={item.idMeal}>
-              <img src={item.strMealThumb} style={{width: '200px', height: '200px'}}/>
-              <h5>name: {item.strMeal}</h5>
-              <h5>category: {item.strCategory}</h5>
-              <h5>area: {item.strArea}</h5>
-            </li>
-          ) ;
-        })}
-        </ul> */}
       </div>
     </>
   );

@@ -7,13 +7,8 @@ import { useAuth } from "../AuthContext";
 
 export default function RestTypesOptionsMoods(props) {
   let [bul, setBul] = useState(false);
-  
+
   const { currentUser, userRestParams, userRestPhotos } = useAuth();
-  // console.log(userRestParams,props.list)
-  //  let  wrapper=()=>{
-  //   setBul(!bul)
-  //   props.handleChange
-  //   }
   return (
     <div style={{}} className={props.name}>
       <h3
@@ -34,7 +29,6 @@ export default function RestTypesOptionsMoods(props) {
           key={index}
         >
           <input
-            // checked={bul}
             checked={props.type.includes(item.value) ? true : false}
             type="checkbox"
             value={item.value}
