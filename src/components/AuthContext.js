@@ -12,6 +12,7 @@ export default function AuthProvaider({ children }) {
   const [loading, setLoading] = useState(true);
   const [userRestParams, setUserRestParams] = useState({});
   const [userRestPhotos, setUserRestPhotos] = useState({});
+  const [userRestPhotosmenu, setUserRestPhotosmenu] = useState({});
   const [profilePicture, setProfilePicture] = useState(0);
   const [photosArrayState, setPhotosArrayState] = useState();
   const [paramsArrayState, setParamsArrayState] = useState();
@@ -31,6 +32,11 @@ export default function AuthProvaider({ children }) {
     setPhotosArrayState(photosArray);
     setParamsArrayState(paramsArray);
   };
+  const logOutUpdate = () => {
+    setUserRestPhotos({});
+    setUserRestPhotosmenu({});
+    setUserRestParams({});
+  };
   async function allDataFirestore() {
     const restRefPhotos = db
       .collection("restaurantsPhoto")
@@ -43,6 +49,8 @@ export default function AuthProvaider({ children }) {
     if (!docParams.exists || !docPhotos.exists) {
       setUserRestPhotos({});
       setUserRestParams({});
+      setUserRestPhotosmenu({});
+
       console.log("No such document!");
     } else {
       const dataParams = docParams.data();
@@ -50,6 +58,7 @@ export default function AuthProvaider({ children }) {
 
       setUserRestParams(dataParams);
       setUserRestPhotos(dataPhotos.avatar);
+      setUserRestPhotosmenu(dataPhotos.menuPhotos);
       setProfilePicture(dataPhotos.profilePicture);
     }
   }
@@ -97,6 +106,7 @@ export default function AuthProvaider({ children }) {
   }, []);
 
   const value = {
+    logOutFunc: logOutUpdate,
     updater: allDataFirestore,
     updaterAll: all,
     photosArrayState,
@@ -104,6 +114,7 @@ export default function AuthProvaider({ children }) {
     profilePicture,
     userRestParams,
     userRestPhotos,
+    userRestPhotosmenu,
     currentUser,
     login,
     signup,

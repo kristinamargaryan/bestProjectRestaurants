@@ -9,7 +9,9 @@ export default function RestCity(props) {
     <div>
       <FormControl sx={{ m: 1, minWidth: 80 }}>
         <InputLabel id="demo-simple-select-autowidth-label">City</InputLabel>
-        <Select
+        <Select style={{
+          height:'100px',
+        }}
           labelId="demo-simple-select-autowidth-label"
           id="demo-simple-select-autowidth"
           value={props.city}
@@ -18,9 +20,15 @@ export default function RestCity(props) {
           label="city"
         >
           <MenuItem value=""></MenuItem>
-          <MenuItem value="Yerevan">Yerevan</MenuItem>
-          <MenuItem value="Gyumri">Gyumri</MenuItem>
-          <MenuItem value="Vanadzor">Vanadzor</MenuItem>
+          <MenuItem style={{
+          height:'30px'
+        }} value="Yerevan">Yerevan</MenuItem>
+          <MenuItem style={{
+          height:'30px'
+        }} value="Gyumri">Gyumri</MenuItem>
+          <MenuItem style={{
+          height:'30px'
+        }} value="Vanadzor">Vanadzor</MenuItem>
         </Select>
       </FormControl>
     </div>

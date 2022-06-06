@@ -6,7 +6,7 @@ import Stack from "@mui/material/Stack";
 export default function BtnSend(props) {
   let enableSendButton = () => {
     for (let key in props.data) {
-      if (props.data[key].length === 0) {
+      if (props.data[key] && props.data[key].length === 0) {
         return true;
       }
     }
