@@ -12,18 +12,22 @@ export default function RestCityAddress(props) {
       noValidate
       autoComplete="off"
     >
-      <div style={{display: 'flex', alignItems: 'center'}}>
-        <div>{props.forLabel}</div>
-        <TextField
+      
+        
+        <TextField style={{
+          width:'200px',
+          
+        }}
+        
           size="small"
           id="outlined-multiline-flexible"
-          // label={props.forLabel}
+          placeholder={props.forLabel}
           multiline
           maxRows={4}
           defaultValue={props.info}
           onChange={props.handleChange}
         />
-      </div>
+      
     </Box>
   );
 }
