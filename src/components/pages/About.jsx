@@ -3,7 +3,11 @@ import styled from "@emotion/styled";
 import { AboutSlider, AboutSliderSecond } from "../AboutSlider";
 import { useNavigate } from "react-router-dom";
 import {QuiltedImageList} from "../AboutImgList";
-import CustomImageList from "../AboutImgListFooter";
+import {CustomImageList, CustomImageListSecond} from "../AboutImgSecondList";
+
+
+
+
 
 
 const AboutContainer = styled.div`
@@ -32,6 +36,7 @@ const RestInfoBottom = styled.div`
   
 `;
 
+
 const ImgStyle = styled.img`
   width: 600px;
   height: 400px;
@@ -45,7 +50,7 @@ const ImgStyle = styled.img`
     height: 500px;
   }
   @media screen and (max-width: 1000px) {
-    width: 800px;
+    width: width;
     height: 500px;
   }
 
@@ -90,20 +95,29 @@ const HInfo = styled.h3`
   @media screen and (max-width: 1600px) {
     font-size: 19px;
   }
-  @media screen and (max-width: 1400px) {
-    font-size: 16px;
+  @media screen and (max-width: 1420px) {
+    font-size: 17px;
   }
   @media screen and (max-width: 1300px) {
-    font-size: 15px;
+    font-size: 16.5px;
   }
-  @media screen and (max-width: 1200px) {
-    font-size: 16px;
+  @media screen and (max-width: 1280px) {
+    font-size: 15.5px;
   }
   @media screen and (max-width: 1130px) {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   @media screen and (max-width: 1100px) {
+    font-size: 14px;
+  }
+  @media screen and (max-width: 1020px) {
+    font-size: 13px;
+  }
+  @media screen and (max-width: 988px) {
+    font-size: 12.5px;
+  }
+  @media screen and (max-width: 970px) {
     font-size: 15px;
   }
 `;
@@ -124,7 +138,18 @@ const SecondSlide = styled.div`
   }
 `
 
+const FooterImagesList = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  @media screen and (max-width: 1000px){
+    flex-direction: column;
+  }
+
+`
+
 export default function About({ currentUser }) {
+  
   const navigate = useNavigate();
   const goHome = () => navigate("/");
   return (
@@ -261,7 +286,7 @@ export default function About({ currentUser }) {
               by region. Antranig Azhderian describes Armenian pilaf as
               "dish resembling porridge". 
               </HInfo>
-              {/* <OutlineDiv></OutlineDiv>
+              <OutlineDiv></OutlineDiv>
               <HInfo>
               In Agn (present day Kemaliye) a
               thin flatbread calling loshig was baked and dried. It would be
@@ -269,15 +294,14 @@ export default function About({ currentUser }) {
               flour stamped with designs and sent as a wedding invitation. Glodj
               was unleavened bread made for Lent and klrdig was a bread made of
               semolina.
-            </HInfo> */}
-            <SecondSlide>
-              <AboutSliderSecond />
-            </SecondSlide>
+            </HInfo>
           </div>
         </RestInfoBottom>
-        <div>
-            
-          </div>
+        <FooterImagesList>
+        <CustomImageList />
+        <CustomImageListSecond  />
+          </FooterImagesList>
+          <div style={{fontSize: '30px', padding: '15px', marginTop: '20px', textAlign: 'center', marginBottom: '20px'}}>In Armenia you will find everything you want ... So pack your bags and come to Armenia, we are waiting for you</div>
       </div>
     </AboutContainer>
   );
