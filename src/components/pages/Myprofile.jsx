@@ -202,17 +202,21 @@ export default function Myprofile(props) {
           }}
         >
           <PhoneInput
+          
             style={{
               width: "35%",
               margin: "10px",
             }}
+            name='tel'
+            type='tel'
             defaultCountry="AM"
             placeholder="Phone number"
             value={phoneNumber}
             onChange={setPhoneNumber}
           />
-          <RestPhotoUploadButton fileUrl={fileUrl} newUrls={newUrls} />
+          <RestPhotoUploadButton title='Restaurant Photos' fileUrl={fileUrl} newUrls={newUrls} />
           <RestPhotoUploadButton
+          title='Menu Photos'
             fileUrlmenu={fileUrlmenu}
             newUrlsmenu={newUrlsmenu}
           />

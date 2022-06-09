@@ -38,7 +38,9 @@ export default function RestPhotoUploadButton(props) {
   }, [props.fileUrlmenu]);
 
   return (
-    <Stack direction="row" alignItems="center" spacing={2}>
+    <Stack style={{
+      margin:'5px'
+    }} direction="row" alignItems="center" spacing={2}>
       <label htmlFor={props.fileUrl ? "restPhotos" : "menuPhotos"}>
         <form>
           <Input
@@ -51,7 +53,7 @@ export default function RestPhotoUploadButton(props) {
 
           {loading ? (
             <Button size="small" variant="contained" component="span">
-              Upload photos
+              {props.title}
             </Button>
           ) : (
             <Stack direction="row" spacing={2}>
