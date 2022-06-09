@@ -18,9 +18,9 @@ export default function Footer() {
     const goAbout = () => navigate("/About");
     const goContactUs = () => navigate("/ContactUs");
     return (
-    <footer style={{ marginTop: '40px'}}>
-        <Box style={{ backgroundColor:"black",  color:"#48A14F",  paddingBottom: '15px'}}>
-            <Container maxWidth="1g">
+    <footer style={{display:'flex', alignItems: 'flex-end', width: '100%'}}>
+        <Box style={{ backgroundColor:"black",color:"#48A14F", paddingTop: '30px', paddingBottom: '30px', width: '100%'}} >
+            <Container maxWidth="xl" style={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
                 <Grid container spacing={5}>
                     <Grid item xs={12} sm={4}>
                         <Box>
@@ -61,10 +61,10 @@ export default function Footer() {
                         </Box>
                     </Grid>
                     <Grid style={{ color: 'white'}} item xs={12} sm={4}>
-                        <Box style={{ paddingBottom: '15px'}}>COMPANY INFO</Box>
-                        <Box> <CallOutlinedIcon />   +374-77-77-77-77</Box>
-                        <Box> <EmailOutlinedIcon />  rest_am@yahoo.com </Box>
-                        <Box> <ContactMailOutlinedIcon />  Baghramyan Avenue </Box>
+                        <Box style={{ paddingBottom: '15px'}}><div>COMPANY INFO</div></Box>
+                        <Box style={{display: 'flex', alignItems: 'center'}}> <CallOutlinedIcon  /><div style={{marginLeft: '3px'}}>+374-77-77-77-77</div></Box>
+                        <Box style={{display: 'flex', alignItems: 'center'}}> <EmailOutlinedIcon /><div style={{marginLeft: '3px'}}>rest_am@yahoo.com</div></Box>
+                        <Box style={{display: 'flex', alignItems: 'center'}}> <ContactMailOutlinedIcon /><div style={{marginLeft: '3px'}}>Baghramyan Avenue</div></Box>
                     </Grid>
                 </Grid>
             </Container>

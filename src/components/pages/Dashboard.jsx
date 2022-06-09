@@ -5,13 +5,19 @@ import { useNavigate } from "react-router-dom";
 export default function Dashboard() {
   const [error, setError] = useState("");
 
-  const { currentUser, profilePicture, logout, userRestPhotos, updater } =
-    useAuth();
+  const {
+    currentUser,
+    profilePicture,
+    logout,
+    userRestPhotos,
+    updater,
+    logOutFunc,
+  } = useAuth();
 
   const navigate = useNavigate();
 
   async function handleLogout() {
-    updater();
+    logOutFunc();
     setError("");
     try {
       await logout();
@@ -20,7 +26,7 @@ export default function Dashboard() {
       setError("failed to log out");
     }
   }
-
+console.log(currentUser.uid)
   return (
     <div>
       {!Object.keys(userRestPhotos).length === 0 ? (

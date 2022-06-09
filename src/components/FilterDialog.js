@@ -23,10 +23,16 @@ import AccessibleIcon from "@mui/icons-material/Accessible";
 import SportsBarIcon from "@mui/icons-material/SportsBar";
 import NightlifeIcon from "@mui/icons-material/Nightlife";
 import "../App.css";
-import { height } from "@mui/system";
+import { useState } from "react";
 
-export default function FilterDialog() {
-  const optionBar = [
+export default function FilterDialog(props) {
+  let style1 = {
+    backgroundColor: "violet",
+  };
+  let style2 = {
+    backgroundColor: "blue",
+  };
+  const optionsBar = [
     { tag: <EventSeatIcon />, title: "Reservation" },
     { tag: <TakeoutDiningIcon />, title: "TakeOut" },
     { tag: <CellWifiIcon />, title: "WiFi" },
@@ -48,35 +54,30 @@ export default function FilterDialog() {
     { tag: <TableBarIcon />, title: "Local" },
   ];
 
-  const price = ["$", "$$", "$$$", "$$$$"];
+  const prices = ["$", "$$", "$$$", "$$$$", "$$$$$"];
 
-  /* const attachMoneyIcons = () =>{
-
-        } */
-
-
-	return (
-		<div
-			style={{
-				height: 'auto',
-				marginBottom:'50px',
-				alignItems: 'center',
-				justifyContent: 'space-left',
-				border: '1px solid',
-				maxWidth: '280px',
-				borderRadius: '8px',
-				boxShadow: '0 0 15px black',
-			}}
-		>
-			<ul className='filterList'>
-				<li>
-					<h5>Find by restaurnt name</h5>
-					<input
-						style={{ width: '90%', height: '20px', fontSize: '18px' }}
-						type='text'
-						placeholder='Find restaurant'
-					/>
-				</li>
+  return (
+    <div
+      style={{
+        height: "auto",
+        marginBottom: "50px",
+        alignItems: "center",
+        justifyContent: "space-left",
+        border: "1px solid",
+        maxWidth: "280px",
+        borderRadius: "8px",
+        boxShadow: "0 0 15px black",
+      }}
+    >
+      <ul className="filterList">
+        <li>
+          <h5>Find by restaurnt name</h5>
+          <input
+            style={{ width: "90%", height: "20px", fontSize: "18px" }}
+            type="text"
+            placeholder="Find restaurant"
+          />
+        </li>
         <li>
           <h5>Find by type of food</h5>
           <FoodTypeMenu style={{ height: "50px", width: "90%" }} />
@@ -85,9 +86,20 @@ export default function FilterDialog() {
         <li className="selectPrice">
           <h5>Select Price</h5>
           <div style={{ display: "flex", textAlign: "left" }}>
-            {price.map((elem) => (
-              <button>{elem}</button>
-            ))}
+            {prices.map((element) => {
+              return (
+                <button
+                  style={props.filteredPrices.includes(element) ? style1 : null}
+                  onClick={(ev) => {
+                    props.filteredPrices.includes(element)
+                      ? props.filterPriceCheckedFunction(element, true)
+                      : props.filterPriceCheckedFunction(element, false);
+                  }}
+                >
+                  {element}
+                </button>
+              );
+            })}
           </div>
         </li>
 
@@ -96,7 +108,16 @@ export default function FilterDialog() {
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {moodsBar.map(function (element) {
               return (
-                <button>
+                <button
+                  style={
+                    props.filteredMoods.includes(element.title) ? style1 : null
+                  }
+                  onClick={(ev) => {
+                    props.filteredMoods.includes(element.title)
+                      ? props.filterMoodsCheckedFunction(element.title, true)
+                      : props.filterMoodsCheckedFunction(element.title, false);
+                  }}
+                >
                   {element.tag}
                   <div>{element.title}</div>
                 </button>
@@ -107,11 +128,28 @@ export default function FilterDialog() {
 
         <li>
           <div className="optionBar">
-            <h5>Option</h5>
+            <h5>Options</h5>
             <div style={{ display: "flex", flexWrap: "wrap" }}>
-              {optionBar.map(function (element) {
+              {optionsBar.map(function (element) {
                 return (
-                  <button>
+                  <button
+                    style={
+                      props.filteredOptions.includes(element.title)
+                        ? style1
+                        : null
+                    }
+                    onClick={(ev) => {
+                      props.filteredOptions.includes(element.title)
+                        ? props.filterOptionsCheckedFunction(
+                            element.title,
+                            true
+                          )
+                        : props.filterOptionsCheckedFunction(
+                            element.title,
+                            false
+                          );
+                    }}
+                  >
                     {element.tag}
                     <div>{element.title}</div>
                   </button>

@@ -10,27 +10,44 @@ import RestPhotoUploadButton from "../Myprofile/RestPhotosUploadButton";
 import BtnSend from "../Myprofile/BtnSend";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 
 export default function Myprofile(props) {
   const navigate = useNavigate();
   const [options, setOptions] = useState([]);
   const [moods, setMoods] = useState([]);
-  const [foodTypes, setFoodTypes] = useState([]);
-  const [priceInfo, setPriceInfo] = useState("$$$");
+  const [priceInfo, setPriceInfo] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
   const [restName, setRestName] = useState("");
+  let [phoneNumber, setPhoneNumber] = useState('');
   const [fileUrl, setFileUrl] = useState([]);
+  const [fileUrlmenu, setFileUrlmenu] = useState([]);
   const {
     userRestParams,
     userRestPhotos,
+    userRestPhotosmenu,
     updater,
     updaterAll,
     profilePicture,
+    currentUser,
   } = useAuth();
+  const [foodTypes, setFoodTypes] = useState([]);
+  console.log(phoneNumber);
+  useEffect(() => {
+    if (Object.keys(userRestParams).length) {
+      setFoodTypes(userRestParams.foodTypes);
+      setMoods(userRestParams.moods);
+      setOptions(userRestParams.options);
+      setCity(userRestParams.city);
+      setAddress(userRestParams.address);
+      setRestName(userRestParams.restName);
+      setPriceInfo(userRestParams.priceInfo);
+      setPhoneNumber(userRestParams.phoneNumber)
 
-  useEffect(() => {}, []);
-  const { currentUser } = useAuth();
+    }
+  }, [userRestParams]);
 
   const data = {
     restName: restName,
@@ -40,6 +57,7 @@ export default function Myprofile(props) {
     foodTypes: foodTypes,
     priceInfo: priceInfo,
     city: city,
+    phoneNumber: phoneNumber,
   };
 
   const optionsList = [
@@ -80,6 +98,9 @@ export default function Myprofile(props) {
         avatar: Array.isArray(userRestPhotos)
           ? userRestPhotos.concat(fileUrl)
           : fileUrl,
+        menuPhotos: Array.isArray(userRestPhotosmenu)
+          ? userRestPhotosmenu.concat(fileUrlmenu)
+          : fileUrlmenu,
       });
     await db.collection("restaurants").doc(currentUser.uid).set(data);
     updater();
@@ -89,6 +110,10 @@ export default function Myprofile(props) {
   };
   let newUrls = (urls) => {
     setFileUrl(urls);
+  };
+  let newUrlsmenu = (urls) => {
+    console.log("aaa");
+    setFileUrlmenu(urls);
   };
   let changePriceInfo = (ev) => {
     setPriceInfo(ev.target.value);
@@ -111,12 +136,14 @@ export default function Myprofile(props) {
   };
   const handleChangeFoodTypes = (e) => {
     const { value, checked } = e.target;
-    if (checked) {
+
+    if (checked && !foodTypes.includes(value)) {
       setFoodTypes((prev) => [...prev, value]);
     } else {
       setFoodTypes((prev) => prev.filter((x) => x !== value));
     }
   };
+
   const handleChangeCity = (event) => {
     setCity(event.target.value);
   };
@@ -129,63 +156,87 @@ export default function Myprofile(props) {
 
   return (
     <div
-      style={{
-        width: "480px",
-        margin: "0 auto",
-        alignItems: "center",
-      }}
+      style={
+        {
+          // backgroundImage:'url(../.././restPhotos/333.jpg)',
+          // backgroundSize:'cover'
+        }
+      }
     >
       <div
         style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
+          padding: "5px",
+          width: "480px",
+          margin: "0 auto",
         }}
       >
-        <div>
-          <NameAndAddress
-            forLabel="Restaurant Name"
-            info={restName}
-            handleChange={handleChangeRestName}
-          />
-
-          <NameAndAddress
-            forLabel="address"
-            info={address}
-            handleChange={handleChangeAddress}
-          />
+        <div
+          style={{
+            padding: "5px",
+            margin: "0 auto",
+            display: "flex",
+          }}
+        >
+          <div style={{}}>
+            <RestCity city={city} handleChangeCity={handleChangeCity} />
+          </div>
+          <div>
+            <NameAndAddress
+              forLabel="Restaurant Name"
+              info={restName}
+              handleChange={handleChangeRestName}
+            />
+            <NameAndAddress
+              forLabel="Restaurant Address"
+              info={address}
+              handleChange={handleChangeAddress}
+            />
+          </div>
         </div>
-        <div>
-          <RestCity city={city} handleChangeCity={handleChangeCity} />
+        <div
+          style={{
+            padding: "5px",
+            width: "480px",
+            margin: "0 auto",
+            display: "flex",
+          }}
+        >
+          <PhoneInput
+            style={{
+              width: "35%",
+              margin: "10px",
+            }}
+            defaultCountry="AM"
+            placeholder="Phone number"
+            value={phoneNumber}
+            onChange={setPhoneNumber}
+          />
           <RestPhotoUploadButton fileUrl={fileUrl} newUrls={newUrls} />
+          <RestPhotoUploadButton
+            fileUrlmenu={fileUrlmenu}
+            newUrlsmenu={newUrlsmenu}
+          />
         </div>
-      </div>
+        <PriceInfo priceInfo={priceInfo} changePriceInfo={changePriceInfo} />
+        <Rest_types_options_moods
+          list={moodesList}
+          handleChange={handleChangeMoods}
+          type={moods}
+          name={"moods"}
+        />
 
-      <Rest_types_options_moods
-        list={moodesList}
-        handleChange={handleChangeMoods}
-        type={moods}
-        name={"moods"}
-      />
-
-      <Rest_types_options_moods
-        list={optionsList}
-        handleChange={handleChangeOptions}
-        type={options}
-        name={"options"}
-      />
-      <Rest_types_options_moods
-        list={foodTypesList}
-        handleChange={handleChangeFoodTypes}
-        type={foodTypes}
-        name={"foodtypes"}
-      />
-      <div
-        style={{
-          display: "flex",
-        }}
-      >
-        <PriceInfo changePriceInfo={changePriceInfo} />
+        <Rest_types_options_moods
+          list={optionsList}
+          handleChange={handleChangeOptions}
+          type={options}
+          name={"options"}
+        />
+        <Rest_types_options_moods
+          list={foodTypesList}
+          handleChange={handleChangeFoodTypes}
+          type={foodTypes}
+          name={"foodtypes"}
+        />
 
         <BtnSend data={data} savechanges={savechanges} />
       </div>

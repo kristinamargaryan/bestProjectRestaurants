@@ -23,6 +23,7 @@ export default function MyRest(props) {
     currentUser,
     userRestParams,
     userRestPhotos,
+    userRestPhotosmenu,
     profilePicture,
     updater,
     updaterAll,
@@ -46,6 +47,21 @@ export default function MyRest(props) {
             : profilePicture == 0
             ? profilePicture
             : profilePicture - 1,
+        menuPhotos: userRestPhotosmenu,
+      });
+    updater();
+    updaterAll();
+  };
+  let deletePhotomenu = (ev) => {
+    ev.preventDefault();
+    db.collection("restaurantsPhoto")
+      .doc(currentUser.uid)
+      .set({
+        avatar: userRestPhotos,
+        profilePicture: profilePicture,
+        menuPhotos: userRestPhotosmenu.filter((item, index) => {
+          return index != ev.target.id;
+        }),
       });
     updater();
     updaterAll();
@@ -54,6 +70,7 @@ export default function MyRest(props) {
     db.collection("restaurantsPhoto").doc(currentUser.uid).set({
       avatar: userRestPhotos,
       profilePicture: ev.target.id,
+      menuPhotos: userRestPhotosmenu,
     });
 
     updater();
@@ -65,7 +82,9 @@ export default function MyRest(props) {
         display: "flex",
       }}
     >
-      {Object.keys(userRestPhotos).length !== 0 ? (
+      {" "}
+      REST PHOTOS
+      {userRestPhotos && Object.keys(userRestPhotos).length !== 0 ? (
         <div
           style={{
             width: "50%",
@@ -91,6 +110,43 @@ export default function MyRest(props) {
               <div
                 id={index}
                 onClick={deletePhoto}
+                style={{
+                  margin: "0 auto",
+                  cursor: "pointer",
+                  width: "5%",
+                }}
+              >
+                x
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : null}
+      {userRestPhotosmenu && Object.keys(userRestPhotosmenu).length !== 0 ? (
+        <div
+          style={{
+            width: "50%",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
+          MENU PHOTOS
+          {userRestPhotosmenu.map((item, index) => (
+            <div>
+              <img
+                style={{
+                  width: "200px",
+                  height: "150px",
+                  objectFit: "cover",
+                }}
+                id={index}
+                src={userRestPhotosmenu[index]}
+                className="sliderimg"
+                alt=""
+              />
+              <div
+                id={index}
+                onClick={deletePhotomenu}
                 style={{
                   margin: "0 auto",
                   cursor: "pointer",
@@ -157,7 +213,6 @@ export default function MyRest(props) {
           flexWrap: "wrap",
         }} */}
       {/* > */}
-
       {/* </div> */}
     </div>
   );

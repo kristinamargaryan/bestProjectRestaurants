@@ -12,17 +12,22 @@ export default function RestCityAddress(props) {
       noValidate
       autoComplete="off"
     >
-      <div>
-        <TextField
+      
+        
+        <TextField style={{
+          width:'200px',
+          
+        }}
+        
           size="small"
           id="outlined-multiline-flexible"
-          label={props.forLabel}
+          placeholder={props.forLabel}
           multiline
           maxRows={4}
-          value={props.info}
+          defaultValue={props.info}
           onChange={props.handleChange}
         />
-      </div>
+      
     </Box>
   );
 }
