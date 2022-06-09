@@ -21,7 +21,7 @@ export default function Myprofile(props) {
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
   const [restName, setRestName] = useState("");
-  let [phoneNumber, setPhoneNumber] = useState('');
+  let [phoneNumber, setPhoneNumber] = useState("");
   const [fileUrl, setFileUrl] = useState([]);
   const [fileUrlmenu, setFileUrlmenu] = useState([]);
   const {
@@ -44,8 +44,7 @@ export default function Myprofile(props) {
       setAddress(userRestParams.address);
       setRestName(userRestParams.restName);
       setPriceInfo(userRestParams.priceInfo);
-      setPhoneNumber(userRestParams.phoneNumber)
-
+      setPhoneNumber(userRestParams.phoneNumber);
     }
   }, [userRestParams]);
 
@@ -58,6 +57,7 @@ export default function Myprofile(props) {
     priceInfo: priceInfo,
     city: city,
     phoneNumber: phoneNumber,
+    id: currentUser.uid,
   };
 
   const optionsList = [

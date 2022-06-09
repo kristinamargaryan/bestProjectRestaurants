@@ -18,7 +18,9 @@ import {
 } from "../CssFolder/StyleHomePage";
 
 export default function Homepage(props) {
-  const { photosArrayState, paramsArrayState } = useAuth();
+  const { photosArrayState, paramsArrayState, userParamsAndPhothos } =
+    useAuth();
+
   const [showFilterDialog, setShowFilterDialog] = useState(false);
   const [parametrs, setParametrs] = useState();
   const [photos, setPhotos] = useState();
@@ -29,8 +31,9 @@ export default function Homepage(props) {
     if (paramsArrayState && photosArrayState) {
       setParametrs(paramsArrayState);
       setPhotos(photosArrayState);
+      console.log(userParamsAndPhothos, photosArrayState, paramsArrayState);
     }
-  }, [paramsArrayState]);
+  }, [paramsArrayState, photosArrayState, userParamsAndPhothos]);
   const filterPriceCheckedFunction = (title, bul) => {
     bul
       ? setFilteredPrices(
@@ -72,11 +75,10 @@ export default function Homepage(props) {
     setShowFilterDialog(!showFilterDialog);
   };
 
-  console.log(filteredMoods, filteredOptions, filteredPrices);
-
   return (
     <>
       <div>
+        {/* <div>{userParamsAndPhothos && userParamsAndPhothos[4].restName}</div> */}
         <NavbarPhoto>
           <SearchSection>
             <SearchFilterArea>
