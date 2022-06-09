@@ -10,18 +10,25 @@ import TwitterIcon from  "@mui/icons-material/Twitter";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
+import { useNavigate } from "react-router-dom";
+
 export default function Footer() {
+    const navigate = useNavigate();
+    const goHome = () => navigate("/");
+    const goAbout = () => navigate("/About");
+    const goContactUs = () => navigate("/ContactUs");
     return (
-    <footer style={{ backgroundColor:"black",color:"#48A14F",  paddingBottom: '15px'}}>
-        <Box >
+    <footer style={{ marginTop: '40px'}}>
+        <Box style={{ backgroundColor:"black",  color:"#48A14F",  paddingBottom: '15px'}}>
             <Container maxWidth="1g">
                 <Grid container spacing={5}>
                     <Grid item xs={12} sm={4}>
                         <Box>
-                        <Link to="/">
+                        <Link onClick={goHome}>
                             <img
                                 className="imgg"
                                 style={{
+                                cursor: 'pointer',
                                 width: "80px",
                                 height: "50px",
                                 objectPosition: "center",
@@ -34,23 +41,23 @@ export default function Footer() {
                          <Box style={{ paddingBottom: '15px'}}>
                          Rest.am is an ultra-fast, relevant, accurate, and user friendly restaurants metasearch engine, delivering a unique cross-platform experience.
                         </Box>
-                        <Box>
-                           <FacebookIcon  />
-                           <InstagramIcon />
-                           <LinkedInIcon />
-                           <TwitterIcon />
+                        <Box> 
+                            <Link href="https://www.facebook.com/sherep.resto"><FacebookIcon  /></Link>
+                            <Link href="https://www.instagram.com/pesto_cafe_osteria/">< InstagramIcon  /></Link>
+                            <Link href="https://www.linkedin.com/company/armenian-code-academy/"><LinkedInIcon  /></Link>
+                            <Link href="https://twitter.com/GUDCapital"><TwitterIcon  /></Link>
                         </Box>
                     </Grid>
                     <Grid item xs={12} sm={4}>
                     <Box style={{ paddingBottom: '15px'}}>CUSTOM MENU</Box>
                         <Box>
-                            <Link href = "/" color = "inherit"> Home </Link>
+                            <Link onClick={goHome}  color = "inherit"> Home </Link>
                         </Box>
                          <Box>
-                            <Link href = "/" color = "inherit"> About  </Link>
+                            <Link onClick={goAbout} color = "inherit"> About  </Link>
                         </Box>
                         <Box>
-                            <Link href = "/" color = "inherit"> Contact Us</Link>
+                            <Link onClick={goContactUs}  color = "inherit"> Contact Us</Link>
                         </Box>
                     </Grid>
                     <Grid style={{ color: 'white'}} item xs={12} sm={4}>
