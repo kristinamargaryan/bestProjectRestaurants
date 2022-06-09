@@ -14,6 +14,7 @@ import TwitterIcon from  "@mui/icons-material/Twitter";
 import { db } from "../../firebase";
 import Button from '@material-ui/core/Button';
 import SendIcon from '@mui/icons-material/Send';
+import DescriptionAlerts from "../DescriptionAlerts";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -72,25 +73,27 @@ export default function ContactUs() {
   const classes = useStyles();
   const [name, setName] =  useState("");
   const [email, setEmail] =  useState("");
-  const [message, setMessage] =  useState("");
-
-
+  const [message, setMessage] =  useState(""); 
   const [loader, setLoader] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoader(true);
 
     db.collection("contacts")
+
       .add({
         name: name,
         email: email,
         message: message,
       })
       .then(() => {
-        setLoader(false);
-        alert('Your message has been submitted!');
-
+        setLoader(true);
+        // alert('Your message has been submitted!');
+  
+        setTimeout(()=>{
+          setLoader(false)
+        },3000)
+        
       })
       .catch((error) => {
         alert(error.message);
@@ -107,10 +110,12 @@ export default function ContactUs() {
     <div className={classes.root} >
       <Grid container spacing={1}>
         <Grid item xs={8}  >
-        <Paper onSubmit={handleSubmit} elevation={3} className={classes.paper}>
+        <Paper  elevation={3} className={classes.paper}>
           <form className={classes.form_left} onSubmit={handleSubmit}>
             <h1>Contact Us </h1>
+            {loader && <DescriptionAlerts/>}
             <div className={classes.inputs}>
+              
               <input
                 type={name}
                 className={classes.input}
