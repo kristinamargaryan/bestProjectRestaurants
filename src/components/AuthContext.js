@@ -16,6 +16,7 @@ export default function AuthProvaider({ children }) {
   const [profilePicture, setProfilePicture] = useState(0);
   const [photosArrayState, setPhotosArrayState] = useState();
   const [paramsArrayState, setParamsArrayState] = useState();
+  const [userParamsAndPhothos, setUserParamsAndPhothos] = useState();
   const all = async function () {
     let photosArray = [];
     let paramsArray = [];
@@ -29,6 +30,12 @@ export default function AuthProvaider({ children }) {
     allParams.forEach((doc) => {
       paramsArray.push(doc.data());
     });
+    setUserParamsAndPhothos(
+      paramsArray.map((user, index) => {
+        user.photos = photosArray[index];
+        return user;
+      })
+    );
     setPhotosArrayState(photosArray);
     setParamsArrayState(paramsArray);
   };
@@ -111,6 +118,7 @@ export default function AuthProvaider({ children }) {
     updaterAll: all,
     photosArrayState,
     paramsArrayState,
+    userParamsAndPhothos,
     profilePicture,
     userRestParams,
     userRestPhotos,
