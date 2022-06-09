@@ -11,6 +11,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
+import{HomePage_Route} from "../constants/constants"
 
 const theme = createTheme();
 
@@ -22,7 +23,7 @@ export default function UpdateProfile(props) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const homePage = () => navigate("/");
+  const homePage = () => navigate(HomePage_Route);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -44,7 +45,7 @@ export default function UpdateProfile(props) {
 
     Promise.all(promises)
       .then(() => {
-        navigate("/");
+        navigate(HomePage_Route);
       })
       .catch(() => {
         setError("Failed to update account");

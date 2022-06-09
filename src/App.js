@@ -11,6 +11,7 @@ import UpdateProfile from "./components/pages/UpdateProfile";
 import MyRest from "./components/pages/MyRest";
 import { Navigate } from "react-router-dom";
 import Footer from "./components/Footer";
+import{HomePage_Route, About_Route, ContactUs_Route, Forbusiness_Route, ForbusinessMyrest_Route, UpdateProfile_Route } from "./components/constants/constants";
 
 function App() {
   const { currentUser, userRestParams, userRestPhotos } = useAuth();
@@ -19,24 +20,24 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path={HomePage_Route} element={<Homepage />} />
         {!!currentUser ? (
-          <Route path="/UpdateProfile" element={<UpdateProfile />} />
+          <Route path={ UpdateProfile_Route} element={<UpdateProfile />} />
         ) : null}
-        <Route path="/About" element={<About />} />
-        <Route path="/ContactUs" element={<ContactUs />} />
+        <Route path={About_Route} element={<About />} />
+        <Route path={ContactUs_Route} element={<ContactUs />} />
         <Route
-          path={currentUser ? currentUser.email : "/"}
+          path={currentUser ? currentUser.email : {HomePage_Route}}
           element={<Dashboard />}
         />
-        <Route path="/Forbusiness" element={<ForBisness />} />
+        <Route path= {Forbusiness_Route} element={<ForBisness />} />
         <Route
-          path="Forbusiness/Myrest"
+          path={ForbusinessMyrest_Route}
           element={<MyRest currentUser={currentUser} />}
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-      {/* <Footer /> */}
+       <Footer /> 
     </div>
   );
 }

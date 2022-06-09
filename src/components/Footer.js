@@ -11,12 +11,14 @@ import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import { useNavigate } from "react-router-dom";
+import{HomePage_Route, About_Route, ContactUs_Route, Forbusiness_Route, ForbusinessMyrest_Route, UpdateProfile_Route } from "./constants/constants";
+
 
 export default function Footer() {
     const navigate = useNavigate();
-    const goHome = () => navigate("/");
-    const goAbout = () => navigate("/About");
-    const goContactUs = () => navigate("/ContactUs");
+    const goHome = () => navigate(HomePage_Route);
+    const goAbout = () => navigate(About_Route);
+    const goContactUs = () => navigate(ContactUs_Route);
     return (
     <footer style={{display:'flex', alignItems: 'flex-end', width: '100%'}}>
         <Box style={{ backgroundColor:"black",color:"#48A14F", paddingTop: '30px', paddingBottom: '30px', width: '100%'}} >

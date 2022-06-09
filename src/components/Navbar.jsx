@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
+import{HomePage_Route, About_Route, ContactUs_Route, Forbusiness_Route, ForbusinessMyrest_Route} from "./constants/constants";
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,7 +22,7 @@ export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
 
   const dashboard = () => navigate(currentUser.email);
-  const myrest = () => navigate("Forbusiness/Myrest");
+  const myrest = () => navigate(ForbusinessMyrest_Route);
   const { currentUser, userRestParams, userRestPhotos } = useAuth();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -122,7 +123,7 @@ export default function PrimarySearchAppBar() {
             // sx={{ display: { xs: "none", sm: "block" } }}
           >
             {" "}
-            <Link to="/">
+            <Link to={HomePage_Route}>
               <img
                 className="imgg"
                 style={{
@@ -140,7 +141,7 @@ export default function PrimarySearchAppBar() {
             style={{
               textDecoration: "none",
             }}
-            to="/About"
+            to={About_Route}
           >
             <BtnComp title={"About"}></BtnComp>
           </Link>
@@ -148,7 +149,7 @@ export default function PrimarySearchAppBar() {
             style={{
               textDecoration: "none",
             }}
-            to="/ContactUs"
+            to={ ContactUs_Route}
           >
             <BtnComp title={"Contact Us"}></BtnComp>
           </Link>
@@ -156,7 +157,7 @@ export default function PrimarySearchAppBar() {
             style={{
               textDecoration: "none",
             }}
-            to="/Forbusiness"
+            to={Forbusiness_Route}
           >
             <BtnComp
               title={
