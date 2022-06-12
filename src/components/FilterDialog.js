@@ -24,6 +24,7 @@ import SportsBarIcon from "@mui/icons-material/SportsBar";
 import NightlifeIcon from "@mui/icons-material/Nightlife";
 import "../App.css";
 import { useState } from "react";
+import useWindowDimensions from "../components/WindowResize";
 
 export default function FilterDialog(props) {
   let style1 = {
@@ -32,6 +33,8 @@ export default function FilterDialog(props) {
   let style2 = {
     backgroundColor: "blue",
   };
+
+  const { width } = useWindowDimensions();
   const optionsBar = [
     { tag: <EventSeatIcon />, title: "Reservation" },
     { tag: <TakeoutDiningIcon />, title: "TakeOut" },
@@ -59,14 +62,13 @@ export default function FilterDialog(props) {
   return (
     <div
       style={{
-        height: "auto",
-        marginBottom: "50px",
-        alignItems: "center",
-        justifyContent: "space-left",
+        display: width <= 850 ? "none" : "block",
         border: "1px solid",
         maxWidth: "280px",
+        minWidth: "280px",
         borderRadius: "8px",
         boxShadow: "0 0 15px black",
+        maxHeight: "500px",
       }}
     >
       <ul className="filterList">

@@ -44,6 +44,7 @@ export const InputPart = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 `;
 
 export const SearchInput = styled.input`
@@ -53,12 +54,26 @@ export const SearchInput = styled.input`
   outline: none;
   border: none;
   border: 1px solid #fff;
+  width: 40vh;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: none;
+  
+
 
   &::placeholder {
     color: #fff;
+    font-size: 24px;
   }
 `;
 export const IconButton = styled.button`
   background-color: rgba(0, 0, 0, 0.616);
   border-color: #fff;
+  outline: none;
+  border: none;
+  border: 1px solid #fff;
+  border-left: none;
+  font-size: 20px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 `;
