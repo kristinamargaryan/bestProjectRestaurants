@@ -31,18 +31,21 @@ export default function RestPhotoUploadButton(props) {
       : props.newUrlsmenu(props.fileUrlmenu.concat(urls));
   };
   useEffect(() => {
-    
     props.fileUrl && setLoading(true);
   }, [props.fileUrl]);
   useEffect(() => {
-   
     props.fileUrlmenu && setLoading(true);
   }, [props.fileUrlmenu]);
 
   return (
-    <Stack style={{
-      margin:'5px'
-    }} direction="row" alignItems="center" spacing={2}>
+    <Stack
+      style={{
+        margin: "5px",
+      }}
+      direction="row"
+      alignItems="center"
+      spacing={2}
+    >
       <label htmlFor={props.fileUrl ? "restPhotos" : "menuPhotos"}>
         <form>
           <Input
@@ -67,27 +70,60 @@ export default function RestPhotoUploadButton(props) {
         </form>
       </label>
       {props.fileUrl
-        ? props.fileUrl.map((url) => (
-            <img
+        ? props.fileUrl.map((url, index) => (
+            <div
               style={{
-                margin: "3px",
-                height: "10px",
-                width: "10px",
+                cursor: "pointer",
               }}
-              src={url}
-              alt=""
-            />
+              id={index}
+              onClick={(ev) => {
+                props.newUrls(
+                  props.fileUrl.filter((item, indexo) => {
+                    if (indexo == ev.target.id) {
+                      return false;
+                    } else return true;
+                  })
+                );
+              }}
+            >
+              <img
+                style={{
+                  height: "10px",
+                  width: "15px",
+                }}
+                src={url}
+                alt=""
+              />
+              x
+            </div>
           ))
-        : props.fileUrlmenu.map((url) => (
-            <img
+        : props.fileUrlmenu.map((url, index) => (
+            <div
               style={{
-                margin: "3px",
-                height: "10px",
-                width: "10px",
+                cursor: "pointer",
               }}
-              src={url}
-              alt=""
-            />
+              id={index}
+              onClick={(ev) => {
+                props.newUrlsmenu(
+                  props.fileUrlmenu.filter((item, indexo) => {
+                    if (indexo == ev.target.id) {
+                      return false;
+                    } else return true;
+                  })
+                );
+              }}
+            >
+              <img
+                style={{
+                  height: "10px",
+                  width: "15px",
+                }}
+                src={url}
+                alt=""
+                id={index}
+              />
+              x
+            </div>
           ))}
     </Stack>
   );
