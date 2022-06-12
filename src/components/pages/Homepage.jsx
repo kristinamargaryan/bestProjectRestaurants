@@ -4,7 +4,6 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterDialog from "../FilterDialog";
 import { useAuth } from "../AuthContext";
-import useWindowDimensions from "../WindowResize";
 
 import {
   NavbarPhoto,
@@ -17,12 +16,11 @@ import {
   SearchInput,
   IconButton,
 } from "../CssFolder/StyleHomePage";
-import SwipeableTemporaryDrawer from "../DrawersFolter";
 
 export default function Homepage(props) {
   const { photosArrayState, paramsArrayState, userParamsAndPhothos } =
     useAuth();
-  const { width } = useWindowDimensions();
+
   const [showFilterDialog, setShowFilterDialog] = useState(false);
   const [parametrs, setParametrs] = useState();
   const [photos, setPhotos] = useState();
@@ -84,6 +82,16 @@ export default function Homepage(props) {
         <NavbarPhoto>
           <SearchSection>
             <SearchFilterArea>
+              <FilterPart>
+                <FilterAreaBtn
+                  onClick={filterDialogShow}
+                  style={{ display: "none" }}
+                >
+                  <AppRegistrationIcon />
+                  <FilterTitle>Filters</FilterTitle>
+                </FilterAreaBtn>
+              </FilterPart>
+
               <InputPart>
                 <SearchInput
                   type="text"
@@ -98,25 +106,11 @@ export default function Homepage(props) {
             </SearchFilterArea>
           </SearchSection>
         </NavbarPhoto>
-
         <div
           style={{
             display: "flex",
-            justifyContent: "center",
-            marginTop: "10px",
-            marginBottom: "20px",
           }}
         >
-          <div
-            style={{
-              display: width <= 850 ? "block" : "none",
-              position: "fixed",
-              top: "500px",
-              left: "0",
-            }}
-          >
-            <SwipeableTemporaryDrawer />
-          </div>
           <FilterDialog
             filteredPrices={filteredPrices}
             filterPriceCheckedFunction={filterPriceCheckedFunction}
@@ -128,9 +122,7 @@ export default function Homepage(props) {
           <div
             style={{
               display: "flex",
-
-              flexDirection: "column",
-              marginLeft: "20px",
+              alignItems: "flex-start",
             }}
           >
             {/* {parametrs
@@ -139,41 +131,24 @@ export default function Homepage(props) {
                     <div
                       style={{
                         border: "1px solid black",
-                        width: "500px",
-                        display: "flex",
                       }}
                     >
                       {" "}
                       <img
                         style={{
-                          width: "50%",
-                          height: "100%",
+                          height: "150px",
+                          width: "200px",
                         }}
                         src={photos[index].avatar[photos[index].profilePicture]}
                         alt=""
                       />
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "space-evenly",
-                        }}
-                      >
-                        <div>name:{item.restName}</div>
-                        <div>
-                          adress:{item.city} {item.address}
-                        </div>
-                        {/* <div>city:{item.city}</div> */}
-                        {/* <div>moods:{item.moods}</div> */}
-                        <div style={{ flexWrap: "wrap" }}>
-                          foodtypes:
-                          {item.foodTypes.length > 1
-                            ? item.foodTypes.join(", ")
-                            : item.foodTypes}
-                        </div>
-                        {/* <div>options:{item.options}</div> */}
-                        <div>price:{item.priceInfo}</div>
-                      </div>
+                      <div>name:{item.restName}</div>
+                      <div>adress:{item.address}</div>
+                      <div>city:{item.city}</div>
+                      <div>moods:{item.moods}</div>
+                      <div>foodtypes:{item.foodTypes}</div>
+                      <div>options:{item.options}</div>
+                      <div>price:{item.priceInfo}</div>
                     </div>
                   );
                 })
