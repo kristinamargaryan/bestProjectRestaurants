@@ -292,6 +292,7 @@ export default function Myprofile(props) {
             return (
               <div
                 style={{
+                  border:'1px solid black',
                   cursor: "pointer",
                   padding: "0px 15px",
                 }}
