@@ -19,7 +19,7 @@ export default function RestPhotoUploadButton(props) {
   const onFileChange = async (e) => {
     let urls = [];
 
-    setLoading(!loading);
+    setLoading(false);
     for (let file of e.target.files) {
       const storageRef = app.storage().ref();
       const fileRef = storageRef.child(uuid.v4());
@@ -31,10 +31,12 @@ export default function RestPhotoUploadButton(props) {
       : props.newUrlsmenu(props.fileUrlmenu.concat(urls));
   };
   useEffect(() => {
-    setLoading(!loading);
+    
+    props.fileUrl && setLoading(true);
   }, [props.fileUrl]);
   useEffect(() => {
-    setLoading(!loading);
+   
+    props.fileUrlmenu && setLoading(true);
   }, [props.fileUrlmenu]);
 
   return (

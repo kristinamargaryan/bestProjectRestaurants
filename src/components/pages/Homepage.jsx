@@ -31,7 +31,7 @@ export default function Homepage(props) {
     if (paramsArrayState && photosArrayState) {
       setParametrs(paramsArrayState);
       setPhotos(photosArrayState);
-      console.log(userParamsAndPhothos, photosArrayState, paramsArrayState);
+      console.log(userParamsAndPhothos);
     }
   }, [paramsArrayState, photosArrayState, userParamsAndPhothos]);
   const filterPriceCheckedFunction = (title, bul) => {
@@ -125,7 +125,7 @@ export default function Homepage(props) {
               alignItems: "flex-start",
             }}
           >
-            {parametrs
+            {/* {parametrs
               ? paramsArrayState.map((item, index) => {
                   return (
                     <div
@@ -152,7 +152,7 @@ export default function Homepage(props) {
                     </div>
                   );
                 })
-              : null}
+              : null} */}
           </div>
         </div>
       </div>

@@ -29,7 +29,7 @@ export default function Dashboard() {
 console.log(currentUser.uid)
   return (
     <div>
-      {!Object.keys(userRestPhotos).length === 0 ? (
+      {/* {!Object.keys(userRestPhotos).length === 0 ? (
         <div>
           <div
             style={{
@@ -66,7 +66,7 @@ console.log(currentUser.uid)
         <div>
           <div
             style={{
-              backgroundImage: `url(${userRestPhotos[profilePicture]}`,
+             
               backgroundSize: { userRestPhotos } ? "cover" : null,
               display: "flex",
               flexDirection: "column",
@@ -95,9 +95,10 @@ console.log(currentUser.uid)
             </Link>
           </div>
 
-          <button onClick={handleLogout}>Log Out</button>
+          
         </div>
-      )}
+      )} */}
+      <button onClick={handleLogout}>Log Out</button>
     </div>
   );
 }

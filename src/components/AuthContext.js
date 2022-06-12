@@ -14,25 +14,54 @@ export default function AuthProvaider({ children }) {
   const [userRestPhotos, setUserRestPhotos] = useState({});
   const [userRestPhotosmenu, setUserRestPhotosmenu] = useState({});
   const [profilePicture, setProfilePicture] = useState(0);
+  const [userRestParams1, setUserRestParams1] = useState({});
+  const [userRestPhotos1, setUserRestPhotos1] = useState({});
+  const [userRestPhotosmenu1, setUserRestPhotosmenu1] = useState({});
+  const [profilePicture1, setProfilePicture1] = useState("0");
   const [photosArrayState, setPhotosArrayState] = useState();
   const [paramsArrayState, setParamsArrayState] = useState();
   const [userParamsAndPhothos, setUserParamsAndPhothos] = useState();
-  const all = async function () {
+  // const all = async function () {
+  //   let photosArray = [];
+  //   let paramsArray = [];
+  //   const photos = db.collection("restaurantsPhoto");
+  //   const allPhotos = await photos.get();
+  //   allPhotos.forEach((doc) => {
+  //     photosArray.push(doc.data());
+  //   });
+  //   const params = db.collection("restaurants");
+  //   const allParams = await params.get();
+  //   allParams.forEach((doc) => {
+  //     paramsArray.push(doc.data());
+  //   });
+  //   setUserParamsAndPhothos(
+  //     paramsArray.map((user, index) => {
+  //       user.photos = photosArray[index];
+  //       return user;
+  //     })
+  //   );
+  //   setPhotosArrayState(photosArray);
+  //   setParamsArrayState(paramsArray);
+  // };
+  const all1 = async function () {
     let photosArray = [];
     let paramsArray = [];
-    const photos = db.collection("restaurantsPhoto");
+    const photos = db.collection("restaurantsPhoto1");
     const allPhotos = await photos.get();
     allPhotos.forEach((doc) => {
       photosArray.push(doc.data());
     });
-    const params = db.collection("restaurants");
+    const params = db.collection("restaurants1");
     const allParams = await params.get();
     allParams.forEach((doc) => {
       paramsArray.push(doc.data());
     });
     setUserParamsAndPhothos(
       paramsArray.map((user, index) => {
-        user.photos = photosArray[index];
+        for (let key in user) {
+          user[key].photos = photosArray[index][key];
+        }
+
         return user;
       })
     );
@@ -40,33 +69,32 @@ export default function AuthProvaider({ children }) {
     setParamsArrayState(paramsArray);
   };
   const logOutUpdate = () => {
-    setUserRestPhotos({});
-    setUserRestPhotosmenu({});
-    setUserRestParams({});
+    setUserRestPhotos1({});
+    setUserRestParams1({});
   };
-  async function allDataFirestore() {
+
+  async function allDataFirestore1() {
     const restRefPhotos = db
-      .collection("restaurantsPhoto")
+      .collection("restaurantsPhoto1")
       .doc(currentUser.uid);
-    const restRefParams = db.collection("restaurants").doc(currentUser.uid);
+    const restRefParams = db.collection("restaurants1").doc(currentUser.uid);
 
     const docPhotos = await restRefPhotos.get();
     const docParams = await restRefParams.get();
 
     if (!docParams.exists || !docPhotos.exists) {
-      setUserRestPhotos({});
-      setUserRestParams({});
-      setUserRestPhotosmenu({});
+      setUserRestPhotos1({});
+      setUserRestParams1({});
+      setUserRestPhotosmenu1({});
 
       console.log("No such document!");
     } else {
       const dataParams = docParams.data();
       const dataPhotos = docPhotos.data();
+      setUserRestParams1(dataParams);
+      setUserRestPhotos1(dataPhotos);
 
-      setUserRestParams(dataParams);
-      setUserRestPhotos(dataPhotos.avatar);
-      setUserRestPhotosmenu(dataPhotos.menuPhotos);
-      setProfilePicture(dataPhotos.profilePicture);
+      setProfilePicture1(dataPhotos);
     }
   }
 
@@ -104,18 +132,18 @@ export default function AuthProvaider({ children }) {
   }, []);
   useEffect(() => {
     if (currentUser) {
-      allDataFirestore();
+      allDataFirestore1();
     }
   }, [currentUser]);
 
   useEffect(() => {
-    all();
+    all1();
   }, []);
 
   const value = {
     logOutFunc: logOutUpdate,
-    updater: allDataFirestore,
-    updaterAll: all,
+    updater1: allDataFirestore1,
+    updaterAll1: all1,
     photosArrayState,
     paramsArrayState,
     userParamsAndPhothos,
@@ -124,6 +152,10 @@ export default function AuthProvaider({ children }) {
     userRestPhotos,
     userRestPhotosmenu,
     currentUser,
+    userRestParams1,
+    userRestPhotos1,
+    userRestPhotosmenu1,
+    profilePicture1,
     login,
     signup,
     logout,
