@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import app, { auth } from "../../firebase";
 import { useState, useEffect } from "react";
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../AuttProvider";
 import LoadingButton from "@mui/lab/LoadingButton";
 import * as uuid from "uuid";
 import DeleteIcon from '@mui/icons-material/Delete';

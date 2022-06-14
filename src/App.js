@@ -5,7 +5,7 @@ import Homepage from "./components/pages/Homepage";
 import About from "./components/pages/About";
 import ForBisness from "./components/pages/ForBisness";
 import ContactUs from "./components/pages/ContactUs";
-import { useAuth } from "./components/AuthContext";
+import { useAuth } from "./components/AuttProvider";
 import Dashboard from "./components/pages/Dashboard";
 import UpdateProfile from "./components/pages/UpdateProfile";
 import MyRest from "./components/pages/MyRest";

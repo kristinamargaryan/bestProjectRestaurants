@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../AuttProvider";
 import { useNavigate } from "react-router-dom";
 export default function Dashboard() {
   const [error, setError] = useState("");

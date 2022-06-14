@@ -3,7 +3,7 @@ import PriceInfo from "../Myprofile/PriceInfo";
 import RestCity from "../Myprofile/RestCity";
 import NameAndAddress from "../Myprofile/NameAndAddress";
 import Rest_types_options_moods from "../Myprofile/RestTypesOptionsMoods";
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../AuttProvider";
 import { db } from "../../firebase";
 import RestPhotoUploadButton from "../Myprofile/RestPhotosUploadButton";
 import BtnSend from "../Myprofile/BtnSend";
