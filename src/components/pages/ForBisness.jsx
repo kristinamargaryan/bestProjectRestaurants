@@ -1,6 +1,6 @@
 import React from "react";
 import Myprofile from "./Myprofile";
-import { useAuth } from "../AuttProvider";
+import { useAuth } from "../AuthProvider";
 import ModalLoginDialog from "../ModalLogin";
 import styled from "@emotion/styled";
 

@@ -1,7 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useState, useRef } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -9,57 +12,42 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthProvider";
-import { TextField } from "@mui/material";
-import { HOMEPAGE_ROUTE } from "../../constants/constants";
+import { HOMEPAGE_ROUTE, SIGNIN_ROUTE } from "../../constants/constants";
+import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 
 const theme = createTheme();
 
-export default function UpdateProfile() {
-
+export default function SignUp() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { currentUser, updatePassword, updateEmail } = useAuth();
+  const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match");
     }
 
-    const promises = [];
-    setLoading(true);
-    setError("");
-    if (emailRef.current.value !== currentUser.email) {
-      promises.push(updateEmail(emailRef.current.value));
+    try {
+      setError("");
+      setLoading(true);
+      await signup(emailRef.current.value, passwordRef.current.value);
+      navigate(HOMEPAGE_ROUTE);
+    } catch {
+      setError("Falied to create an account");
     }
 
-    if (passwordRef.current.value) {
-      promises.push(updatePassword(passwordRef.current.value));
-    }
-
-    Promise.all(promises)
-      .then(() => {
-        navigate(HOMEPAGE_ROUTE);
-      })
-      .catch(() => {
-        setError("Failed to update account");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    setLoading(false);
   }
-
   return (
-    <div style={{ height: 'calc(100vh - 363px)' }}>
+    <div style={{height: 'calc(100vh - 363px)'}}>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -75,25 +63,26 @@ export default function UpdateProfile() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              {"Update Profile"}
+              Sign up
             </Typography>
-            {error && (<Alert
-              style={{ margin: "10px 0 5px", width: "100%", padding: "0 10px" }}
-              fullWidth
-              severity="error"
-            >
-              {error}
-            </Alert>)}
-            <Box
-              component="form"
-              noValidate
-              sx={{ mt: 3 }}
-            >
+            {error && (
+              <Alert
+                style={{
+                  width: "100%",
+                  padding: "0 10px",
+                  margin: "10px 0 5px",
+                }}
+                fullWidth
+                severity="error"
+              >
+                {error}
+              </Alert>
+            )}
+            <Box component="form" sx={{ mt: 3 }}>
               <Grid container spacing={2}>
-                <Grid id="email" item xs={12}>
+                <Grid item xs={12}>
                   <TextField
                     inputRef={emailRef}
-                    defaultValue={currentUser.email}
                     required
                     fullWidth
                     id="email"
@@ -102,12 +91,11 @@ export default function UpdateProfile() {
                     autoComplete="email"
                   />
                 </Grid>
-                <Grid id="password" item xs={12}>
+                <Grid item xs={12}>
                   <TextField
                     inputRef={passwordRef}
                     required
                     fullWidth
-                    placeholder="Leave blank to keep the same"
                     name="password"
                     label="Password"
                     type="password"
@@ -115,16 +103,15 @@ export default function UpdateProfile() {
                     autoComplete="new-password"
                   />
                 </Grid>
-                <Grid id="password-confirm" item xs={12}>
+                <Grid item xs={12}>
                   <TextField
                     inputRef={passwordConfirmRef}
                     required
                     fullWidth
-                    placeholder="Leave blank to keep the same"
                     name="password"
-                    label="Password-Confirmation"
+                    label="Password-Configuration"
                     type="password"
-                    id="password-Confirmation"
+                    id="password-config"
                     autoComplete="new-password"
                   />
                 </Grid>
@@ -134,15 +121,14 @@ export default function UpdateProfile() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                disabled={loading}
                 onClick={handleSubmit}
               >
-                Update
+                Sign Up
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link style={{ cursor: 'pointer' }} onClick={() => navigate(HOMEPAGE_ROUTE)} variant="body2">
-                    {"Cancel"}
+                  <Link style={{cursor:'pointer'}} onClick={() => navigate(SIGNIN_ROUTE)} variant="body2">
+                    Already have an account? Sign in
                   </Link>
                 </Grid>
               </Grid>
