@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useState } from "react";
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../AuttProvider";
 
 export default function RestTypesOptionsMoods(props) {
   let [bul, setBul] = useState(false);
@@ -14,7 +14,6 @@ export default function RestTypesOptionsMoods(props) {
       <h3
         style={{
           margin: "2px",
-          textAlign: "center",
         }}
       >
         Select {props.name}{" "}
@@ -24,7 +23,10 @@ export default function RestTypesOptionsMoods(props) {
       {props.list.map((item, index) => (
         <label
           style={{
-            fontFamily: "sans-serif",
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            justifyContent: 'left',
           }}
           key={index}
         >
@@ -34,14 +36,14 @@ export default function RestTypesOptionsMoods(props) {
             value={item.value}
             onChange={props.handleChange}
           />{" "}
+
           {item.label}
         </label>
       ))}
-
       <div
         style={{
           backgroundColor: "#318CE7",
-          marginTop: "5px",
+          marginBottom: '5px',
         }}
       >
         Selected Types: {props.type.length ? props.type.join(", ") : null}

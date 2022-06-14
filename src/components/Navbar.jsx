@@ -12,7 +12,7 @@ import BtnComp from "./BtnComp";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./AuttProvider";
 import{HomePage_Route, About_Route, ContactUs_Route, Forbusiness_Route, ForbusinessMyrest_Route} from "./constants/constants";
 
 export default function PrimarySearchAppBar() {

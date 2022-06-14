@@ -5,7 +5,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import * as uuid from "uuid";
 export default function PriceInfo(props) {
-  let prices = ["$", "$$", "$$$", "$$$$", "$$$$$"];
+  let prices = ["$", "$$", "$$$", "$$$$"];
   
   return (
     <FormControl style={{

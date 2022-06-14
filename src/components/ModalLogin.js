@@ -1,6 +1,6 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./AuttProvider";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import styled from "@emotion/styled";

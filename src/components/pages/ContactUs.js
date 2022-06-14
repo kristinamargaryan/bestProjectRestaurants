@@ -4,20 +4,19 @@ import Grid from "@mui/material/Grid";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Link from "@mui/material/Link";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import LinkedInIcon from  "@mui/icons-material/LinkedIn";
-import TwitterIcon from  "@mui/icons-material/Twitter";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import TwitterIcon from "@mui/icons-material/Twitter";
 import { db } from "../../firebase";
-import Button from '@material-ui/core/Button';
-import SendIcon from '@mui/icons-material/Send';
+import Button from "@material-ui/core/Button";
+import SendIcon from "@mui/icons-material/Send";
 import DescriptionAlerts from "../DescriptionAlerts";
 import Container from "@mui/material/Container";
 import { styled } from '@mui/material/styles';
-
 
 
 
@@ -26,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
+
     height: '100%',
     padding: theme.spacing(2),
     color: theme.palette.text.secondary,
@@ -78,15 +78,16 @@ const useStyles = makeStyles((theme) => ({
     '@media (max-width: 768px)': {
       maxWidth:'60%',
     }
+
   },
-  links:{
+  links: {
     fontSize: "2em",
-    paddingTop:"7px",
-    paddingRight:"10px",
+    paddingTop: "7px",
+    paddingRight: "10px",
   },
   button: {
     marginTop: theme.spacing(1),
-    size:"large",
+    size: "large",
   },
   container: {
     width: '100vh',
@@ -123,12 +124,11 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-
 export default function ContactUs() {
   const classes = useStyles();
-  const [name, setName] =  useState("");
-  const [email, setEmail] =  useState("");
-  const [message, setMessage] =  useState(""); 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const [loader, setLoader] = useState(false);
 
   const handleSubmit = (e) => {
@@ -144,11 +144,10 @@ export default function ContactUs() {
       .then(() => {
         setLoader(true);
         // alert('Your message has been submitted!');
-  
-        setTimeout(()=>{
-          setLoader(false)
-        },3000)
-        
+
+        setTimeout(() => {
+          setLoader(false);
+        }, 3000);
       })
       .catch((error) => {
         alert(error.message);
@@ -160,8 +159,8 @@ export default function ContactUs() {
     setMessage("");
   };
 
-
   return (
+
     <Box className={classes.paper}>
     <Box   gridTemplateColumns="repeat(12, 1fr)"  gap={2} className={classes.boxik} >
        <Box  className={classes.boxOne}>
@@ -240,4 +239,5 @@ export default function ContactUs() {
             </Box> 
             </Box>
   )
+
 }
