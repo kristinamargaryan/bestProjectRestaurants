@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../AuthContext";
 import LoadingButton from "@mui/lab/LoadingButton";
 import * as uuid from "uuid";
+import DeleteIcon from '@mui/icons-material/Delete';
 const Input = styled("input")({
   display: "none",
 });
@@ -41,6 +42,9 @@ export default function RestPhotoUploadButton(props) {
     <Stack
       style={{
         margin: "5px",
+        display: 'flex',
+        flexDirection: 'column'
+
       }}
       direction="row"
       alignItems="center"
@@ -57,7 +61,7 @@ export default function RestPhotoUploadButton(props) {
           />
 
           {loading ? (
-            <Button size="small" variant="contained" component="span">
+            <Button style={{ width: '290px', }} variant="contained" component="span">
               {props.title}
             </Button>
           ) : (
@@ -69,11 +73,17 @@ export default function RestPhotoUploadButton(props) {
           )}
         </form>
       </label>
-      {props.fileUrl
-        ? props.fileUrl.map((url, index) => (
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        {props.fileUrl
+          ? props.fileUrl.map((url, index) => (
             <div
               style={{
                 cursor: "pointer",
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+
               }}
               id={index}
               onClick={(ev) => {
@@ -88,19 +98,25 @@ export default function RestPhotoUploadButton(props) {
             >
               <img
                 style={{
-                  height: "10px",
-                  width: "15px",
+                  marginTop: '10px',
+                  height: "50px",
+                  width: "50px",
+                  margin: '3px'
                 }}
                 src={url}
                 alt=""
               />
-              x
+              <DeleteIcon style={{ color: 'red', width: '15px' }} />
             </div>
           ))
-        : props.fileUrlmenu.map((url, index) => (
+          : props.fileUrlmenu.map((url, index) => (
             <div
               style={{
                 cursor: "pointer",
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
               id={index}
               onClick={(ev) => {
@@ -115,16 +131,19 @@ export default function RestPhotoUploadButton(props) {
             >
               <img
                 style={{
-                  height: "10px",
-                  width: "15px",
+                  marginTop: '10px',
+                  height: "50px",
+                  width: "50px",
+                  margin: '3px'
                 }}
                 src={url}
                 alt=""
                 id={index}
               />
-              x
+               <DeleteIcon style={{ color: 'red', width: '15px' }} />
             </div>
           ))}
+      </div>
     </Stack>
   );
 }

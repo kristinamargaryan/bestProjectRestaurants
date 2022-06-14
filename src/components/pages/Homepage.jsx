@@ -16,6 +16,7 @@ import {
   SearchInput,
   IconButton,
 } from "../CssFolder/StyleHomePage";
+import SwipeableTemporaryDrawer from "../DrawersFolter";
 
 export default function Homepage(props) {
   const { photosArrayState, paramsArrayState, userParamsAndPhothos } =
@@ -111,6 +112,7 @@ export default function Homepage(props) {
             display: "flex",
           }}
         >
+          <SwipeableTemporaryDrawer />
           <FilterDialog
             filteredPrices={filteredPrices}
             filterPriceCheckedFunction={filterPriceCheckedFunction}
@@ -125,6 +127,7 @@ export default function Homepage(props) {
               alignItems: "flex-start",
             }}
           >
+            
             {/* {parametrs
               ? paramsArrayState.map((item, index) => {
                   return (

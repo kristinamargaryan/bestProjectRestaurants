@@ -20,7 +20,7 @@ export default function Footer() {
     const goAbout = () => navigate(About_Route);
     const goContactUs = () => navigate(ContactUs_Route);
     return (
-    <footer style={{display:'flex', alignItems: 'flex-end', width: '100%'}}>
+    <footer style={{display:'flex', alignSelf: 'flex-end', alignItems: 'flex-end', width: '100%'}}>
         <Box style={{ backgroundColor:"black",color:"#48A14F", paddingTop: '30px', paddingBottom: '30px', width: '100%'}} >
             <Container maxWidth="xl" style={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
                 <Grid container spacing={5}>
