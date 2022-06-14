@@ -4,7 +4,6 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterDialog from "../FilterDialog";
 import { useAuth } from "../AuthContext";
-
 import {
   NavbarPhoto,
   SearchSection,
@@ -16,25 +15,31 @@ import {
   SearchInput,
   IconButton,
 } from "../CssFolder/StyleHomePage";
-import SwipeableTemporaryDrawer from "../DrawersFolter";
-
 export default function Homepage(props) {
   const { photosArrayState, paramsArrayState, userParamsAndPhothos } =
     useAuth();
-
   const [showFilterDialog, setShowFilterDialog] = useState(false);
-  const [parametrs, setParametrs] = useState();
-  const [photos, setPhotos] = useState();
+  const [allRestaurantsArr, setAllrestaurantsArr] = useState([]);
   const [filteredMoods, setFilteredMoods] = useState([]);
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [filteredPrices, setFilteredPrices] = useState([]);
   useEffect(() => {
-    if (paramsArrayState && photosArrayState) {
-      setParametrs(paramsArrayState);
-      setPhotos(photosArrayState);
-      console.log(userParamsAndPhothos);
+    if (userParamsAndPhothos) {
+      uniqueRestaurantFunction();
     }
-  }, [paramsArrayState, photosArrayState, userParamsAndPhothos]);
+  }, [userParamsAndPhothos]);
+  useEffect(() => {
+    console.log(allRestaurantsArr);
+  }, [allRestaurantsArr]);
+  const uniqueRestaurantFunction = () => {
+    let allRestaurants = [];
+    for (let userRestaurants of userParamsAndPhothos) {
+      for (let restaurant in userRestaurants) {
+        allRestaurants.push(userRestaurants[restaurant]);
+      }
+    }
+    setAllrestaurantsArr(allRestaurants);
+  };
   const filterPriceCheckedFunction = (title, bul) => {
     bul
       ? setFilteredPrices(
@@ -53,7 +58,6 @@ export default function Homepage(props) {
         )
       : setFilteredOptions([...filteredOptions, title]);
   };
-
   const filterMoodsCheckedFunction = (title, bul) => {
     bul
       ? setFilteredMoods(
@@ -63,19 +67,15 @@ export default function Homepage(props) {
         )
       : setFilteredMoods([...filteredMoods, title]);
   };
-
   const handleClickOpen = () => {
     setShowFilterDialog(!showFilterDialog);
   };
-
   const handleClose = () => {
     setShowFilterDialog(!showFilterDialog);
   };
-
   const filterDialogShow = () => {
     setShowFilterDialog(!showFilterDialog);
   };
-
   return (
     <>
       <div>
@@ -92,14 +92,12 @@ export default function Homepage(props) {
                   <FilterTitle>Filters</FilterTitle>
                 </FilterAreaBtn>
               </FilterPart>
-
               <InputPart>
                 <SearchInput
                   type="text"
                   label="foolwidth"
                   placeholder="Ereven, Armenia"
                 ></SearchInput>
-
                 <IconButton>
                   <SearchIcon style={{ color: "#fff" }} />
                 </IconButton>
@@ -112,7 +110,6 @@ export default function Homepage(props) {
             display: "flex",
           }}
         >
-          <SwipeableTemporaryDrawer />
           <FilterDialog
             filteredPrices={filteredPrices}
             filterPriceCheckedFunction={filterPriceCheckedFunction}
@@ -127,7 +124,13 @@ export default function Homepage(props) {
               alignItems: "flex-start",
             }}
           >
-            
+            {allRestaurantsArr.length &&
+              allRestaurantsArr.map((restaurant, index) => {
+                return <div>{restaurant.restName}<img style={{
+                  width:'100px',
+                  height:'100px'
+                }}  src={restaurant.photos.avatar[restaurant.photos.profilePicture]}/></div>;
+              })}
             {/* {parametrs
               ? paramsArrayState.map((item, index) => {
                   return (

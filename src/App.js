@@ -38,10 +38,6 @@ function App() {
           element={<Dashboard />}
         />
         <Route path={Forbusiness_Route} element={<ForBisness />} />
-        <Route
-          path={ForbusinessMyrest_Route}
-          element={<MyRest currentUser={currentUser} />}
-        />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />

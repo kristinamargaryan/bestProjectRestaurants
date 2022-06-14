@@ -19,6 +19,7 @@ import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import useWindowDimensions from "../WindowResize";
 // import CreateRestaurants from "../CreateRestaurants";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import "react-alice-carousel/lib/alice-carousel.css";
 const Img = styled("img")({
@@ -476,7 +477,7 @@ export default function Myprofile(props) {
                               width: "5px",
                             }}
                           >
-                            x
+                            <DeleteIcon style={{color: 'red'}} />
                           </div>
                         </div>
                       </>
@@ -508,7 +509,7 @@ export default function Myprofile(props) {
                               width: "5%",
                             }}
                           >
-                            x
+                            <DeleteIcon style={{color: 'red'}} />
                           </div>
                         </div>
                       </>
