@@ -4,6 +4,7 @@ import { AboutSlider, AboutSliderSecond } from "../AboutSlider";
 import { useNavigate } from "react-router-dom";
 import {QuiltedImageList} from "../AboutImgList";
 import {CustomImageList, CustomImageListSecond} from "../AboutImgSecondList";
+import { HOMEPAGE_ROUTE } from "../../constants/constants";
 
 
 
@@ -151,7 +152,7 @@ const FooterImagesList = styled.div`
 export default function About({ currentUser }) {
   
   const navigate = useNavigate();
-  const goHome = () => navigate("/");
+  const goHome = () => navigate(HOMEPAGE_ROUTE);
   return (
     <AboutContainer>
       <div>

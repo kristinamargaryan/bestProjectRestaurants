@@ -3,7 +3,7 @@ import PriceInfo from "../Myprofile/PriceInfo";
 import RestCity from "../Myprofile/RestCity";
 import NameAndAddress from "../Myprofile/NameAndAddress";
 import Rest_types_options_moods from "../Myprofile/RestTypesOptionsMoods";
-import { useAuth } from "../AuttProvider";
+import { useAuth } from "../AuthProvider";
 import { db } from "../../firebase";
 import RestPhotoUploadButton from "../Myprofile/RestPhotosUploadButton";
 import BtnSend from "../Myprofile/BtnSend";
@@ -18,7 +18,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import useWindowDimensions from "../WindowResize";
-// import CreateRestaurants from "../CreateRestaurants";
+import CreateRestaurants from "../CreateRestaurants";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import "react-alice-carousel/lib/alice-carousel.css";
@@ -360,93 +360,7 @@ export default function Myprofile(props) {
         <div style={{ display: "flex" }}>
           <div>
             {open && (
-              <>
-                <h2 style={{ textAlign: "center" }}>Edit Restaurant</h2>
-                <div
-                  style={{
-                    width: "300px",
-                    border: "1px solid #000",
-                    borderRadius: "5px",
-                    display: "flex",
-                    flexDirection: "column",
-                    padding: "15px",
-                    marginRight: "10px",
-                    // backgroundColor: 'rgba(0,0,0,0.5)'
-                  }}
-                >
-                  <div>
-                    <RestCity city={city} handleChangeCity={handleChangeCity} />
-                    <NameAndAddress
-                      forLabel="Restaurant Name"
-                      info={restName}
-                      handleChange={handleChangeRestName}
-                    />
-                    <NameAndAddress
-                      forLabel="Restaurant Address"
-                      info={address}
-                      handleChange={handleChangeAddress}
-                    />
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <PhoneInput
-                        style={{
-                          width: "100%",
-                          marginBottom: "10px",
-                          textAlign: "center",
-                        }}
-                        name="tel"
-                        type="tel"
-                        defaultCountry="AM"
-                        placeholder="Phone number"
-                        value={phoneNumber}
-                        onChange={setPhoneNumber}
-                      />
-
-                      <RestPhotoUploadButton
-                        title="Restaurant Photos"
-                        fileUrl={fileUrl}
-                        newUrls={newUrls}
-                      />
-                      <RestPhotoUploadButton
-                        title="Menu Photos"
-                        fileUrlmenu={fileUrlmenu}
-                        newUrlsmenu={newUrlsmenu}
-                      />
-                    </div>
-                  </div>
-                  <PriceInfo
-                    priceInfo={priceInfo}
-                    changePriceInfo={changePriceInfo}
-                  />
-                  <Rest_types_options_moods
-                    list={moodesList}
-                    handleChange={handleChangeMoods}
-                    type={moods}
-                    name={"Moods"}
-                  />
-
-                  <Rest_types_options_moods
-                    list={optionsList}
-                    handleChange={handleChangeOptions}
-                    type={options}
-                    name={"Options"}
-                  />
-                  <Rest_types_options_moods
-                    list={foodTypesList}
-                    handleChange={handleChangeFoodTypes}
-                    type={foodTypes}
-                    name={"Foodtypes"}
-                  />
-
-                  <BtnSend data={data} savechanges={savechanges} />
-                </div>
-              </>
+              <CreateRestaurants />
             )}
           </div>
           <div style={{ display: "flex", marginTop: "22px", width: "100%" }}>

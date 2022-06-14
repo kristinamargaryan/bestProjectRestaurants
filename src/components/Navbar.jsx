@@ -12,18 +12,27 @@ import BtnComp from "./BtnComp";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./AuttProvider";
-import{HomePage_Route, About_Route, ContactUs_Route, Forbusiness_Route, ForbusinessMyrest_Route} from "./constants/constants";
+import { useAuth } from "./AuthProvider";
+import {
+  HOMEPAGE_ROUTE,
+  ABOUT_ROUTE,
+  CONTACTUS_ROUTE,
+  FORBUSINES_ROUTE,
+  FORBUSINESMYREST_ROUTE,
+  UPDATEPROFILE_ROUTE,
+  SIGNIN_ROUTE,
+  SIGNUP_ROUTE,
+} from "../constants/constants";
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [userHave, setUserHave] = useState(false);
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
-  const dashboard = () => navigate(currentUser.email);
-  const myrest = () => navigate(ForbusinessMyrest_Route);
-  const { currentUser, userRestParams, userRestPhotos } = useAuth();
+  const myrest = () => navigate(FORBUSINESMYREST_ROUTE);
+  const { currentUser, logOutFunc, logout } = useAuth();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -44,6 +53,17 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  async function handleLogout() {
+    logOutFunc();
+    setError("");
+    try {
+      await logout();
+      navigate(HOMEPAGE_ROUTE);
+    } catch {
+      setError("failed to log out");
+    }
+  }
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -62,10 +82,10 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>
-        <div onClick={myrest}>Settings</div>
+        <div onClick={() => navigate(UPDATEPROFILE_ROUTE)}>Update Profile</div>
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <div onClick={dashboard}>Profile</div>
+      <MenuItem onClick={handleLogout}>
+        <div>Log-Out</div>
       </MenuItem>
     </Menu>
   );
@@ -87,28 +107,12 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <IconButton
-        onClick={myrest}
-        size="large"
-        aria-label="account of current user"
-        aria-controls="primary-search-account-menu"
-        aria-haspopup="true"
-        color="inherit"
-      >
-        <AccountCircle />
-        <p>Settings</p>
-      </IconButton>
-      <IconButton
-        onClick={dashboard}
-        size="large"
-        aria-label="account of current user"
-        aria-controls="primary-search-account-menu"
-        aria-haspopup="true"
-        color="inherit"
-      >
-        <AccountCircle />
-        <p>Profile</p>
-      </IconButton>
+      <MenuItem onClick={handleMenuClose}>
+        <div onClick={() => navigate(UPDATEPROFILE_ROUTE)}>Update Profile</div>
+      </MenuItem>
+      <MenuItem onClick={handleLogout}>
+        <div>Log-Out</div>
+      </MenuItem>
     </Menu>
   );
 
@@ -123,7 +127,7 @@ export default function PrimarySearchAppBar() {
             // sx={{ display: { xs: "none", sm: "block" } }}
           >
             {" "}
-            <Link to={HomePage_Route}>
+            <Link to={HOMEPAGE_ROUTE}>
               <img
                 className="imgg"
                 style={{
@@ -141,7 +145,7 @@ export default function PrimarySearchAppBar() {
             style={{
               textDecoration: "none",
             }}
-            to={About_Route}
+            to={ABOUT_ROUTE}
           >
             <BtnComp title={"About"}></BtnComp>
           </Link>
@@ -149,26 +153,39 @@ export default function PrimarySearchAppBar() {
             style={{
               textDecoration: "none",
             }}
-            to={ ContactUs_Route}
+            to={CONTACTUS_ROUTE}
           >
             <BtnComp title={"Contact Us"}></BtnComp>
           </Link>
-          <Link
-            style={{
-              textDecoration: "none",
-            }}
-            to={Forbusiness_Route}
-          >
-            <BtnComp
-              title={
-                (Object.keys(userRestParams).length > 0 ||
-                  Object.keys(userRestPhotos).length > 0) &&
-                currentUser
-                  ? "Edit"
-                  : "For business "
-              }
-            ></BtnComp>
-          </Link>
+          {!!currentUser ? (
+            <Link
+              style={{
+                textDecoration: "none",
+              }}
+              to={FORBUSINES_ROUTE}
+            >
+              <BtnComp title={"MY RESTAURANTS"}></BtnComp>
+            </Link>
+          ) : (
+            <>
+              <Link
+                style={{
+                  textDecoration: "none",
+                }}
+                to={SIGNIN_ROUTE}
+              >
+                <BtnComp title={"SIGN-IN"}></BtnComp>
+              </Link>
+              <Link
+                style={{
+                  textDecoration: "none",
+                }}
+                to={SIGNUP_ROUTE}
+              >
+                <BtnComp title={"SIGN-UP"}></BtnComp>
+              </Link>
+            </>
+          )}
 
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             {!!currentUser ? (
