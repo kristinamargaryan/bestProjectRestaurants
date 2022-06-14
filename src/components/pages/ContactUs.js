@@ -15,6 +15,10 @@ import { db } from "../../firebase";
 import Button from '@material-ui/core/Button';
 import SendIcon from '@mui/icons-material/Send';
 import DescriptionAlerts from "../DescriptionAlerts";
+import Container from "@mui/material/Container";
+import { styled } from '@mui/material/styles';
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,40 +26,58 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    height: 'auto',
+    height: '100%',
     padding: theme.spacing(2),
     color: theme.palette.text.secondary,
-  },
-  box: {
-    display: 'flex',
     
   },
-  box2: {
-    paddingRight: '5px',
-    paddingBottom: '10px',
-  },
   form_left: {
-    width: '100%',
-    maxWidth:'700px',
+    width: '100vh',
     display:  'flex',
     flexDirection: 'column',
   },
-  input:{
-    fontSize:'18px',
-    height: '30px',
-    width:"330px",
+  input1:{
+    fontSize:'24px', 
+    maxWidth:'80%',
+    '@media (max-width: 768px)': {
+      fontSize:'16px',
+      maxWidth:'60%',
+    }
   },
-  inputs:{
+
+ input2:{
+    fontSize:'24px', 
+    maxWidth:'80%',
+    marginLeft:'3px',
+     '@media (max-width: 768px)': {
+      marginLeft:'0px',
+      marginTop:'3px',
+      fontSize:'16px',
+      maxWidth:'60%',
+    }
+  },
+  all:{
     display:'flex',
-    justifyContent: 'space-between',
-    padding:'3px'
+    flexDirection: 'column',
+  },
+
+  inputs: {
+    display: "flex",
+    justifyContent: "space-between",
+    paddingBottom:"3px",
+    '@media (max-width: 768px)': {
+      flexDirection: 'column'
+    }
   
   },
+
+  
   textarea:{
-  fontSize: "1.5em",
-  maxWidth:'700px',
-  minWidth:'700px',
-  minHeight: '210px'
+    fontSize:'24px', 
+    maxWidth:'80%',
+    '@media (max-width: 768px)': {
+      maxWidth:'60%',
+    }
   },
   links:{
     fontSize: "2em",
@@ -66,6 +88,39 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     size:"large",
   },
+  container: {
+    width: '100vh',
+    display: 'flex', 
+    justifyContent: 'space-between',
+    
+  },
+  grid: {
+    '@media (max-width: 768px)': {
+      display: 'none', 
+    }
+  },
+  boxik:{
+    display:"grid",
+    '@media (max-width: 768px)': {
+      display: 'flex', 
+    }
+  },
+  boxOne:{
+    gridColumn:"span 8",
+    '@media (max-width: 768px)': {
+      minWidth:"300px",
+      paddingLeft: '24px',
+    }
+  }
+  
+}));
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
 }));
 
 
@@ -107,18 +162,19 @@ export default function ContactUs() {
 
 
   return (
-    <div className={classes.root} >
-      <Grid container spacing={1}>
-        <Grid item xs={8}  >
+    <Box className={classes.paper}>
+    <Box   gridTemplateColumns="repeat(12, 1fr)"  gap={2} className={classes.boxik} >
+       <Box  className={classes.boxOne}>
         <Paper  elevation={3} className={classes.paper}>
           <form className={classes.form_left} onSubmit={handleSubmit}>
             <h1>Contact Us </h1>
             {loader && <DescriptionAlerts/>}
+            <div className={classes.all}>
             <div className={classes.inputs}>
-              
+          
               <input
                 type={name}
-                className={classes.input}
+                className={classes.input1}
                 placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -126,7 +182,7 @@ export default function ContactUs() {
               />
               <input
                 type= {email}
-                className={classes.input}
+                className={classes.input2}
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -142,6 +198,7 @@ export default function ContactUs() {
               onChange={(e) => setMessage(e.target.value)}
               
             />
+          </div>
             <div>
             
               <Button
@@ -157,9 +214,9 @@ export default function ContactUs() {
             </div>
           </form>
           </Paper>
-            </Grid>
-              <Grid className={classes.grid_right} item xs={4}>
-                <Paper className={classes.paper}>
+            </Box>
+            <Box gridColumn="span 4" className={classes.grid}>
+                <Paper className={classes.paper} >
                   <Box style={{ paddingBottom: '50px', display:'flex', flexDirection: 'column', alignItems: 'center'}}>COMPANY INFO
                     <CallOutlinedIcon style={{color: "#48A14F"}} /> <Box>   +374-77-77-77-77</Box>
                     <EmailOutlinedIcon style={{color: "#48A14F"}} /> <Box>   rest_am@yahoo.com </Box>
@@ -179,12 +236,8 @@ export default function ContactUs() {
                     <Box>10:00-18:00</Box>
                   </Box>
                 </Paper>
-              </Grid>
-            </Grid>
-      
-      </div>
-   
- 
- 
+              </Box>
+            </Box> 
+            </Box>
   )
 }
