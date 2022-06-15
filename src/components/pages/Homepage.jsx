@@ -31,6 +31,36 @@ export default function Homepage(props) {
   useEffect(() => {
     console.log(allRestaurantsArr);
   }, [allRestaurantsArr]);
+  function RestaurantOpenOrClose(openTime, closeTime) {
+    let [openHour, openMin] = openTime.split(":");
+    let [closeHour, closeMin] = closeTime.split(":");
+    let realTimeHour = +new Date().getHours();
+    let realTimeMin = +new Date().getMinutes();
+    openHour = +openHour;
+    openMin = +openMin;
+    closeHour = +closeHour;
+    closeMin = +closeMin;
+    if (openHour == closeHour && openMin == closeMin) {
+      return true;
+    }
+    if (openHour > closeHour) {
+      closeHour = closeHour + 24;
+      if (realTimeHour < closeHour) {
+        realTimeHour = realTimeHour + 24;
+      }
+    }
+    if (realTimeHour > openHour && realTimeHour < closeHour) {
+      return true;
+    } else if (realTimeHour == openHour) {
+      if (realTimeMin > openMin) {
+        return true;
+      } else return false;
+    } else if (realTimeHour == closeHour) {
+      if (realTimeMin > closeMin) {
+        return false;
+      } else return true;
+    } else return false;
+  }
   const uniqueRestaurantFunction = () => {
     let allRestaurants = [];
     for (let userRestaurants of userParamsAndPhothos) {
@@ -126,10 +156,32 @@ export default function Homepage(props) {
           >
             {allRestaurantsArr.length &&
               allRestaurantsArr.map((restaurant, index) => {
-                return <div>{restaurant.restName}<img style={{
-                  width:'100px',
-                  height:'100px'
-                }}  src={restaurant.photos.avatar[restaurant.photos.profilePicture]}/></div>;
+                return (
+                  <div>
+                   
+                    {restaurant.restName}
+                    <img
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                      }}
+                      src={
+                        restaurant.photos.avatar[
+                          restaurant.photos.profilePicture
+                        ]
+                      }
+                    />
+                     <p>
+                      {restaurant.openTime &&
+                        restaurant.closeTime &&
+                        RestaurantOpenOrClose(
+                          restaurant.openTime,
+                          restaurant.closeTime
+                        ) &&
+                        "opened"}
+                    </p>
+                  </div>
+                );
               })}
             {/* {parametrs
               ? paramsArrayState.map((item, index) => {

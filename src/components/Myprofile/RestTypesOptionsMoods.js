@@ -8,7 +8,7 @@ import { useAuth } from "../AuthProvider";
 export default function RestTypesOptionsMoods(props) {
   let [bul, setBul] = useState(false);
 
-  console.log(props)
+  
   const { currentUser, userRestParams, userRestPhotos } = useAuth();
   return (
     <div style={{}} className={props.name}>
