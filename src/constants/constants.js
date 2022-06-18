@@ -1,7 +1,7 @@
 export const HOMEPAGE_ROUTE = "/";
 export const ABOUT_ROUTE = "/about";
 export const CONTACTUS_ROUTE = "/contactus";
-export const FORBUSINES_ROUTE = "/forbusiness";
+export const FORBUSINES_ROUTE = "/myrestaurants";
 export const FORBUSINESMYREST_ROUTE = "forbusiness/myrest";
 export const UPDATEPROFILE_ROUTE = "/updateprofile";
 export const SIGNIN_ROUTE = '/signin';
