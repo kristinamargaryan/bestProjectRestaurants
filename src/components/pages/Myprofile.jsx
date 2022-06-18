@@ -20,8 +20,9 @@ import ButtonBase from "@mui/material/ButtonBase";
 import useWindowDimensions from "../WindowResize";
 import CreateRestaurants from "../CreateRestaurants";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import TimeOpenClose from "../Myprofile/TimeOpenClose";
 import "react-alice-carousel/lib/alice-carousel.css";
+
 const Img = styled("img")({
   margin: "auto",
   display: "block",
@@ -42,6 +43,9 @@ export default function Myprofile(props) {
   const [open, setOpen] = useState(false);
   const [restaurantEdit, setRestaurantEdit] = useState("");
   const [photos, setPhotos] = useState({});
+  const [openTime, setOpenTime] = useState("09:00");
+  const [closeTime, setCloseTime] = useState("22:00");
+  const [time24, setTime24] = useState(false);
   const [nowRest, setNowRest] = useState({});
   const { width } = useWindowDimensions();
 
@@ -68,6 +72,9 @@ export default function Myprofile(props) {
       setRestName(userRestParams1[restaurantEdit].restName);
       setPriceInfo(userRestParams1[restaurantEdit].priceInfo);
       setPhoneNumber(userRestParams1[restaurantEdit].phoneNumber);
+      setOpenTime(userRestParams1[restaurantEdit].openTime);
+      setCloseTime(userRestParams1[restaurantEdit].closeTime);
+      setTime24(userRestParams1[restaurantEdit].time24);
     }
   }, [restaurantEdit, userRestParams1]);
 
@@ -77,6 +84,9 @@ export default function Myprofile(props) {
     }
   }, [userRestParams1]);
   const data = {
+    openTime: openTime,
+    closeTime: closeTime,
+    time24: time24,
     restName: restName,
     address: address,
     moods: moods,
@@ -128,6 +138,9 @@ export default function Myprofile(props) {
     setRestaurantEdit("");
     setPhotos({});
     setNowRest({});
+    setOpenTime("09:00");
+    setCloseTime("22:00");
+    setTime24(false);
   };
   let savechanges = async (e) => {
     e.preventDefault();
@@ -258,6 +271,20 @@ export default function Myprofile(props) {
       setFoodTypes((prev) => prev.filter((x) => x !== value));
     }
   };
+  let openTimeFunc = (ev) => {
+    setOpenTime(ev.target.value);
+  };
+  let closeTimeFunc = (ev) => {
+    setCloseTime(ev.target.value);
+  };
+  let changeTime24 = (ev) => {
+    setTime24(!time24);
+    if (!time24) {
+      setOpenTime("00:00");
+      setCloseTime("00:00");
+    } else {setOpenTime("09:00");
+    setCloseTime("22:00")};
+  };
 
   const handleChangeCity = (event) => {
     setCity(event.target.value);
@@ -367,7 +394,110 @@ export default function Myprofile(props) {
         }}
       >
         <div style={{ display: "flex" }}>
+
           <div>{open && <CreateRestaurants />}</div>
+
+          <div>
+            {open && (
+              <>
+                <h2 style={{ textAlign: "center" }}>Edit Restaurant</h2>
+                <div
+                  style={{
+                    width: "300px",
+                    border: "1px solid #000",
+                    borderRadius: "5px",
+                    display: "flex",
+                    flexDirection: "column",
+                    padding: "15px",
+                    marginRight: "10px",
+                    // backgroundColor: 'rgba(0,0,0,0.5)'
+                  }}
+                >
+                  <div>
+                    <RestCity city={city} handleChangeCity={handleChangeCity} />
+                    <NameAndAddress
+                      forLabel="Restaurant Name"
+                      info={restName}
+                      handleChange={handleChangeRestName}
+                    />
+                    <NameAndAddress
+                      forLabel="Restaurant Address"
+                      info={address}
+                      handleChange={handleChangeAddress}
+                    />
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <PhoneInput
+                        style={{
+                          width: "100%",
+                          marginBottom: "10px",
+                          textAlign: "center",
+                        }}
+                        name="tel"
+                        type="tel"
+                        defaultCountry="AM"
+                        placeholder="Phone number"
+                        value={phoneNumber}
+                        onChange={setPhoneNumber}
+                      />
+                      <TimeOpenClose
+                        openTime={openTime}
+                        closeTime={closeTime}
+                        time24={time24}
+                        openTimeFunc={openTimeFunc}
+                        closeTimeFunc={closeTimeFunc}
+                        changeTime24={changeTime24}
+                      />
+
+                      <RestPhotoUploadButton
+                        title="Restaurant Photos"
+                        fileUrl={fileUrl}
+                        newUrls={newUrls}
+                      />
+                      <RestPhotoUploadButton
+                        title="Menu Photos"
+                        fileUrlmenu={fileUrlmenu}
+                        newUrlsmenu={newUrlsmenu}
+                      />
+                    </div>
+                  </div>
+                  <PriceInfo
+                    priceInfo={priceInfo}
+                    changePriceInfo={changePriceInfo}
+                  />
+
+                  <Rest_types_options_moods
+                    list={moodesList}
+                    handleChange={handleChangeMoods}
+                    type={moods}
+                    name={"Moods"}
+                  />
+
+                  <Rest_types_options_moods
+                    list={optionsList}
+                    handleChange={handleChangeOptions}
+                    type={options}
+                    name={"Options"}
+                  />
+                  <Rest_types_options_moods
+                    list={foodTypesList}
+                    handleChange={handleChangeFoodTypes}
+                    type={foodTypes}
+                    name={"Foodtypes"}
+                  />
+
+                  <BtnSend data={data} savechanges={savechanges} />
+                </div>
+              </>
+            )}
+          </div>
+
           <div style={{ display: "flex", marginTop: "22px", width: "100%" }}>
             <div style={{ marginRight: "10px" }}>
               {restaurantEdit &&
