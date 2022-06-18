@@ -394,9 +394,6 @@ export default function Myprofile(props) {
         }}
       >
         <div style={{ display: "flex" }}>
-
-          <div>{open && <CreateRestaurants />}</div>
-
           <div>
             {open && (
               <>

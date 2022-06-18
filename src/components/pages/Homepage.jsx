@@ -4,7 +4,7 @@ import '../../App.css';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterDialog from '../FilterDialog';
-import { useAuth } from '../AuttProvider';
+import { useAuth } from '../AuthProvider';
 import {
 	NavbarPhoto,
 	SearchSection,
