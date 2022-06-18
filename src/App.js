@@ -35,7 +35,6 @@ function App() {
     <div style={{position: 'relative', height: '100vh'}} className="App">
       <Navbar />
       <Routes>
-        <Route path={HOMEPAGE_ROUTE} element={<Homepage />} />
         {!currentUser ? (
           <>
             
@@ -43,12 +42,13 @@ function App() {
             <Route path={SIGNUP_ROUTE} element={<SignUp />} />
             <Route path={FORGOTPASSWORD_ROUTE} element={<ForgotPasswordPage />} />
           </>
-        ) : null}
+        ) : <Route path={`/${currentUser.uid}`} element={<SelectedRestaurant />} />}
+        <Route path={HOMEPAGE_ROUTE} element={<Homepage />} />
         <Route path={UPDATEPROFILE_ROUTE} element={<UpdateProfile />} />
         <Route path={ABOUT_ROUTE} element={<About />} />
         <Route path={CONTACTUS_ROUTE} element={<ContactUs />} />
         <Route path={FORBUSINES_ROUTE} element={<ForBisness />} />
-        <Route path={`/${currentUser.uid}`} element={<SelectedRestaurant />} />
+        
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
