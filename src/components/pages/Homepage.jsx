@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import '../../App.css';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
@@ -23,6 +24,7 @@ import {
 } from '../CssFolder/StyleHomePage';
 import zIndex from '@mui/material/styles/zIndex';
 export default function Homepage(props) {
+
 	const { photosArrayState, paramsArrayState, userParamsAndPhothos } =
 		useAuth();
 	const [showFilterDialog, setShowFilterDialog] = useState(false);

@@ -3,7 +3,7 @@ import PriceInfo from "../Myprofile/PriceInfo";
 import RestCity from "../Myprofile/RestCity";
 import NameAndAddress from "../Myprofile/NameAndAddress";
 import Rest_types_options_moods from "../Myprofile/RestTypesOptionsMoods";
-import { useAuth } from "../AuttProvider";
+import { useAuth } from "../AuthProvider";
 import { db } from "../../firebase";
 import RestPhotoUploadButton from "../Myprofile/RestPhotosUploadButton";
 import BtnSend from "../Myprofile/BtnSend";
@@ -18,10 +18,11 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import useWindowDimensions from "../WindowResize";
-// import CreateRestaurants from "../CreateRestaurants";
-import DeleteIcon from '@mui/icons-material/Delete';
-
+import CreateRestaurants from "../CreateRestaurants";
+import DeleteIcon from "@mui/icons-material/Delete";
+import TimeOpenClose from "../Myprofile/TimeOpenClose";
 import "react-alice-carousel/lib/alice-carousel.css";
+
 const Img = styled("img")({
   margin: "auto",
   display: "block",
@@ -42,15 +43,21 @@ export default function Myprofile(props) {
   const [open, setOpen] = useState(false);
   const [restaurantEdit, setRestaurantEdit] = useState("");
   const [photos, setPhotos] = useState({});
+  const [openTime, setOpenTime] = useState("09:00");
+  const [closeTime, setCloseTime] = useState("22:00");
+  const [time24, setTime24] = useState(false);
   const [nowRest, setNowRest] = useState({});
   const { width } = useWindowDimensions();
 
+
+  
   const {
     userRestParams1,
     userRestPhotos1,
     updater1,
     updaterAll1,
     currentUser,
+    getRestInfo
   } = useAuth();
   const [foodTypes, setFoodTypes] = useState([]);
 
@@ -65,6 +72,9 @@ export default function Myprofile(props) {
       setRestName(userRestParams1[restaurantEdit].restName);
       setPriceInfo(userRestParams1[restaurantEdit].priceInfo);
       setPhoneNumber(userRestParams1[restaurantEdit].phoneNumber);
+      setOpenTime(userRestParams1[restaurantEdit].openTime);
+      setCloseTime(userRestParams1[restaurantEdit].closeTime);
+      setTime24(userRestParams1[restaurantEdit].time24);
     }
   }, [restaurantEdit, userRestParams1]);
 
@@ -74,6 +84,9 @@ export default function Myprofile(props) {
     }
   }, [userRestParams1]);
   const data = {
+    openTime: openTime,
+    closeTime: closeTime,
+    time24: time24,
     restName: restName,
     address: address,
     moods: moods,
@@ -125,6 +138,9 @@ export default function Myprofile(props) {
     setRestaurantEdit("");
     setPhotos({});
     setNowRest({});
+    setOpenTime("09:00");
+    setCloseTime("22:00");
+    setTime24(false);
   };
   let savechanges = async (e) => {
     e.preventDefault();
@@ -177,6 +193,8 @@ export default function Myprofile(props) {
 
     updaterAll1();
   };
+
+  
 
   let deletePhotoAvatar = (ev) => {
     ev.preventDefault();
@@ -253,6 +271,20 @@ export default function Myprofile(props) {
       setFoodTypes((prev) => prev.filter((x) => x !== value));
     }
   };
+  let openTimeFunc = (ev) => {
+    setOpenTime(ev.target.value);
+  };
+  let closeTimeFunc = (ev) => {
+    setCloseTime(ev.target.value);
+  };
+  let changeTime24 = (ev) => {
+    setTime24(!time24);
+    if (!time24) {
+      setOpenTime("00:00");
+      setCloseTime("00:00");
+    } else {setOpenTime("09:00");
+    setCloseTime("22:00")};
+  };
 
   const handleChangeCity = (event) => {
     setCity(event.target.value);
@@ -276,6 +308,8 @@ export default function Myprofile(props) {
 
     return myRestaurants;
   };
+
+  console.log(userRestaurants())
   return (
     <div
       style={{
@@ -307,47 +341,49 @@ export default function Myprofile(props) {
         {userRestParams1 &&
           userRestaurants().map((item, index) => {
             return (
-              <div
-                style={{
-                  cursor: "pointer",
-                  height: "auto",
-                  width: "290px",
-                  border: "1px solid #000",
-                  padding: "10px",
-                  borderRadius: "5px",
-                  marginBottom: "10px",
-                }}
-                onClick={(ev) => {
-                  setOpen(true);
-                  setRestaurantEdit(item.restName + item.address);
-                  setFileUrl([]);
-                  setFileUrlmenu([]);
-                  setNowRest(userRestParams1[item.restName + item.address]);
-                }}
-              >
-                <h4
+                <div
                   style={{
-                    textAlign: "center",
-                    fontSize: "22px",
-                    margin: "0",
-                    padding: "5px 0",
-                    color: "goldenrod",
+                    cursor: "pointer",
+                    height: "auto",
+                    width: "290px",
+                    border: "1px solid #000",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    marginBottom: "10px",
+                  }}
+                  onClick={(ev) => {
+                    setOpen(true);
+                    setRestaurantEdit(item.restName + item.address);
+                    setFileUrl([]);
+                    setFileUrlmenu([]);
+                    setNowRest(userRestParams1[item.restName + item.address]);
+                    navigate(`/${currentUser.uid}`);
+                    getRestInfo(item);
                   }}
                 >
-                  {item.restName}{" "}
-                </h4>
+                  <h4
+                    style={{
+                      textAlign: "center",
+                      fontSize: "22px",
+                      margin: "0",
+                      padding: "5px 0",
+                      color: "goldenrod",
+                    }}
+                  >
+                    {item.restName}{" "}
+                  </h4>
 
-                <img
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "block",
-                    maxHeight: "200px",
-                    minHeight: "200px",
-                  }}
-                  src={item.photos.avatar[+item.photos.profilePicture]}
-                />
-              </div>
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                      maxHeight: "200px",
+                      minHeight: "200px",
+                    }}
+                    src={item.photos.avatar[+item.photos.profilePicture]}
+                  />
+                </div>
             );
           })}
       </div>
@@ -358,6 +394,9 @@ export default function Myprofile(props) {
         }}
       >
         <div style={{ display: "flex" }}>
+
+          <div>{open && <CreateRestaurants />}</div>
+
           <div>
             {open && (
               <>
@@ -407,6 +446,14 @@ export default function Myprofile(props) {
                         value={phoneNumber}
                         onChange={setPhoneNumber}
                       />
+                      <TimeOpenClose
+                        openTime={openTime}
+                        closeTime={closeTime}
+                        time24={time24}
+                        openTimeFunc={openTimeFunc}
+                        closeTimeFunc={closeTimeFunc}
+                        changeTime24={changeTime24}
+                      />
 
                       <RestPhotoUploadButton
                         title="Restaurant Photos"
@@ -424,6 +471,7 @@ export default function Myprofile(props) {
                     priceInfo={priceInfo}
                     changePriceInfo={changePriceInfo}
                   />
+
                   <Rest_types_options_moods
                     list={moodesList}
                     handleChange={handleChangeMoods}
@@ -449,6 +497,7 @@ export default function Myprofile(props) {
               </>
             )}
           </div>
+
           <div style={{ display: "flex", marginTop: "22px", width: "100%" }}>
             <div style={{ marginRight: "10px" }}>
               {restaurantEdit &&
@@ -456,7 +505,11 @@ export default function Myprofile(props) {
                   (item, index) => {
                     return (
                       <>
-                        {!index ? <h2 style={{ textAlign: "center" }}>Restaurant Photos</h2> : null}
+                        {!index ? (
+                          <h2 style={{ textAlign: "center" }}>
+                            Restaurant Photos
+                          </h2>
+                        ) : null}
                         <div style={{ marginRight: "10px" }}>
                           <img
                             onClick={profilePhotoSet}
@@ -477,7 +530,7 @@ export default function Myprofile(props) {
                               width: "5px",
                             }}
                           >
-                            <DeleteIcon style={{color: 'red'}} />
+                            <DeleteIcon style={{ color: "red" }} />
                           </div>
                         </div>
                       </>
@@ -491,7 +544,9 @@ export default function Myprofile(props) {
                   (item, index) => {
                     return (
                       <>
-                        {!index ? <h2 style={{ textAlign: "center" }}>Menu Photos</h2> : null}
+                        {!index ? (
+                          <h2 style={{ textAlign: "center" }}>Menu Photos</h2>
+                        ) : null}
                         <div id={index}>
                           <img
                             style={{
@@ -509,7 +564,7 @@ export default function Myprofile(props) {
                               width: "5%",
                             }}
                           >
-                            <DeleteIcon style={{color: 'red'}} />
+                            <DeleteIcon style={{ color: "red" }} />
                           </div>
                         </div>
                       </>

@@ -1,6 +1,9 @@
-export const HomePage_Route = "/" ;
-export const About_Route = "/About" ;
-export const ContactUs_Route ="/ContactUs" ;
-export const Forbusiness_Route = "/Forbusiness" ;
-export const ForbusinessMyrest_Route = "Forbusiness/Myrest" ;
-export const UpdateProfile_Route = "/UpdateProfile" ;
+export const HOMEPAGE_ROUTE = "/";
+export const ABOUT_ROUTE = "/about";
+export const CONTACTUS_ROUTE = "/contactus";
+export const FORBUSINES_ROUTE = "/myrestaurants";
+export const FORBUSINESMYREST_ROUTE = "forbusiness/myrest";
+export const UPDATEPROFILE_ROUTE = "/updateprofile";
+export const SIGNIN_ROUTE = '/signin';
+export const SIGNUP_ROUTE = '/signup';
+export const FORGOTPASSWORD_ROUTE = '/forgotpassword'
