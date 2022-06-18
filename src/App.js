@@ -24,12 +24,15 @@ import {
 import SignIn from '../src/components/pages/SignInPage'
 import SignUp from '../src/components/pages/SignUpPage'
 import ForgotPasswordPage from "./components/pages/ForgotPasswordPage";
+import SelectedRestaurant from "./components/SelectedRestaurant";
+
 
 function App() {
   const { currentUser, userRestParams, userRestPhotos } = useAuth();
 
+
   return (
-    <div className="App">
+    <div style={{position: 'relative', height: '100vh'}} className="App">
       <Navbar />
       <Routes>
         <Route path={HOMEPAGE_ROUTE} element={<Homepage />} />
@@ -45,9 +48,13 @@ function App() {
         <Route path={ABOUT_ROUTE} element={<About />} />
         <Route path={CONTACTUS_ROUTE} element={<ContactUs />} />
         <Route path={FORBUSINES_ROUTE} element={<ForBisness />} />
+        <Route path={`/${currentUser.uid}`} element={<SelectedRestaurant />} />
+
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-      <Footer />
+      <div style={{position: 'relative', bottom: '0'}}>
+      <Footer style={{position: 'fixed'}} />
+      </div>
     </div>
   );
 }

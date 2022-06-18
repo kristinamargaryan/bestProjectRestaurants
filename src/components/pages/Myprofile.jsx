@@ -19,7 +19,7 @@ import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import useWindowDimensions from "../WindowResize";
 import CreateRestaurants from "../CreateRestaurants";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import "react-alice-carousel/lib/alice-carousel.css";
 const Img = styled("img")({
@@ -45,12 +45,15 @@ export default function Myprofile(props) {
   const [nowRest, setNowRest] = useState({});
   const { width } = useWindowDimensions();
 
+
+  
   const {
     userRestParams1,
     userRestPhotos1,
     updater1,
     updaterAll1,
     currentUser,
+    getRestInfo
   } = useAuth();
   const [foodTypes, setFoodTypes] = useState([]);
 
@@ -178,6 +181,8 @@ export default function Myprofile(props) {
     updaterAll1();
   };
 
+  
+
   let deletePhotoAvatar = (ev) => {
     ev.preventDefault();
     db.collection("restaurantsPhoto1")
@@ -276,6 +281,8 @@ export default function Myprofile(props) {
 
     return myRestaurants;
   };
+
+  console.log(userRestaurants())
   return (
     <div
       style={{
@@ -307,47 +314,49 @@ export default function Myprofile(props) {
         {userRestParams1 &&
           userRestaurants().map((item, index) => {
             return (
-              <div
-                style={{
-                  cursor: "pointer",
-                  height: "auto",
-                  width: "290px",
-                  border: "1px solid #000",
-                  padding: "10px",
-                  borderRadius: "5px",
-                  marginBottom: "10px",
-                }}
-                onClick={(ev) => {
-                  setOpen(true);
-                  setRestaurantEdit(item.restName + item.address);
-                  setFileUrl([]);
-                  setFileUrlmenu([]);
-                  setNowRest(userRestParams1[item.restName + item.address]);
-                }}
-              >
-                <h4
+                <div
                   style={{
-                    textAlign: "center",
-                    fontSize: "22px",
-                    margin: "0",
-                    padding: "5px 0",
-                    color: "goldenrod",
+                    cursor: "pointer",
+                    height: "auto",
+                    width: "290px",
+                    border: "1px solid #000",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    marginBottom: "10px",
+                  }}
+                  onClick={(ev) => {
+                    setOpen(true);
+                    setRestaurantEdit(item.restName + item.address);
+                    setFileUrl([]);
+                    setFileUrlmenu([]);
+                    setNowRest(userRestParams1[item.restName + item.address]);
+                    navigate(`/${currentUser.uid}`);
+                    getRestInfo(item);
                   }}
                 >
-                  {item.restName}{" "}
-                </h4>
+                  <h4
+                    style={{
+                      textAlign: "center",
+                      fontSize: "22px",
+                      margin: "0",
+                      padding: "5px 0",
+                      color: "goldenrod",
+                    }}
+                  >
+                    {item.restName}{" "}
+                  </h4>
 
-                <img
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "block",
-                    maxHeight: "200px",
-                    minHeight: "200px",
-                  }}
-                  src={item.photos.avatar[+item.photos.profilePicture]}
-                />
-              </div>
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                      maxHeight: "200px",
+                      minHeight: "200px",
+                    }}
+                    src={item.photos.avatar[+item.photos.profilePicture]}
+                  />
+                </div>
             );
           })}
       </div>
@@ -358,11 +367,7 @@ export default function Myprofile(props) {
         }}
       >
         <div style={{ display: "flex" }}>
-          <div>
-            {open && (
-              <CreateRestaurants />
-            )}
-          </div>
+          <div>{open && <CreateRestaurants />}</div>
           <div style={{ display: "flex", marginTop: "22px", width: "100%" }}>
             <div style={{ marginRight: "10px" }}>
               {restaurantEdit &&
@@ -370,7 +375,11 @@ export default function Myprofile(props) {
                   (item, index) => {
                     return (
                       <>
-                        {!index ? <h2 style={{ textAlign: "center" }}>Restaurant Photos</h2> : null}
+                        {!index ? (
+                          <h2 style={{ textAlign: "center" }}>
+                            Restaurant Photos
+                          </h2>
+                        ) : null}
                         <div style={{ marginRight: "10px" }}>
                           <img
                             onClick={profilePhotoSet}
@@ -391,7 +400,7 @@ export default function Myprofile(props) {
                               width: "5px",
                             }}
                           >
-                            <DeleteIcon style={{color: 'red'}} />
+                            <DeleteIcon style={{ color: "red" }} />
                           </div>
                         </div>
                       </>
@@ -405,7 +414,9 @@ export default function Myprofile(props) {
                   (item, index) => {
                     return (
                       <>
-                        {!index ? <h2 style={{ textAlign: "center" }}>Menu Photos</h2> : null}
+                        {!index ? (
+                          <h2 style={{ textAlign: "center" }}>Menu Photos</h2>
+                        ) : null}
                         <div id={index}>
                           <img
                             style={{
@@ -423,7 +434,7 @@ export default function Myprofile(props) {
                               width: "5%",
                             }}
                           >
-                            <DeleteIcon style={{color: 'red'}} />
+                            <DeleteIcon style={{ color: "red" }} />
                           </div>
                         </div>
                       </>

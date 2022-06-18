@@ -85,7 +85,7 @@ export default function PrimarySearchAppBar() {
         <div onClick={() => navigate(UPDATEPROFILE_ROUTE)}>Update Profile</div>
       </MenuItem>
       <MenuItem onClick={handleLogout}>
-        <div>Log-Out</div>
+        <div>Sign-Out</div>
       </MenuItem>
     </Menu>
   );
@@ -111,7 +111,7 @@ export default function PrimarySearchAppBar() {
         <div onClick={() => navigate(UPDATEPROFILE_ROUTE)}>Update Profile</div>
       </MenuItem>
       <MenuItem onClick={handleLogout}>
-        <div>Log-Out</div>
+        <div>Sign-Out</div>
       </MenuItem>
     </Menu>
   );

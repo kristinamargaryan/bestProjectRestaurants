@@ -21,6 +21,7 @@ export default function AuthProvaider({ children }) {
   const [photosArrayState, setPhotosArrayState] = useState();
   const [paramsArrayState, setParamsArrayState] = useState();
   const [userParamsAndPhothos, setUserParamsAndPhothos] = useState();
+  const [selectedRestaurant, setSelectedRestaurant] = useState('')
   // const all = async function () {
   //   let photosArray = [];
   //   let paramsArray = [];
@@ -141,6 +142,10 @@ export default function AuthProvaider({ children }) {
     all1();
   }, []);
 
+  function getRestInfo(obj) {
+    setSelectedRestaurant(obj)
+  }
+
   const value = {
     logOutFunc: logOutUpdate,
     updater1: allDataFirestore1,
@@ -157,6 +162,8 @@ export default function AuthProvaider({ children }) {
     userRestPhotos1,
     userRestPhotosmenu1,
     profilePicture1,
+    getRestInfo,
+    selectedRestaurant,
     login,
     signup,
     logout,

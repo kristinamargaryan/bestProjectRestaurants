@@ -20,6 +20,7 @@ import {
   SIGNUP_ROUTE,
   FORGOTPASSWORD_ROUTE,
 } from "../../constants/constants";
+import Footer from "../Footer";
 
 const theme = createTheme();
 
@@ -47,7 +48,7 @@ export default function SignIn() {
   }
 
   return (
-    <div style={{ height: "calc(100vh - 363px)" }}>
+    <div >
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
