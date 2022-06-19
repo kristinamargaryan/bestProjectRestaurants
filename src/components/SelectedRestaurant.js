@@ -8,19 +8,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import RestInfoPart from "./RestInfoPart";
 
 function SelectedRestaurant(props) {
-    const { selectedRestaurant } = useAuth();
-    const {
-        address,
-        city,
-        priceInfo,
-        restName,
-        phoneNumber,
-        id,
-        foodTypes,
-        moods,
-        options,
-        photos,
-    } = selectedRestaurant;
+    
 
     return (
         <div>

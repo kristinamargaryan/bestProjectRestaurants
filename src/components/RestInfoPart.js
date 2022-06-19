@@ -16,10 +16,10 @@ import {
 } from "./MyRestaurantsLeftRightPhoto";
 
 export default function RestInfoPart(props) {
-  const { selectedRestaurant, userRest } = useAuth();
-
+  const [restaurant, setRestaurant] = useState(
+    JSON.parse(sessionStorage.getItem("restinfo"))
+  );
   const { width } = useWindowDimensions();
-  useEffect(() => {}, []);
 
   const {
     address,
@@ -32,7 +32,7 @@ export default function RestInfoPart(props) {
     moods,
     options,
     photos,
-  } = JSON.parse(sessionStorage.getItem("restinfo"));
+  } = restaurant;
 
   const newAddress = city + " " + address;
   const icons = [
@@ -68,9 +68,7 @@ export default function RestInfoPart(props) {
         },
       }}
     >
-      {width > 935 && (
-        <MyRestaurantsGallaryPhotos data={photos} restname={restName} />
-      )}
+      {width > 935 && <MyRestaurantsGallaryPhotos data={restaurant} />}
 
       <Paper
         style={{
@@ -84,7 +82,7 @@ export default function RestInfoPart(props) {
       >
         <div style={{ position: "relative" }}>
           <img
-            src={photos.avatar}
+            src={photos.avatar[photos.profilePicture]}
             style={{
               width:
                 width <= 1130 ? (width <= 922 ? "450px" : "350px") : "450px",
@@ -177,9 +175,7 @@ export default function RestInfoPart(props) {
           </ul>
         </div>
       </Paper>
-      {width > 935 && (
-        <MyRestaurantsMenuPhotos data={photos} restname={restName} />
-      )}
+      {width > 935 && <MyRestaurantsMenuPhotos data={restaurant} />}
       {width <= 935 && (
         <div
           style={{
@@ -192,10 +188,10 @@ export default function RestInfoPart(props) {
           }}
         >
           <div style={{ margin: "0 10px 10px" }}>
-            <MyRestaurantsGallaryPhotos data={photos} restname={restName} />
+            <MyRestaurantsGallaryPhotos data={restaurant} />
           </div>
           <div style={{ margin: "0 10px 10px" }}>
-            <MyRestaurantsMenuPhotos data={photos} restname={restName} />{" "}
+            <MyRestaurantsMenuPhotos data={restaurant} />{" "}
           </div>
         </div>
       )}
