@@ -21,7 +21,7 @@ export default function AuthProvaider({ children }) {
   const [photosArrayState, setPhotosArrayState] = useState();
   const [paramsArrayState, setParamsArrayState] = useState();
   const [userParamsAndPhothos, setUserParamsAndPhothos] = useState();
-  const [selectedRestaurant, setSelectedRestaurant] = useState('')
+  const [selectedRestaurant, setSelectedRestaurant] = useState({});
   // const all = async function () {
   //   let photosArray = [];
   //   let paramsArray = [];
@@ -94,7 +94,6 @@ export default function AuthProvaider({ children }) {
       const dataPhotos = docPhotos.data();
       setUserRestParams1(dataParams);
       setUserRestPhotos1(dataPhotos);
-
       setProfilePicture1(dataPhotos);
     }
   }
@@ -126,7 +125,7 @@ export default function AuthProvaider({ children }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-      console.log(user)
+
       setLoading(false);
     });
 
@@ -143,7 +142,7 @@ export default function AuthProvaider({ children }) {
   }, []);
 
   function getRestInfo(obj) {
-    setSelectedRestaurant(obj)
+    setSelectedRestaurant(obj);
   }
 
   const value = {

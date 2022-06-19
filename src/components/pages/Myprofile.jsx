@@ -22,6 +22,7 @@ import CreateRestaurants from "../CreateRestaurants";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TimeOpenClose from "../Myprofile/TimeOpenClose";
 import "react-alice-carousel/lib/alice-carousel.css";
+import { useParams } from "react-router-dom";
 
 const Img = styled("img")({
   margin: "auto",
@@ -48,16 +49,15 @@ export default function Myprofile(props) {
   const [time24, setTime24] = useState(false);
   const [nowRest, setNowRest] = useState({});
   const { width } = useWindowDimensions();
+  const { id } = useParams();
 
-
-  
   const {
     userRestParams1,
     userRestPhotos1,
     updater1,
     updaterAll1,
     currentUser,
-    getRestInfo
+    getRestInfo,
   } = useAuth();
   const [foodTypes, setFoodTypes] = useState([]);
 
@@ -83,6 +83,7 @@ export default function Myprofile(props) {
       setNowRest(userRestParams1[restaurantEdit]);
     }
   }, [userRestParams1]);
+
   const data = {
     openTime: openTime,
     closeTime: closeTime,
@@ -194,8 +195,6 @@ export default function Myprofile(props) {
     updaterAll1();
   };
 
-  
-
   let deletePhotoAvatar = (ev) => {
     ev.preventDefault();
     db.collection("restaurantsPhoto1")
@@ -282,8 +281,10 @@ export default function Myprofile(props) {
     if (!time24) {
       setOpenTime("00:00");
       setCloseTime("00:00");
-    } else {setOpenTime("09:00");
-    setCloseTime("22:00")};
+    } else {
+      setOpenTime("09:00");
+      setCloseTime("22:00");
+    }
   };
 
   const handleChangeCity = (event) => {
@@ -309,7 +310,6 @@ export default function Myprofile(props) {
     return myRestaurants;
   };
 
-  console.log(userRestaurants())
   return (
     <div
       style={{
@@ -341,49 +341,54 @@ export default function Myprofile(props) {
         {userRestParams1 &&
           userRestaurants().map((item, index) => {
             return (
-                <div
+              <div
+                style={{
+                  cursor: "pointer",
+                  height: "auto",
+                  width: "290px",
+                  border: "1px solid #000",
+                  padding: "10px",
+                  borderRadius: "5px",
+                  marginBottom: "10px",
+                }}
+                onClick={(ev) => {
+                  ev.preventDefault();
+                 
+                  setOpen(true);
+                  setRestaurantEdit(item.restName + item.address);
+                  setFileUrl([]);
+                  setFileUrlmenu([]);
+                  setNowRest(userRestParams1[item.restName + item.address]);
+                  navigate(`/myrestaurants/${ev.target.id}`); 
+                  // navigate(`/${currentUser.uid}`);
+                  // getRestInfo(item);
+                  sessionStorage.setItem("restinfo", JSON.stringify(item));
+                }}
+              >
+                <h4
                   style={{
-                    cursor: "pointer",
-                    height: "auto",
-                    width: "290px",
-                    border: "1px solid #000",
-                    padding: "10px",
-                    borderRadius: "5px",
-                    marginBottom: "10px",
-                  }}
-                  onClick={(ev) => {
-                    setOpen(true);
-                    setRestaurantEdit(item.restName + item.address);
-                    setFileUrl([]);
-                    setFileUrlmenu([]);
-                    setNowRest(userRestParams1[item.restName + item.address]);
-                    navigate(`/${currentUser.uid}`);
-                    getRestInfo(item);
+                    textAlign: "center",
+                    fontSize: "22px",
+                    margin: "0",
+                    padding: "5px 0",
+                    color: "goldenrod",
                   }}
                 >
-                  <h4
-                    style={{
-                      textAlign: "center",
-                      fontSize: "22px",
-                      margin: "0",
-                      padding: "5px 0",
-                      color: "goldenrod",
-                    }}
-                  >
-                    {item.restName}{" "}
-                  </h4>
+                  {item.restName}{" "}
+                </h4>
 
-                  <img
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      display: "block",
-                      maxHeight: "200px",
-                      minHeight: "200px",
-                    }}
-                    src={item.photos.avatar[+item.photos.profilePicture]}
-                  />
-                </div>
+                <img
+                  id={item.restName+item.address}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "block",
+                    maxHeight: "200px",
+                    minHeight: "200px",
+                  }}
+                  src={item.photos.avatar[+item.photos.profilePicture]}
+                />
+              </div>
             );
           })}
       </div>

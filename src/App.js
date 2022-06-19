@@ -25,6 +25,7 @@ import SignIn from '../src/components/pages/SignInPage'
 import SignUp from '../src/components/pages/SignUpPage'
 import ForgotPasswordPage from "./components/pages/ForgotPasswordPage";
 import SelectedRestaurant from "./components/SelectedRestaurant";
+import Myprofile from "./components/pages/Myprofile";
 
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
             <Route path={SIGNUP_ROUTE} element={<SignUp />} />
             <Route path={FORGOTPASSWORD_ROUTE} element={<ForgotPasswordPage />} />
           </>
-        ) : <Route path={`/${currentUser.uid}`} element={<SelectedRestaurant />} />}
+        ) : <Route path='myrestaurants/:id' element={<SelectedRestaurant />} />}
         <Route path={HOMEPAGE_ROUTE} element={<Homepage />} />
         <Route path={UPDATEPROFILE_ROUTE} element={<UpdateProfile />} />
         <Route path={ABOUT_ROUTE} element={<About />} />
