@@ -23,6 +23,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import TimeOpenClose from "../Myprofile/TimeOpenClose";
 import "react-alice-carousel/lib/alice-carousel.css";
 import { useParams } from "react-router-dom";
+import CreateEditRestaurantDialog from "../CreateEditRestaurantDialog";
 
 const Img = styled("img")({
   margin: "auto",
@@ -99,34 +100,6 @@ export default function Myprofile(props) {
     id: currentUser.uid,
   };
 
-  const optionsList = [
-    { value: "Reservation", label: "Reservation" },
-    { value: "Takeout", label: "Takeout" },
-    { value: "Wifi", label: "Wifi" },
-    { value: "Credit Card", label: "Credit Card" },
-    { value: "Outdoor", label: "Outdoor" },
-    { value: "Parking", label: "Parking" },
-    { value: "Delivery", label: "Delivery" },
-    { value: "Whellchair", label: "Whellchair" },
-    { value: "Alcohol", label: "Alcohol" },
-    { value: "Bar atmosphere", label: "Bar atmosphere" },
-  ];
-
-  const moodesList = [
-    { value: "Romantic", label: "Romantic" },
-    { value: "Party", label: "Party" },
-    { value: "Busines", label: "Busines" },
-    { value: "Groups", label: "Groups" },
-    { value: "Children", label: "Children" },
-    { value: "Local", label: "Local" },
-  ];
-
-  const foodTypesList = [
-    { value: "Armenian", label: "Armenian" },
-    { value: "Italian", label: "Italian" },
-    { value: "China", label: "China" },
-    { value: "Fransian", label: "Fransian" },
-  ];
 
   let componentStatsDefault = () => {
     setOptions([]);
@@ -297,7 +270,7 @@ export default function Myprofile(props) {
     setRestName(event.target.value);
   };
   const openFormFunction = () => {
-    setOpen(true);
+    setOpen(!open);
     componentStatsDefault();
   };
   let userRestaurants = () => {
@@ -391,193 +364,197 @@ export default function Myprofile(props) {
               </div>
             );
           })}
+        {open && <CreateEditRestaurantDialog data={{}} onclick={ openFormFunction} />}
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <div style={{ display: "flex" }}>
-          <div>
-            {open && (
-              <>
-                <h2 style={{ textAlign: "center" }}>Edit Restaurant</h2>
-                <div
-                  style={{
-                    width: "300px",
-                    border: "1px solid #000",
-                    borderRadius: "5px",
-                    display: "flex",
-                    flexDirection: "column",
-                    padding: "15px",
-                    marginRight: "10px",
-                    // backgroundColor: 'rgba(0,0,0,0.5)'
-                  }}
-                >
-                  <div>
-                    <RestCity city={city} handleChangeCity={handleChangeCity} />
-                    <NameAndAddress
-                      forLabel="Restaurant Name"
-                      info={restName}
-                      handleChange={handleChangeRestName}
-                    />
-                    <NameAndAddress
-                      forLabel="Restaurant Address"
-                      info={address}
-                      handleChange={handleChangeAddress}
-                    />
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <PhoneInput
-                        style={{
-                          width: "100%",
-                          marginBottom: "10px",
-                          textAlign: "center",
-                        }}
-                        name="tel"
-                        type="tel"
-                        defaultCountry="AM"
-                        placeholder="Phone number"
-                        value={phoneNumber}
-                        onChange={setPhoneNumber}
-                      />
-                      <TimeOpenClose
-                        openTime={openTime}
-                        closeTime={closeTime}
-                        time24={time24}
-                        openTimeFunc={openTimeFunc}
-                        closeTimeFunc={closeTimeFunc}
-                        changeTime24={changeTime24}
-                      />
 
-                      <RestPhotoUploadButton
-                        title="Restaurant Photos"
-                        fileUrl={fileUrl}
-                        newUrls={newUrls}
-                      />
-                      <RestPhotoUploadButton
-                        title="Menu Photos"
-                        fileUrlmenu={fileUrlmenu}
-                        newUrlsmenu={newUrlsmenu}
-                      />
-                    </div>
-                  </div>
-                  <PriceInfo
-                    priceInfo={priceInfo}
-                    changePriceInfo={changePriceInfo}
-                  />
-
-                  <Rest_types_options_moods
-                    list={moodesList}
-                    handleChange={handleChangeMoods}
-                    type={moods}
-                    name={"Moods"}
-                  />
-
-                  <Rest_types_options_moods
-                    list={optionsList}
-                    handleChange={handleChangeOptions}
-                    type={options}
-                    name={"Options"}
-                  />
-                  <Rest_types_options_moods
-                    list={foodTypesList}
-                    handleChange={handleChangeFoodTypes}
-                    type={foodTypes}
-                    name={"Foodtypes"}
-                  />
-
-                  <BtnSend data={data} savechanges={savechanges} />
-                </div>
-              </>
-            )}
-          </div>
-
-          <div style={{ display: "flex", marginTop: "22px", width: "100%" }}>
-            <div style={{ marginRight: "10px" }}>
-              {restaurantEdit &&
-                userRestPhotos1?.[restaurantEdit]?.avatar?.map(
-                  (item, index) => {
-                    return (
-                      <>
-                        {!index ? (
-                          <h2 style={{ textAlign: "center" }}>
-                            Restaurant Photos
-                          </h2>
-                        ) : null}
-                        <div style={{ marginRight: "10px" }}>
-                          <img
-                            onClick={profilePhotoSet}
-                            id={index}
-                            style={{
-                              cursor: "pointer",
-                              width: "400px",
-                              height: "300px",
-                            }}
-                            src={item}
-                          />
-                          <div
-                            id={index}
-                            onClick={deletePhotoAvatar}
-                            style={{
-                              margin: "0 auto",
-                              cursor: "pointer",
-                              width: "5px",
-                            }}
-                          >
-                            <DeleteIcon style={{ color: "red" }} />
-                          </div>
-                        </div>
-                      </>
-                    );
-                  }
-                )}
-            </div>
-            <div>
-              {restaurantEdit &&
-                userRestPhotos1?.[restaurantEdit]?.menuPhotos?.map(
-                  (item, index) => {
-                    return (
-                      <>
-                        {!index ? (
-                          <h2 style={{ textAlign: "center" }}>Menu Photos</h2>
-                        ) : null}
-                        <div id={index}>
-                          <img
-                            style={{
-                              width: "400px",
-                              height: "300px",
-                            }}
-                            src={item}
-                          />
-                          <div
-                            id={index}
-                            onClick={deletePhotomenu}
-                            style={{
-                              margin: "0 auto",
-                              cursor: "pointer",
-                              width: "5%",
-                            }}
-                          >
-                            <DeleteIcon style={{ color: "red" }} />
-                          </div>
-                        </div>
-                      </>
-                    );
-                  }
-                )}
-            </div>
-          </div>
-        </div>
-      </div>
       {/* x */}
     </div>
   );
 }
+
+
+{/* <div
+style={{
+  display: "flex",
+  flexDirection: "column",
+}}
+>
+<div style={{ display: "flex" }}>
+  <div>
+    {open && (
+      <>
+        <h2 style={{ textAlign: "center" }}>Edit Restaurant</h2>
+        <div
+          style={{
+            width: "300px",
+            border: "1px solid #000",
+            borderRadius: "5px",
+            display: "flex",
+            flexDirection: "column",
+            padding: "15px",
+            marginRight: "10px",
+            // backgroundColor: 'rgba(0,0,0,0.5)'
+          }}
+        >
+          <div>
+            <RestCity city={city} handleChangeCity={handleChangeCity} />
+            <NameAndAddress
+              forLabel="Restaurant Name"
+              info={restName}
+              handleChange={handleChangeRestName}
+            />
+            <NameAndAddress
+              forLabel="Restaurant Address"
+              info={address}
+              handleChange={handleChangeAddress}
+            />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <PhoneInput
+                style={{
+                  width: "100%",
+                  marginBottom: "10px",
+                  textAlign: "center",
+                }}
+                name="tel"
+                type="tel"
+                defaultCountry="AM"
+                placeholder="Phone number"
+                value={phoneNumber}
+                onChange={setPhoneNumber}
+              />
+              <TimeOpenClose
+                openTime={openTime}
+                closeTime={closeTime}
+                time24={time24}
+                openTimeFunc={openTimeFunc}
+                closeTimeFunc={closeTimeFunc}
+                changeTime24={changeTime24}
+              />
+
+              <RestPhotoUploadButton
+                title="Restaurant Photos"
+                fileUrl={fileUrl}
+                newUrls={newUrls}
+              />
+              <RestPhotoUploadButton
+                title="Menu Photos"
+                fileUrlmenu={fileUrlmenu}
+                newUrlsmenu={newUrlsmenu}
+              />
+            </div>
+          </div>
+          <PriceInfo
+            priceInfo={priceInfo}
+            changePriceInfo={changePriceInfo}
+          />
+
+          <Rest_types_options_moods
+            list={moodesList}
+            handleChange={handleChangeMoods}
+            type={moods}
+            name={"Moods"}
+          />
+
+          <Rest_types_options_moods
+            list={optionsList}
+            handleChange={handleChangeOptions}
+            type={options}
+            name={"Options"}
+          />
+          <Rest_types_options_moods
+            list={foodTypesList}
+            handleChange={handleChangeFoodTypes}
+            type={foodTypes}
+            name={"Foodtypes"}
+          />
+
+          <BtnSend data={data} savechanges={savechanges} />
+        </div>
+      </>
+    )}
+  </div>
+
+  <div style={{ display: "flex", marginTop: "22px", width: "100%" }}>
+    <div style={{ marginRight: "10px" }}>
+      {restaurantEdit &&
+        userRestPhotos1?.[restaurantEdit]?.avatar?.map(
+          (item, index) => {
+            return (
+              <>
+                {!index ? (
+                  <h2 style={{ textAlign: "center" }}>
+                    Restaurant Photos
+                  </h2>
+                ) : null}
+                <div style={{ marginRight: "10px" }}>
+                  <img
+                    onClick={profilePhotoSet}
+                    id={index}
+                    style={{
+                      cursor: "pointer",
+                      width: "400px",
+                      height: "300px",
+                    }}
+                    src={item}
+                  />
+                  <div
+                    id={index}
+                    onClick={deletePhotoAvatar}
+                    style={{
+                      margin: "0 auto",
+                      cursor: "pointer",
+                      width: "5px",
+                    }}
+                  >
+                    <DeleteIcon style={{ color: "red" }} />
+                  </div>
+                </div>
+              </>
+            );
+          }
+        )}
+    </div>
+    <div>
+      {restaurantEdit &&
+        userRestPhotos1?.[restaurantEdit]?.menuPhotos?.map(
+          (item, index) => {
+            return (
+              <>
+                {!index ? (
+                  <h2 style={{ textAlign: "center" }}>Menu Photos</h2>
+                ) : null}
+                <div id={index}>
+                  <img
+                    style={{
+                      width: "400px",
+                      height: "300px",
+                    }}
+                    src={item}
+                  />
+                  <div
+                    id={index}
+                    onClick={deletePhotomenu}
+                    style={{
+                      margin: "0 auto",
+                      cursor: "pointer",
+                      width: "5%",
+                    }}
+                  >
+                    <DeleteIcon style={{ color: "red" }} />
+                  </div>
+                </div>
+              </>
+            );
+          }
+        )}
+    </div>
+  </div>
+</div>
+</div> */}

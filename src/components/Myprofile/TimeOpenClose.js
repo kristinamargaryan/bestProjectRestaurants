@@ -18,7 +18,7 @@ export default function TimeOpenClose(props) {
   const classes = useStyles();
 
   return (
-    <form className={classes.container} noValidate>
+    <form style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} className={classes.container} noValidate>
       <TextField
       disabled={props.time24?true:false}
         onChange={props.openTimeFunc}
@@ -49,8 +49,9 @@ export default function TimeOpenClose(props) {
           step: 300, // 5 min
         }}
       />
+      
       <label style={{
-          fontSize:'12px'
+          fontSize:'22px'
       }}>
         24 hours
         <input onChange={props.changeTime24} checked={props.time24} type="checkbox" />

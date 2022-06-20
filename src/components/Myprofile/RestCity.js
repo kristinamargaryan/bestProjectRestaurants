@@ -66,7 +66,7 @@ export default function RestCity(props) {
         }}
           labelId="demo-simple-select-autowidth-label"
           id="demo-simple-select-autowidth"
-          value={props.city}
+          defaultValue={props.city}
           onChange={props.handleChangeCity}
           autoWidth
           label="City"

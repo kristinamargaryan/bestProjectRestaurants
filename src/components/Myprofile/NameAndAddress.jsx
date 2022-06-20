@@ -24,7 +24,7 @@ export default function RestCityAddress(props) {
         placeholder={props.forLabel}
         multiline
         maxRows={4}
-        value={props.info}
+        defaultValue={props.info}
         onChange={props.handleChange}
       />
     </Box>
