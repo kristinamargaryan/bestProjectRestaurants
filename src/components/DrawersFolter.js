@@ -33,8 +33,10 @@ import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import AccessibleIcon from "@mui/icons-material/Accessible";
 import SportsBarIcon from "@mui/icons-material/SportsBar";
 import NightlifeIcon from "@mui/icons-material/Nightlife";
-import { useAuth } from "./AuthContext";
+import { useAuth } from './AuthProvider';
 import { useState, useEffect } from "react";
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+
 
 export default function SwipeableTemporaryDrawer() {
   const [state, setState] = React.useState({
@@ -307,7 +309,7 @@ export default function SwipeableTemporaryDrawer() {
     <div>
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <Button onClick={toggleDrawer(anchor, true)}><ManageSearchIcon style={{fontSize: '50px', color: 'green'}} /></Button>
           <SwipeableDrawer
             anchor={anchor}
             open={state[anchor]}

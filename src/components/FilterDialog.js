@@ -71,6 +71,7 @@ export default function FilterDialog(props) {
 				maxHeight: '500px',
 				position: 'sticky',
 				top: '70px',
+				backgroundColor: '#fff'
 			}}
 		>
 			<ul className='filterList'>

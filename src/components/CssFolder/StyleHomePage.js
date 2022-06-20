@@ -79,11 +79,23 @@ export const IconButton = styled.button`
 export const HomeContents = styled.div`
 	margin: 5px 10%;
 	display: flex;
+	justify-content: center;
+
+	@media screen and (max-width: 568px) {
+		justify-content: left;
+	}
 `;
 
 export const RestDiv = styled.div`
 	padding: 0 15px;
-	flex: 3;
+	width: 40%;
+	min-width: 450px;
+
+	@media screen and (max-width: 568px) {
+		min-width: 380px;
+		margin: 0;
+	}
+
 `;
 
 export const OwnRest = styled.div`
@@ -92,6 +104,8 @@ export const OwnRest = styled.div`
 	margin-bottom: 5px;
 	border-radius: 10px;
 	height: 150px;
+	overflow: hidden;
+	cursor: pointer;
 `;
 
 export const OwnRestImg = styled.img`
@@ -103,10 +117,19 @@ export const OwnRestImg = styled.img`
 `;
 
 export const OwnRestContent = styled.div`
-	margin-left: 10px;
+	/* margin-left: 20px; */
+	padding-left: 20px;
 	flex: 4;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: flex-start;
+	background-color: #fff;
+	
 `;
 
 export const RestContTitle = styled.h3`
-	margin-top: 1px;
+	margin: 0;
+	font-family: 'roboto';
+	font-size: 22px;
 `;
