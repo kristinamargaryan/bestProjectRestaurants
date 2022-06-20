@@ -14,11 +14,13 @@ import {
   MyRestaurantsGallaryPhotos,
   MyRestaurantsMenuPhotos,
 } from "./MyRestaurantsLeftRightPhoto";
+import CreateEditRestaurantDialog from "./CreateEditRestaurantDialog";
 
 export default function RestInfoPart(props) {
   const [restaurant, setRestaurant] = useState(
     JSON.parse(sessionStorage.getItem("restinfo"))
   );
+  const [showDialog, setShowDialog] = useState(false)
   const { width } = useWindowDimensions();
 
   const {
@@ -51,6 +53,9 @@ export default function RestInfoPart(props) {
     [<CallIcon style={{ color: "#59C882", fontSize: "25px" }} />, phoneNumber],
   ];
 
+  const showCreateEditDialog = () => {
+    setShowDialog(!showDialog)
+  }
   return (
     <Box
       sx={{
@@ -97,6 +102,7 @@ export default function RestInfoPart(props) {
               right: "5px",
               zIndex: "2",
             }}
+            onClick={showCreateEditDialog}
           >
             <EditIcon
               style={{
@@ -107,6 +113,7 @@ export default function RestInfoPart(props) {
             />
           </div>
         </div>
+        {showDialog && <CreateEditRestaurantDialog data={restaurant}  onclick={showCreateEditDialog} />}
         {icons.map((e) => {
           return (
             <div

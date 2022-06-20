@@ -137,7 +137,7 @@ export default function RestPhotoUploadButton(props) {
                   margin: '3px'
                 }}
                 src={url}
-                alt=""
+                alt="img"
                 id={index}
               />
                <DeleteIcon style={{ color: 'red', width: '15px' }} />
