@@ -20,6 +20,7 @@ export default function RestInfoPart(props) {
   const [restaurant, setRestaurant] = useState(
     JSON.parse(sessionStorage.getItem("restinfo"))
   );
+  
   const [showDialog, setShowDialog] = useState(false)
   const { width } = useWindowDimensions();
 

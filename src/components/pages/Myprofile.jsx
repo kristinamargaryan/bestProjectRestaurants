@@ -61,7 +61,7 @@ export default function Myprofile(props) {
     getRestInfo,
   } = useAuth();
   const [foodTypes, setFoodTypes] = useState([]);
-
+console.log(restaurantEdit)
   useEffect(() => {
     if (Object.keys(userRestParams1).length && restaurantEdit) {
       setPhotos(userRestPhotos1[restaurantEdit]);
@@ -117,6 +117,7 @@ export default function Myprofile(props) {
     setTime24(false);
   };
   let savechanges = async (e) => {
+    
     e.preventDefault();
     delete userRestPhotos1[restaurantEdit];
     delete userRestParams1[restaurantEdit];
@@ -147,7 +148,8 @@ export default function Myprofile(props) {
 
     updaterAll1();
     updater1();
-    componentStatsDefault();
+    
+    // componentStatsDefault();
 
     // navigate("MyRest");
   };

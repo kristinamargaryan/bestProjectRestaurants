@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import {BigDiv, MyInput, TitleDiv, GoHomeBtn, 
   LogTitle, InputArea, ButtonPart, PartBtn, LogBtn} from '../components/CssFolder/ModalLoginCss'
-import{HomePage_Route } from "./constants/constants";
+import{HOMEPAGE_ROUTE } from "../constants/constants";
 
 
 export default function ModalLoginDialog() {
@@ -18,7 +18,7 @@ export default function ModalLoginDialog() {
   const [loading, setLoading] = useState(false);
   const [signInUp, setSignInUp] = useState(true);
   const navigate = useNavigate();
-  const goHome = () => navigate(HomePage_Route);
+  const goHome = () => navigate(HOMEPAGE_ROUTE);
   const [forgotPass, setForgotPass] = useState(false);
   const [message, setMessage] = useState("");
 

@@ -63,7 +63,7 @@ export default function SwipeableTemporaryDrawer() {
     if (paramsArrayState && photosArrayState) {
       setParametrs(paramsArrayState);
       setPhotos(photosArrayState);
-      console.log(userParamsAndPhothos, photosArrayState, paramsArrayState);
+      // console.log(userParamsAndPhothos, photosArrayState, paramsArrayState);
     }
   }, [paramsArrayState, photosArrayState, userParamsAndPhothos]);
   const filterPriceCheckedFunction = (title, bul) => {
