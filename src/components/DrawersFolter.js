@@ -36,9 +36,10 @@ import NightlifeIcon from "@mui/icons-material/Nightlife";
 import { useAuth } from './AuthProvider';
 import { useState, useEffect } from "react";
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import { DebounceInput } from 'react-debounce-input';
 
 
-export default function SwipeableTemporaryDrawer() {
+export default function SwipeableTemporaryDrawer(props) {
   const [state, setState] = React.useState({
     left: false,
   });
@@ -48,6 +49,7 @@ export default function SwipeableTemporaryDrawer() {
   const [filteredMoods, setFilteredMoods] = useState([]);
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [filteredPrices, setFilteredPrices] = useState([]);
+  const [inputValue, setInputValue] = useState('')
 
   const { photosArrayState, paramsArrayState, userParamsAndPhothos } =
     useAuth();
@@ -66,6 +68,12 @@ export default function SwipeableTemporaryDrawer() {
       // console.log(userParamsAndPhothos, photosArrayState, paramsArrayState);
     }
   }, [paramsArrayState, photosArrayState, userParamsAndPhothos]);
+
+  useEffect(() => {
+    props.findRestaurant(inputValue)
+  }, [inputValue])
+
+
   const filterPriceCheckedFunction = (title, bul) => {
     bul
       ? setFilteredPrices(
@@ -157,25 +165,19 @@ export default function SwipeableTemporaryDrawer() {
             <h5 style={{ marginBottom: "15px", fontSize: "20px" }}>
               Find by restaurnt name
             </h5>
-            <input
-              style={{
-                marginBottom: "15px",
-                width: "90%",
-                height: "30px",
-                fontSize: "22px",
-                borderRadius: "5px",
-                outline: "none",
-                border: "1px solid #222",
-              }}
-              type="text"
-              placeholder="Find restaurant"
-            />
+            <DebounceInput
+						style={{width: '240px'}}
+						placeholder='Find Restaurant'
+						minLength={2}
+						debounceTimeout={1000}
+						onChange={(e) => setInputValue(e.target.value)}
+					/>
           </li>
           <li>
             <h5 style={{ marginBottom: "15px", fontSize: "20px" }}>
               Find by type of food
             </h5>
-            <FoodTypeMenu style={{ height: "50px", width: "90%" }} />
+            <FoodTypeMenu  selectedCousineChange={props.selectedCousineChange} style={{ height: "50px", width: "90%" }} />
           </li>
 
           <li className="selectPrice">

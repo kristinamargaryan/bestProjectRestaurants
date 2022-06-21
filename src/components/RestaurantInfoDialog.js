@@ -39,8 +39,8 @@ export default function RestaurantInfoDialog(props) {
                             <div style={{ color: '#000', fontSize: '22px' }}><span style={{ color: 'green' }}>Options: </span> {data.options.join(', ')}</div>
                         </div>
                         <div style={{width: '100%',  marginBottom: '10px', display: 'flex', justifyContent: 'space-evenly'}}>
-                            <Button style={{ minWidth: '100px' }} onClick={() => setShowMenu(!showMenu)} variant="contained">Menu</Button>
-                            <Button style={{ minWidth: '100px' }} onClick={() => setShowMenu(!showMenu)} variant="contained">Gallary</Button>
+                            <Button style={{ minWidth: '100px' }} onClick={() => setShowMenu(true)} variant="contained">Menu</Button>
+                            <Button style={{ minWidth: '100px' }} onClick={() => setShowMenu(false)} variant="contained">Gallary</Button>
                             <Button style={{ minWidth: '100px' }}  variant="contained">Opinion</Button>
                         </div>
                         {showMenu && <div style={{ display: 'flex',  width: '100%', flexWrap: 'wrap', justifyContent: 'center' }}>{data.photos.menuPhotos.map(e => <img style={{ width: '160px', margin: '5px', height: '160px' }} src={e} />)}</div>}

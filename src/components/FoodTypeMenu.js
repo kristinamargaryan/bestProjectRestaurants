@@ -39,9 +39,10 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function MultipleSelectPlaceholder() {
+export default function MultipleSelectPlaceholder(props) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
+ 
 
   const handleChange = (event) => {
     const {
@@ -52,6 +53,10 @@ export default function MultipleSelectPlaceholder() {
       typeof value === "string" ? value.split(",") : value
     );
   };
+
+  React.useEffect(() => {
+   props.selectedCousineChange(personName)
+ }, [personName])
 
   return (
     <div>
@@ -77,6 +82,7 @@ export default function MultipleSelectPlaceholder() {
               key={item.value}
               value={item.value}
               style={getStyles(item.value, personName, theme)}
+              
             >
               {item.value}
             </MenuItem>

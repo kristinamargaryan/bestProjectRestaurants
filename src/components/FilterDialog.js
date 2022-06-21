@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -23,16 +23,21 @@ import AccessibleIcon from '@mui/icons-material/Accessible';
 import SportsBarIcon from '@mui/icons-material/SportsBar';
 import NightlifeIcon from '@mui/icons-material/Nightlife';
 import '../App.css';
-import { useState } from 'react';
 import useWindowDimensions from '../components/WindowResize';
+import { DebounceInput } from 'react-debounce-input';
 
 export default function FilterDialog(props) {
+	const [inputValue, setInputValue] = useState('')
 	let style1 = {
 		backgroundColor: '#d58c1e',
 	};
 	let style2 = {
 		backgroundColor: 'blue',
 	};
+
+	useEffect(() => {
+		props.findRestaurant(inputValue)
+	  }, [inputValue])
 
 	const { width } = useWindowDimensions();
 	const optionsBar = [
@@ -77,15 +82,17 @@ export default function FilterDialog(props) {
 			<ul className='filterList'>
 				<li>
 					<h5>Find by restaurnt name</h5>
-					<input
-						style={{ width: '90%', height: '20px', fontSize: '18px' }}
-						type='text'
-						placeholder='Find restaurant'
+					<DebounceInput
+						style={{width: '240px'}}
+						placeholder='Find Restaurant'
+						minLength={2}
+						debounceTimeout={1000}
+						onChange={(e) => setInputValue(e.target.value)}
 					/>
 				</li>
 				<li>
 					<h5>Find by type of food</h5>
-					<FoodTypeMenu style={{ height: '50px', width: '90%' }} />
+					<FoodTypeMenu selectedCousineChange={props.selectedCousineChange} style={{ height: '50px', width: '90%' }} />
 				</li>
 
 				<li className='selectPrice'>
@@ -146,13 +153,13 @@ export default function FilterDialog(props) {
 										onClick={(ev) => {
 											props.filteredOptions.includes(element.title)
 												? props.filterOptionsCheckedFunction(
-														element.title,
-														true
-												  )
+													element.title,
+													true
+												)
 												: props.filterOptionsCheckedFunction(
-														element.title,
-														false
-												  );
+													element.title,
+													false
+												);
 										}}
 									>
 										{element.tag}

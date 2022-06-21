@@ -6,6 +6,7 @@ import FilterDialog from "../FilterDialog";
 import SwipeableTemporaryDrawer from "../DrawersFolter";
 import useWindowDimensions from "../WindowResize";
 import { useAuth } from "../AuthProvider";
+import ShowAllOrFilteredRestaurants from "../ShowAllOrFilteredRestaurants";
 import {
   NavbarPhoto,
   SearchSection,
@@ -36,6 +37,10 @@ export default function Homepage(props) {
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [filteredPrices, setFilteredPrices] = useState([]);
   const [selectedRestaurantInfo, setSelectedRestaurantInfo] = useState(null);
+  const [selectedCousine, setSelectedCousine] = useState([]);
+  const [findRestaurantValue, setFindRestaurantValue] = useState("");
+  const [filterRestaurants, setFilterRestaurants] = useState(allRestaurantsArr);
+  const [findRest, setFindRest] = useState([]);
   useEffect(() => {
     if (userParamsAndPhothos) {
       uniqueRestaurantFunction();
@@ -72,6 +77,7 @@ export default function Homepage(props) {
       } else return true;
     } else return false;
   }
+
   const uniqueRestaurantFunction = () => {
     let allRestaurants = [];
     for (let userRestaurants of userParamsAndPhothos) {
@@ -79,8 +85,17 @@ export default function Homepage(props) {
         allRestaurants.push(userRestaurants[restaurant]);
       }
     }
+    setFilterRestaurants(allRestaurants);
     setAllrestaurantsArr(allRestaurants);
   };
+
+  useEffect(() => {
+    setFilterRestaurants(
+      filterRestaurants.filter((e) =>
+        e.restName.toLowerCase().includes(findRestaurantValue.toLowerCase())
+      )
+    );
+  }, [findRestaurantValue]);
 
   const filterPriceCheckedFunction = (title, bul) => {
     bul
@@ -91,6 +106,15 @@ export default function Homepage(props) {
         )
       : setFilteredPrices([...filteredPrices, title]);
   };
+  const selectedCousineChange = (arr) => {
+    setSelectedCousine(arr);
+  };
+
+  const findRestaurant = (val) => {
+    setFilterRestaurants(allRestaurantsArr);
+    setFindRestaurantValue(val);
+  };
+
   const filterOptionsCheckedFunction = (title, bul) => {
     bul
       ? setFilteredOptions(
@@ -109,6 +133,7 @@ export default function Homepage(props) {
         )
       : setFilteredMoods([...filteredMoods, title]);
   };
+
   const handleClickOpen = () => {
     setShowFilterDialog(!showFilterDialog);
   };
@@ -117,17 +142,17 @@ export default function Homepage(props) {
   };
   const filterDialogShow = () => {
     setShowFilterDialog(!showFilterDialog);
-	};
-	
-	const ChangeSelectedRestaurant = () => {
-		setSelectedRestaurantInfo(null)
-	}
+  };
 
-  // https://media.istockphoto.com/vectors/fruit-grunge-design-vector-id166079845?k=20&m=166079845&s=612x612&w=0&h=94AZl_tnBUTUhRJbp5SueEPz0Fe2E-yP0Mczk4m3aR4=
-  // https://media.istockphoto.com/vectors/wooden-planks-overlay-texture-for-your-design-shabby-chic-background-vector-id812653412?k=20&m=812653412&s=612x612&w=0&h=2PhVoFQPBRuSxxXl_gSgU126OZKIN2LciS-F6Eo5f2E=
-  // https://media.istockphoto.com/vectors/colorful-vegetables-pattern-vector-id538558574?k=20&m=538558574&s=612x612&w=0&h=vMTFGjjR-fN_g1wQEfMvULArjAUjejr_gVcVslYM2tA=
-  // https://media.istockphoto.com/vectors/newborn-baby-shower-seamless-pattern-boy-girl-birthday-celebration-vector-id902199106?k=20&m=902199106&s=612x612&w=0&h=yF5OXEiVJbNClc5AN5Z0qwq4BddEjYqzKJLCF8jtUgA=
-  // https://media.istockphoto.com/vectors/seafood-various-seamless-pattern-shrimp-mussel-oyster-seashell-herbs-vector-id1272223697?k=20&m=1272223697&s=612x612&w=0&h=lYIfbRKwfufpq3_vOKQchuVI0Hd3uaVTQLYEPE0ZTgI=
+  const ChangeSelectedRestaurant = () => {
+    setSelectedRestaurantInfo(null);
+  };
+
+  const findSelectedRestaurant = (restaurant) => {
+    setSelectedRestaurantInfo(restaurant)
+  }
+
+ 
   return (
     <>
       <div>
@@ -174,9 +199,14 @@ export default function Homepage(props) {
                 zIndex: 50,
               }}
             >
-              <SwipeableTemporaryDrawer />
+              <SwipeableTemporaryDrawer
+                findRestaurant={findRestaurant}
+                selectedCousineChange={selectedCousineChange}
+              />
             </div>
             <FilterDialog
+              findRestaurant={findRestaurant}
+              selectedCousineChange={selectedCousineChange}
               filteredPrices={filteredPrices}
               filterPriceCheckedFunction={filterPriceCheckedFunction}
               filteredOptions={filteredOptions}
@@ -185,10 +215,27 @@ export default function Homepage(props) {
               filterMoodsCheckedFunction={filterMoodsCheckedFunction}
             />{" "}
             <RestDiv>
-              {allRestaurantsArr.length
+              {filterRestaurants.length !== allRestaurantsArr.length ? (
+                filterRestaurants.length ? (
+                  <div>
+                    Find {filterRestaurants.length}{" "}
+                    {filterRestaurants.length > 1
+                      ? "Restaurants"
+                      : "Restaurant"}
+                  </div>
+                ) : (
+                  <div>Restaurants Can't Find</div>
+                )
+              ) : null}
+              <ShowAllOrFilteredRestaurants onclick={findSelectedRestaurant} allRestaurantsArr={allRestaurantsArr} filterRestaurants={filterRestaurants} RestaurantOpenOrClose={RestaurantOpenOrClose} />
+              {/* {allRestaurantsArr.length === filterRestaurants.length ||
+              filterRestaurants.length === 0
                 ? allRestaurantsArr.map((restaurant, index) => {
                     return (
-                      <OwnRest key={index} onClick={() => setSelectedRestaurantInfo(restaurant) }>
+                      <OwnRest
+                        key={index}
+                        onClick={() => setSelectedRestaurantInfo(restaurant)}
+                      >
                         <OwnRestImg
                           src={
                             restaurant.photos.avatar[
@@ -230,8 +277,59 @@ export default function Homepage(props) {
                       </OwnRest>
                     );
                   })
-                : null}
-						  {selectedRestaurantInfo && <RestaurantInfoDialog data={selectedRestaurantInfo} onclose={ChangeSelectedRestaurant} />}
+                : filterRestaurants.map((restaurant, index) => {
+                    return (
+                      <OwnRest
+                        key={index}
+                        onClick={() => setSelectedRestaurantInfo(restaurant)}
+                      >
+                        <OwnRestImg
+                          src={
+                            restaurant.photos.avatar[
+                              restaurant.photos.profilePicture
+                            ]
+                          }
+                        />
+                        <OwnRestContent>
+                          <RestContTitle>{restaurant.restName}</RestContTitle>
+                          <div>
+                            {restaurant.openTime &&
+                            restaurant.closeTime &&
+                            RestaurantOpenOrClose(
+                              restaurant.openTime,
+                              restaurant.closeTime
+                            ) ? (
+                              <span
+                                style={{ color: "green", fontStyle: "italic" }}
+                              >
+                                Open Now
+                              </span>
+                            ) : (
+                              <span
+                                style={{ color: "red", fontStyle: "italic" }}
+                              >
+                                Closed
+                              </span>
+                            )}
+                          </div>
+                          <div>
+                            <span style={{ color: "green" }}>price:</span>{" "}
+                            {restaurant.priceInfo}
+                          </div>
+                          <div>
+                            <span style={{ color: "green" }}>cousine:</span>{" "}
+                            {restaurant.foodTypes.join(", ")}
+                          </div>
+                        </OwnRestContent>
+                      </OwnRest>
+                    );
+                  })} */}
+              {!!selectedRestaurantInfo && (
+                <RestaurantInfoDialog
+                  data={selectedRestaurantInfo}
+                  onclose={ChangeSelectedRestaurant}
+                />
+              )}
               {/* {parametrs
               ? paramsArrayState.map((item, index) => {
                   return (
