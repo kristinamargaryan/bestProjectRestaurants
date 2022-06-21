@@ -60,10 +60,11 @@ export default function Homepage(props) {
       return true;
     }
     if (openHour > closeHour) {
-      closeHour = closeHour + 24;
       if (realTimeHour < closeHour) {
         realTimeHour = realTimeHour + 24;
       }
+      closeHour = closeHour + 24;
+     
     }
     if (realTimeHour > openHour && realTimeHour < closeHour) {
       return true;

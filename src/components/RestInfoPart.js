@@ -26,7 +26,7 @@ export default function RestInfoPart(props) {
 
   const {
     address,
-    city,
+    restcity,
     priceInfo,
     restName,
     phoneNumber,
@@ -37,7 +37,7 @@ export default function RestInfoPart(props) {
     photos,
   } = restaurant;
 
-  const newAddress = city + " " + address;
+  const newAddress = restcity + " " + address;
   const icons = [
     [
       <RestaurantIcon style={{ color: "#59C882", fontSize: "25px" }} />,

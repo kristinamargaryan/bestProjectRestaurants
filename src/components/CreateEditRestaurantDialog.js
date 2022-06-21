@@ -82,11 +82,11 @@ export default function CreateEditRestaurantDialog(props) {
   };
 
   const savechanges = async (e) => {
+    let rs = JSON.parse(sessionStorage.getItem("restinfo"));
     e.preventDefault();
-    
-    delete userRestPhotos1[restName + address];
-    delete userRestParams1[restName + address];
-    console.log(userRestParams1)
+    delete userRestPhotos1[rs.restName + rs.address];
+    delete userRestParams1[rs.restName + rs.address];
+    console.log(userRestPhotos1[restName + address]);
     db.collection("restaurantsPhoto1")
       .doc(currentUser.uid)
 
@@ -191,7 +191,7 @@ export default function CreateEditRestaurantDialog(props) {
       setFoodTypes((prev) => prev.filter((x) => x !== value));
     }
   };
-
+  console.log(restcity);
   return (
     <div>
       <Dialog
