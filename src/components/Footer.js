@@ -12,14 +12,10 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import { useNavigate } from "react-router-dom";
 import{ HOMEPAGE_ROUTE,
-    ABOUT_ROUTE,
-    CONTACTUS_ROUTE,
-     FORBUSINES_ROUTE,
-    FORBUSINESMYREST_ROUTE,
-    UPDATEPROFILE_ROUTE,
-    SIGNIN_ROUTE,
-    SIGNUP_ROUTE,
-    FORGOTPASSWORD_ROUTE } from '../constants/constants';
+        ABOUT_ROUTE,
+        CONTACTUS_ROUTE,
+        SIGNIN_ROUTE,
+        SIGNUP_ROUTE} from '../constants/constants';
 
 
 export default function Footer() {
@@ -27,6 +23,8 @@ export default function Footer() {
     const goHome = () => navigate(HOMEPAGE_ROUTE);
     const goAbout = () => navigate(ABOUT_ROUTE);
     const goContactUs = () => navigate(CONTACTUS_ROUTE);
+    const goSignIn = () => navigate(SIGNIN_ROUTE);
+    const goSignUp = () => navigate(SIGNUP_ROUTE);
     return (
     <footer style={{display:'flex', alignSelf: 'flex-end', alignItems: 'flex-end', width: '100%'}}>
         <Box style={{ backgroundColor:"black",color:"#48A14F", paddingTop: '30px', paddingBottom: '30px', width: '100%'}} >
@@ -68,6 +66,12 @@ export default function Footer() {
                         </Box>
                         <Box>
                             <Link onClick={goContactUs}  color = "inherit"> Contact Us</Link>
+                        </Box>
+                        <Box>
+                            <Link onClick={goSignIn}  color = "inherit"> Sign In</Link>
+                        </Box>
+                        <Box>
+                            <Link onClick={goSignUp}  color = "inherit"> Sign Up</Link>
                         </Box>
                     </Grid>
                     <Grid style={{ color: 'white'}} item xs={12} sm={4}>
