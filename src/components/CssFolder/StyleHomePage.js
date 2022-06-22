@@ -95,7 +95,6 @@ export const RestDiv = styled.div`
 		min-width: 380px;
 		margin: 0;
 	}
-
 `;
 
 export const OwnRest = styled.div`
@@ -125,11 +124,14 @@ export const OwnRestContent = styled.div`
 	justify-content: space-evenly;
 	align-items: flex-start;
 	background-color: #fff;
-	
 `;
 
 export const RestContTitle = styled.h3`
 	margin: 0;
 	font-family: 'roboto';
 	font-size: 22px;
+`;
+
+export const MainPage = styled.div`
+	background-image: url(https://mail.google.com/mail/u/0?ui=2&ik=6d4ab470b5&attid=0.3&permmsgid=msg-f:1736252572675404161&th=181868840aacf181&view=att&disp=safe);
 `;
