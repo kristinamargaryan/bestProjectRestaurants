@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const NavbarPhoto = styled.div`
-	background-image: url(http://www.loyolamedicine.org/assets/images/blog-thumbnails/blog-lowercholesterolfoods.jpg);
+	background-image: url(https://img.freepik.com/free-photo/empty-glasses-set-restaurant_113873-38.jpg?size=626&ext=jpg&ga=GA1.2.1565768587.1655567324);
 	width: 100%;
 	height: 200px;
 	background-position: center;
@@ -133,5 +133,5 @@ export const RestContTitle = styled.h3`
 `;
 
 export const MainPage = styled.div`
-	background-image: url(https://mail.google.com/mail/u/0?ui=2&ik=6d4ab470b5&attid=0.3&permmsgid=msg-f:1736252572675404161&th=181868840aacf181&view=att&disp=safe);
+	background-image: url(https://img.freepik.com/free-photo/empty-glasses-set-restaurant_113873-37.jpg?w=740);
 `;
