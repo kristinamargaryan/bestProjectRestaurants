@@ -61,7 +61,7 @@ export default function Myprofile(props) {
     getRestInfo,
   } = useAuth();
   const [foodTypes, setFoodTypes] = useState([]);
-console.log(restaurantEdit)
+
   useEffect(() => {
     if (Object.keys(userRestParams1).length && restaurantEdit) {
       setPhotos(userRestPhotos1[restaurantEdit]);

@@ -55,7 +55,7 @@ export default function CreateEditRestaurantDialog(props) {
   );
   const [time24, setTime24] = useState(!!data.time24 ? data.time24 : "");
   const [priceInfo, setPriceInfo] = useState(
-    !!data.priceInfo ? data.priceInfo : data.priceInfo
+    !!data.priceInfo ? data.priceInfo : '$$$'
   );
   const [moods, setMoods] = useState(!!data.moods ? data.moods : []);
   const [options, setOptions] = useState(!!data.options ? data.options : []);
@@ -84,11 +84,17 @@ export default function CreateEditRestaurantDialog(props) {
   };
 
   const savechanges = async (e) => {
-    let rs = JSON.parse(sessionStorage.getItem("restinfo"));
     e.preventDefault();
-    delete userRestPhotos1[rs.restName + rs.address];
+    if(Object.keys(props.data).length !== 0){
+      let rs = JSON.parse(sessionStorage.getItem("restinfo"));
+      delete userRestPhotos1[rs.restName + rs.address];
     delete userRestParams1[rs.restName + rs.address];
-    console.log(userRestPhotos1[restName + address]);
+    }
+    
+
+    
+    
+    
     db.collection("restaurantsPhoto1")
       .doc(currentUser.uid)
 
@@ -116,15 +122,14 @@ export default function CreateEditRestaurantDialog(props) {
       .doc(currentUser.uid)
 
       .set({ ...userRestParams1, [restName + address]: sendData });
-    // sessionStorage.setItem("restinfo", JSON.stringify(sendData));
-    // setOpen(false);
+   
     setFileUrl([]);
     setFileUrlmenu([]);
-
+    
     updaterAll1();
     updater1();
     props.onclick();
-    // componentStatsDefault();
+    
 
     navigate(FORBUSINES_ROUTE);
   };
@@ -200,6 +205,7 @@ export default function CreateEditRestaurantDialog(props) {
   let enableSendButton = () => {
     for (let key in sendData) {
       if (sendData[key] && sendData[key].length === 0) {
+        
         return true;
       }
     }
