@@ -37,7 +37,9 @@ export default function CreateEditRestaurantDialog(props) {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
-  const [restcity, setRestCity] = useState(!!data.restcity ? data.restcity : "");
+  const [restcity, setRestCity] = useState(
+    !!data.restcity ? data.restcity : "Yerevan"
+  );
   const [restName, setRestName] = useState(
     !!data.restName ? data.restName : ""
   );
@@ -191,7 +193,18 @@ export default function CreateEditRestaurantDialog(props) {
       setFoodTypes((prev) => prev.filter((x) => x !== value));
     }
   };
-  console.log(restcity);
+  let saveData = (e) => {
+    savechanges(e);
+    props.onclick();
+  };
+  let enableSendButton = () => {
+    for (let key in sendData) {
+      if (sendData[key] && sendData[key].length === 0) {
+        return true;
+      }
+    }
+    return false;
+  };
   return (
     <div>
       <Dialog
@@ -208,13 +221,13 @@ export default function CreateEditRestaurantDialog(props) {
             <RestCity city={restcity} handleChangeCity={handleChangeCity} />
 
             <div>
-              <div>Restauarnt Name</div>
+              
               <NameAndAddress
                 forLabel="Restaurant Name"
                 info={restName}
                 handleChange={handleChangeRestName}
               />
-              <div>Restaurant Address</div>
+              
               <NameAndAddress
                 forLabel="Restaurant Address"
                 info={address}
@@ -287,15 +300,13 @@ export default function CreateEditRestaurantDialog(props) {
               name={"Foodtypes"}
             />
 
-            <BtnSend data={sendData} savechanges={savechanges} />
+            {/* <BtnSend data={sendData} savechanges={savechanges} /> */}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={props.onclick}>
-            Disagree
-          </Button>
-          <Button autoFocus onClick={props.onclick}>
-            Agree
+          <Button onClick={props.onclick}>Cancel</Button>
+          <Button disabled={enableSendButton()} onClick={saveData}>
+            Save
           </Button>
         </DialogActions>
       </Dialog>
