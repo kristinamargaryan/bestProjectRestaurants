@@ -208,14 +208,14 @@ export default function Homepage(props) {
 						<RestDiv>
 							{filterRestaurants.length !== allRestaurantsArr.length ? (
 								filterRestaurants.length ? (
-									<div>
+									<div style={{ color: 'white' }}>
 										Find {filterRestaurants.length}{' '}
 										{filterRestaurants.length > 1
 											? 'Restaurants'
 											: 'Restaurant'}
 									</div>
 								) : (
-									<div>Restaurants Can't Find</div>
+									<div style={{ color: 'white' }}>Restaurants Can't Find</div>
 								)
 							) : null}
 							<ShowAllOrFilteredRestaurants
