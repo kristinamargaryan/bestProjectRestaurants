@@ -37,7 +37,7 @@ export default function CreateEditRestaurantDialog(props) {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
-  const [restcity, setRestCity] = useState(!!data.city ? data.city : "");
+  const [restcity, setRestCity] = useState(!!data.restcity ? data.restcity : "");
   const [restName, setRestName] = useState(
     !!data.restName ? data.restName : ""
   );
@@ -46,10 +46,10 @@ export default function CreateEditRestaurantDialog(props) {
     !!data.phoneNumber ? data.phoneNumber : ""
   );
   const [openTime, setOpenTime] = useState(
-    !!data.openTime ? data.openTime : ""
+    !!data.openTime ? data.openTime : "08:00"
   );
   const [closeTime, setCloseTime] = useState(
-    !!data.closeTime ? data.closeTime : ""
+    !!data.closeTime ? data.closeTime : "00:00"
   );
   const [time24, setTime24] = useState(!!data.time24 ? data.time24 : "");
   const [priceInfo, setPriceInfo] = useState(
