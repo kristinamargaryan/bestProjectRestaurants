@@ -326,19 +326,7 @@ console.log(restaurantEdit)
                   borderRadius: "5px",
                   marginBottom: "10px",
                 }}
-                onClick={(ev) => {
-                  ev.preventDefault();
-                 
-                  setOpen(true);
-                  setRestaurantEdit(item.restName + item.address);
-                  setFileUrl([]);
-                  setFileUrlmenu([]);
-                  setNowRest(userRestParams1[item.restName + item.address]);
-                  navigate(`/myrestaurants/${ev.target.id}`); 
-                  // navigate(`/${currentUser.uid}`);
-                  // getRestInfo(item);
-                  sessionStorage.setItem("restinfo", JSON.stringify(item));
-                }}
+                
               >
                 <h4
                   style={{
@@ -362,6 +350,17 @@ console.log(restaurantEdit)
                     minHeight: "200px",
                   }}
                   src={item.photos.avatar[+item.photos.profilePicture]}
+                  onClick={(ev) => {
+                    ev.preventDefault(); 
+                    setRestaurantEdit(item.restName + item.address);
+                    setFileUrl([]);
+                    setFileUrlmenu([]);
+                    setNowRest(userRestParams1[item.restName + item.address]);
+                    navigate(`/myrestaurants/${ev.target.id}`); 
+                    // navigate(`/${currentUser.uid}`);
+                    // getRestInfo(item);
+                    sessionStorage.setItem("restinfo", JSON.stringify(item));
+                  }}
                 />
               </div>
             );
