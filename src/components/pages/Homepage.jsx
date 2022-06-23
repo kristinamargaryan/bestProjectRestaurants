@@ -38,6 +38,7 @@ export default function Homepage(props) {
 	const [findRestaurantValue, setFindRestaurantValue] = useState('');
 	const [filterRestaurants, setFilterRestaurants] = useState(allRestaurantsArr);
 	const [findRest, setFindRest] = useState([]);
+	const [xx, setXx] = useState([]);
 	useEffect(() => {
 		if (userParamsAndPhothos) {
 			uniqueRestaurantFunction();
@@ -86,13 +87,207 @@ export default function Homepage(props) {
 		setAllrestaurantsArr(allRestaurants);
 	};
 
+	// useEffect(() => {
+	// 	setFilterRestaurants(
+	// 		filterRestaurants.filter((e) =>
+	// 			e.restName.toLowerCase().includes(findRestaurantValue.toLowerCase())
+	// 		)
+	// 	);
+	// }, [findRestaurantValue]);
+	console.log(allRestaurantsArr)
+
 	useEffect(() => {
-		setFilterRestaurants(
-			filterRestaurants.filter((e) =>
-				e.restName.toLowerCase().includes(findRestaurantValue.toLowerCase())
-			)
-		);
-	}, [findRestaurantValue]);
+		if (selectedCousine.length > 0 && findRestaurantValue.length > 0 && filteredPrices.length === 0 && filteredMoods.length === 0 && filteredOptions.length === 0) {
+			let result = [];
+			selectedCousine.forEach(e => allRestaurantsArr.forEach((j) => {
+				if (j.foodTypes.includes(e) && j.restName.toLowerCase().includes(findRestaurantValue.toLowerCase())) {
+					result.push(j);
+					return result
+				}
+				return result;
+			}))
+	
+			setFilterRestaurants(result)
+		} else if (selectedCousine.length > 0 && findRestaurantValue.length === 0 && filteredPrices.length === 0 && filteredMoods.length === 0 && filteredOptions.length === 0) {
+			let result = [];
+			selectedCousine.forEach(e => allRestaurantsArr.forEach((j) => {
+				if (j.foodTypes.includes(e)) {
+					result.push(j);
+					return result
+				} 
+				return result;
+			}))
+	
+			setFilterRestaurants(result)
+		} else if (selectedCousine.length === 0 && findRestaurantValue.length > 0 && filteredPrices.length === 0 && filteredMoods.length === 0 && filteredOptions.length === 0) {
+			let result = [];
+			allRestaurantsArr.forEach((e) => {
+				if (e.restName.toLowerCase().includes(findRestaurantValue.toLowerCase())) {
+					result.push(e)
+					return result
+				}
+				return result
+			})
+	
+			setFilterRestaurants(result)
+		} else if (selectedCousine.length === 0 && findRestaurantValue.length === 0 && filteredPrices.length === 0 && filteredMoods.length === 0 && filteredOptions.length === 0) {
+			setFilterRestaurants(allRestaurantsArr)
+		} else if (selectedCousine.length > 0 && findRestaurantValue.length > 0 && filteredPrices.length > 0 && filteredMoods.length === 0 && filteredOptions.length === 0) {
+			let result = [];
+			selectedCousine.forEach(e => allRestaurantsArr.forEach((j) => {
+				if (j.foodTypes.includes(e) && j.restName.toLowerCase().includes(findRestaurantValue.toLowerCase())) {
+					result.push(j);
+					return result
+				}
+				return result;
+			}))
+
+			setXx(result)
+				result = []
+			filteredPrices.forEach(e => xx.forEach((j) => {
+				if (j.priceInfo === e && !result.includes(j)) {
+					result.push(j)
+					return result
+				}
+				return result
+			}))
+
+			setFilterRestaurants(result)
+		} else if (selectedCousine.length === 0 && findRestaurantValue.length === 0 && filteredPrices.length > 0 && filteredMoods.length === 0 && filteredOptions.length === 0) {
+			let result = [];
+			filteredPrices.forEach(e => allRestaurantsArr.forEach((j) => {
+				if (j.priceInfo === e) {
+					result.push(j)
+					return result
+				}
+				return result
+			}))
+
+			setFilterRestaurants(result)
+		} else if (selectedCousine.length > 0 && findRestaurantValue.length > 0 && filteredPrices.length > 0 && filteredMoods.length > 0 && filteredOptions.length === 0) {
+			let result = [];
+			filteredMoods.forEach(e => allRestaurantsArr.forEach((j) => {
+				if (j.moods.includes(e)) {
+					result.push(e)
+					return result;
+				}
+				return result
+			}))
+
+			setXx(result);
+
+			result = [];
+			selectedCousine.forEach(e => xx.forEach((j) => {
+				if (j.foodTypes.includes(e) && !result.includes(j)) {
+					result.push(j);
+					return result
+				}
+				return result
+			}))
+			setXx(result);
+			result = []
+			filteredPrices.forEach(e => xx.forEach((j) => {
+				if (j.priceInfo === e) {
+					result.push(j)
+					return result
+				}
+				return result
+			}))
+			setFilterRestaurants(result)
+		} else if (selectedCousine.length > 0 && findRestaurantValue.length === 0 && filteredPrices.length > 0 && filteredMoods.length === 0 && filteredOptions.length === 0) {
+			let result = [];
+			selectedCousine.forEach(e => allRestaurantsArr.forEach((j) => {
+				if (j.foodTypes.includes(e)) {
+					result.push(j);
+					return result
+				}
+				return result;
+			}))
+
+			setXx(result)
+				result = []
+			filteredPrices.forEach(e => xx.forEach((j) => {
+				if (j.priceInfo === e && !result.includes(j)) {
+					result.push(j)
+				}
+			}))
+
+			setFilterRestaurants(result)
+		} else if (selectedCousine.length === 0 && findRestaurantValue.length === 0 && filteredPrices.length === 0 && filteredMoods.length > 0 && filteredOptions.length === 0) {
+			let result = [];
+			filteredMoods.forEach(e => allRestaurantsArr.forEach((j) => {
+				if (j.moods.includes(e) && !result.includes(JSON.stringify(j))) {
+					result.push(JSON.stringify(j));
+					return result
+				}
+				return result;
+			}))
+
+			let newResult = result.map(e => JSON.parse(e))
+
+			setFilterRestaurants(newResult)
+		} else if (selectedCousine.length === 0 && findRestaurantValue.length === 0 && filteredPrices.length === 0 && filteredMoods.length > 0 && filteredOptions.length > 0) {
+			let result = [];
+			filteredMoods.forEach(e => allRestaurantsArr.forEach((j) => {
+				if (j.moods.includes(e) && !result.includes(JSON.stringify(j))) {
+					result.push(JSON.stringify(j));
+					return result
+				}
+				return result;
+			}))
+
+			filteredOptions.forEach(e => allRestaurantsArr.forEach((j) => {
+				if (j.options.includes(e) && !result.includes(JSON.stringify(j))) {
+					result.push(JSON.stringify(j));
+					return result
+				}
+				return result;
+			}))
+
+			let newResult = result.map(e => JSON.parse(e))
+			setFilterRestaurants(newResult)
+		} else if (selectedCousine.length === 0 && findRestaurantValue.length === 0 && filteredPrices.length === 0 && filteredMoods.length === 0 && filteredOptions.length > 0) {
+			let result = [];
+			filteredOptions.forEach(e => allRestaurantsArr.forEach((j) => {
+				if (j.options.includes(e) && !result.includes(JSON.stringify(j))) {
+					result.push(JSON.stringify(j));
+					return result
+				}
+				return result;
+			}))
+
+			let newResult = result.map(e => JSON.parse(e))
+			setFilterRestaurants(newResult)
+		} else if (selectedCousine.length === 0 && findRestaurantValue.length === 0 && filteredPrices.length > 0 && filteredMoods.length > 0 && filteredOptions.length > 0) {
+			let result = [];
+			filteredMoods.forEach(e => allRestaurantsArr.forEach((j) => {
+				if (j.moods.includes(e) && !result.includes(JSON.stringify(j))) {
+					result.push(JSON.stringify(j));
+					return result
+				}
+				return result;
+			}))
+
+			filteredOptions.forEach(e => allRestaurantsArr.forEach((j) => {
+				if (j.options.includes(e) && !result.includes(JSON.stringify(j))) {
+					result.push(JSON.stringify(j));
+					return result
+				}
+				return result;
+			}))
+			let filteredResult = []
+			let newResult = result.map(e => JSON.parse(e))
+			filteredPrices.forEach(e => {
+				newResult.forEach((j) => {
+					if (j.priceInfo === e) {
+						filteredResult.push(j)
+					}
+				})
+			})
+			setFilterRestaurants(filteredResult)
+		}
+		
+	}, [selectedCousine, findRestaurantValue, filteredPrices, filteredMoods, filteredOptions])
 
 	const filterPriceCheckedFunction = (title, bul) => {
 		bul
