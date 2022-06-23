@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const NavbarPhoto = styled.div`
-	background-image: url(https://img.freepik.com/free-photo/empty-glasses-set-restaurant_113873-38.jpg?size=626&ext=jpg&ga=GA1.2.1565768587.1655567324);
+	// background-image: url(https://img.freepik.com/free-photo/empty-glasses-set-restaurant_113873-38.jpg?size=626&ext=jpg&ga=GA1.2.1565768587.1655567324);
 	width: 100%;
 	height: 200px;
 	background-position: center;
@@ -88,7 +88,7 @@ export const HomeContents = styled.div`
 
 export const RestDiv = styled.div`
 	padding: 0 15px;
-	width: 40%;
+	width: 62%;
 	min-width: 450px;
 
 	@media screen and (max-width: 568px) {
@@ -118,6 +118,8 @@ export const OwnRestImg = styled.img`
 export const OwnRestContent = styled.div`
 	/* margin-left: 20px; */
 	padding-left: 20px;
+	backgroundColor:'#919293';
+	padding:30px;
 	flex: 4;
 	display: flex;
 	flex-direction: column;
@@ -133,5 +135,10 @@ export const RestContTitle = styled.h3`
 `;
 
 export const MainPage = styled.div`
-	background-image: url(https://img.freepik.com/free-photo/empty-glasses-set-restaurant_113873-37.jpg?w=740);
+	background-image: url('https://img.freepik.com/free-vector/seamless-pizza-ingredients_1176-269.jpg?t=st=1655990380~exp=1655990980~hmac=cc16c8dea1ddcd539b2f062452c589a77f2fef00fc12c7fa65d4a43523ae8253&w=740');
 `;
+
+
+
+// https://img.freepik.com/free-vector/seamless-pizza-ingredients_1176-269.jpg?t=st=1655990380~exp=1655990980~hmac=cc16c8dea1ddcd539b2f062452c589a77f2fef00fc12c7fa65d4a43523ae8253&w=740
+// https://img.freepik.com/free-vector/restaurant-symbols-seamless-pattern-doodle-sketch_1284-12804.jpg?t=st=1655965571~exp=1655966171~hmac=e5f17db2bab9905d17caba861f194b96a88367092b9f55f0714b6192efedccc1&w=740
