@@ -775,62 +775,62 @@ export default function Homepage(props) {
 		  filteredPrices.length &&
 		  filteredMoods.length &&
 		  !filteredOptions.length
-	  ) { 
-		let result = [];
-		allRestaurantsArr.forEach((e) => {
-			if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
-				return result.push(e)
-			}
-			return result
-		});
+	  ) {
+		  let result = [];
+		  allRestaurantsArr.forEach((e) => {
+			  if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
+				  return result.push(e)
+			  }
+			  return result
+		  });
 		
-		let newMoods = [];
-		filteredMoods.forEach(e => result.forEach((j) => {
-			if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
-				return newMoods.push(JSON.stringify(j))
-			}
-			return newMoods
-		}))
+		  let newMoods = [];
+		  filteredMoods.forEach(e => result.forEach((j) => {
+			  if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
+				  return newMoods.push(JSON.stringify(j))
+			  }
+			  return newMoods
+		  }))
 		  newMoods = newMoods.map(e => JSON.parse(e))
-		let newPrice = [];
-		filteredPrices.forEach(e => newMoods.forEach((j) => {
-			if (j.priceInfo === e) {
-				return newPrice.push(j)
-			}
-			return newPrice
-		}))
+		  let newPrice = [];
+		  filteredPrices.forEach(e => newMoods.forEach((j) => {
+			  if (j.priceInfo === e) {
+				  return newPrice.push(j)
+			  }
+			  return newPrice
+		  }))
 		  
-		let newCousine = [];
-		selectedCousine.forEach(e => newPrice.forEach((j) => {
-			if (j.foodTypes.includes(e)) {
-				return newCousine.push(j)
-			}
-			return newCousine
-		}))
+		  let newCousine = [];
+		  selectedCousine.forEach(e => newPrice.forEach((j) => {
+			  if (j.foodTypes.includes(e)) {
+				  return newCousine.push(j)
+			  }
+			  return newCousine
+		  }))
 		  setFilterRestaurants(newCousine)
 	  } else if (
-		changeCityValue.length &&
-		selectedCousine.length &&
-		!findRestaurantValue.length &&
-		!filteredPrices.length &&
-		filteredMoods.length &&
-		!filteredOptions.length
+		  changeCityValue.length &&
+		  selectedCousine.length &&
+		  !findRestaurantValue.length &&
+		  !filteredPrices.length &&
+		  filteredMoods.length &&
+		  !filteredOptions.length
 	  ) {
-		let result = [];
-		allRestaurantsArr.forEach((e) => {
-			if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
-				return result.push(e)
-			}
-			return result
-		});
+		  let result = [];
+		  allRestaurantsArr.forEach((e) => {
+			  if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
+				  return result.push(e)
+			  }
+			  return result
+		  });
 		
-		let newMoods = [];
-		filteredMoods.forEach(e => result.forEach((j) => {
-			if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
-				return newMoods.push(JSON.stringify(j))
-			}
-			return newMoods
-		}))
+		  let newMoods = [];
+		  filteredMoods.forEach(e => result.forEach((j) => {
+			  if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
+				  return newMoods.push(JSON.stringify(j))
+			  }
+			  return newMoods
+		  }))
 		  let newCousine = [];
 		  newMoods = newMoods.map(e => JSON.parse(e))
 		  selectedCousine.forEach(e => newMoods.forEach((j) => {
@@ -840,221 +840,358 @@ export default function Homepage(props) {
 			  return newCousine
 		  }))
 		  setFilterRestaurants(newCousine)
-	} else if (
-		changeCityValue.length &&
-		!selectedCousine.length &&
-		findRestaurantValue.length &&
-		filteredPrices.length &&
-		!filteredMoods.length &&
-		!filteredOptions.length
+	  } else if (
+		  changeCityValue.length &&
+		  !selectedCousine.length &&
+		  findRestaurantValue.length &&
+		  filteredPrices.length &&
+		  !filteredMoods.length &&
+		  !filteredOptions.length
 	  ) {
-		let result = [];
-		allRestaurantsArr.forEach((e) => {
-			if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
-				return result.push(e)
-			}
-			return result
-		});
+		  let result = [];
+		  allRestaurantsArr.forEach((e) => {
+			  if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
+				  return result.push(e)
+			  }
+			  return result
+		  });
 		  
-		let newPrice = [];
-		filteredPrices.forEach(e => result.forEach((j) => {
-			if (j.priceInfo === e) {
-				return newPrice.push(j)
-			}
-			return newPrice
-		}))
-		let newRestName = []
-		newPrice.forEach(e => {
-			if (e.restName.toLowerCase().includes(findRestaurantValue.toLowerCase())) {
-				return newRestName.push(e)
-			}
-			return newRestName
-		})
+		  let newPrice = [];
+		  filteredPrices.forEach(e => result.forEach((j) => {
+			  if (j.priceInfo === e) {
+				  return newPrice.push(j)
+			  }
+			  return newPrice
+		  }))
+		  let newRestName = []
+		  newPrice.forEach(e => {
+			  if (e.restName.toLowerCase().includes(findRestaurantValue.toLowerCase())) {
+				  return newRestName.push(e)
+			  }
+			  return newRestName
+		  })
 
-		setFilterRestaurants(newRestName)
-	  }  else if (
-		changeCityValue.length &&
-		!selectedCousine.length &&
-		findRestaurantValue.length &&
-		filteredPrices.length &&
-		filteredMoods.length &&
-		!filteredOptions.length
+		  setFilterRestaurants(newRestName)
+	  } else if (
+		  changeCityValue.length &&
+		  !selectedCousine.length &&
+		  findRestaurantValue.length &&
+		  filteredPrices.length &&
+		  filteredMoods.length &&
+		  !filteredOptions.length
 	  ) {
-		let result = [];
-		allRestaurantsArr.forEach((e) => {
-			if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
-				return result.push(e)
-			}
-			return result
-		});
+		  let result = [];
+		  allRestaurantsArr.forEach((e) => {
+			  if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
+				  return result.push(e)
+			  }
+			  return result
+		  });
 		  
-		let newPrice = [];
-		filteredPrices.forEach(e => result.forEach((j) => {
-			if (j.priceInfo === e) {
-				return newPrice.push(j)
-			}
-			return newPrice
-		}))
-		let newRestName = []
-		newPrice.forEach(e => {
-			if (e.restName.toLowerCase().includes(findRestaurantValue.toLowerCase())) {
-				return newRestName.push(e)
-			}
-			return newRestName
-		})
+		  let newPrice = [];
+		  filteredPrices.forEach(e => result.forEach((j) => {
+			  if (j.priceInfo === e) {
+				  return newPrice.push(j)
+			  }
+			  return newPrice
+		  }))
+		  let newRestName = []
+		  newPrice.forEach(e => {
+			  if (e.restName.toLowerCase().includes(findRestaurantValue.toLowerCase())) {
+				  return newRestName.push(e)
+			  }
+			  return newRestName
+		  })
 		  
-		let newMoods = [];
-		filteredMoods.forEach(e => newRestName.forEach((j) => {
-			if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
-				return newMoods.push(JSON.stringify(j))
-			}
-			return newMoods
-		}))
+		  let newMoods = [];
+		  filteredMoods.forEach(e => newRestName.forEach((j) => {
+			  if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
+				  return newMoods.push(JSON.stringify(j))
+			  }
+			  return newMoods
+		  }))
 		  setFilterRestaurants(newMoods.map(e => JSON.parse(e)))
 	  } else if (
-		changeCityValue.length &&
-		selectedCousine.length &&
-		findRestaurantValue.length &&
-		filteredPrices.length &&
-		filteredMoods.length &&
-		filteredOptions.length
+		  changeCityValue.length &&
+		  selectedCousine.length &&
+		  findRestaurantValue.length &&
+		  filteredPrices.length &&
+		  filteredMoods.length &&
+		  filteredOptions.length
 	  ) {
-		let result = [];
-		allRestaurantsArr.forEach((e) => {
-			if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
-				return result.push(e)
-			}
-			return result
-		});
+		  let result = [];
+		  allRestaurantsArr.forEach((e) => {
+			  if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
+				  return result.push(e)
+			  }
+			  return result
+		  });
 
-		let newMoods = [];
-		filteredMoods.forEach(e => result.forEach((j) => {
-			if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
-				return newMoods.push(JSON.stringify(j))
-			}
-			return newMoods
-		}))
+		  let newMoods = [];
+		  filteredMoods.forEach(e => result.forEach((j) => {
+			  if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
+				  return newMoods.push(JSON.stringify(j))
+			  }
+			  return newMoods
+		  }))
 
-		let newCousine = [];
-		newMoods = newMoods.map(e => JSON.parse(e))
-		selectedCousine.forEach(e => newMoods.forEach((j) => {
-			if (j.foodTypes.includes(e)) {
-				return newCousine.push(j)
-			}
-			return newCousine
-		}))
+		  let newCousine = [];
+		  newMoods = newMoods.map(e => JSON.parse(e))
+		  selectedCousine.forEach(e => newMoods.forEach((j) => {
+			  if (j.foodTypes.includes(e)) {
+				  return newCousine.push(j)
+			  }
+			  return newCousine
+		  }))
 
-		let newPrice = [];
-		filteredPrices.forEach(e => newCousine.forEach((j) => {
-			if (j.priceInfo === e) {
-				return newPrice.push(j)
-			}
-			return newPrice
-		}))
+		  let newPrice = [];
+		  filteredPrices.forEach(e => newCousine.forEach((j) => {
+			  if (j.priceInfo === e) {
+				  return newPrice.push(j)
+			  }
+			  return newPrice
+		  }))
 
-		let newRestName = []
-		newPrice.forEach(e => {
-			if (e.restName.toLowerCase().includes(findRestaurantValue.toLowerCase())) {
-				return newRestName.push(e)
-			}
-			return newRestName
-		})
+		  let newRestName = []
+		  newPrice.forEach(e => {
+			  if (e.restName.toLowerCase().includes(findRestaurantValue.toLowerCase())) {
+				  return newRestName.push(e)
+			  }
+			  return newRestName
+		  })
 
 		  let newOptions = [];
 		  filteredOptions.forEach(e => newRestName.forEach((j) => {
 			  if (j.options.includes(e) && !newOptions.includes(JSON.stringify(j))) {
-				 return  newOptions.push(JSON.stringify(j))
+				  return newOptions.push(JSON.stringify(j))
 			  }
 			  return newOptions
 		  }))
 		  setFilterRestaurants(newOptions.map(e => JSON.parse(e)))
 	  } else if (
-		changeCityValue.length &&
-		!selectedCousine.length &&
-		!findRestaurantValue.length &&
-		!filteredPrices.length &&
-		!filteredMoods.length &&
-		filteredOptions.length
+		  changeCityValue.length &&
+		  !selectedCousine.length &&
+		  !findRestaurantValue.length &&
+		  !filteredPrices.length &&
+		  !filteredMoods.length &&
+		  filteredOptions.length
 	  ) {
-		let result = [];
-		allRestaurantsArr.forEach((e) => {
-			if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
-				return result.push(e)
-			}
-			return result
-		});
-		let newOptions = [];
-		filteredOptions.forEach(e => result.forEach((j) => {
-			if (j.options.includes(e) && !newOptions.includes(JSON.stringify(j))) {
-			   return  newOptions.push(JSON.stringify(j))
-			}
-			return newOptions
-		}))
-		setFilterRestaurants(newOptions.map(e => JSON.parse(e)))
+		  let result = [];
+		  allRestaurantsArr.forEach((e) => {
+			  if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
+				  return result.push(e)
+			  }
+			  return result
+		  });
+		  let newOptions = [];
+		  filteredOptions.forEach(e => result.forEach((j) => {
+			  if (j.options.includes(e) && !newOptions.includes(JSON.stringify(j))) {
+				  return newOptions.push(JSON.stringify(j))
+			  }
+			  return newOptions
+		  }))
+		  setFilterRestaurants(newOptions.map(e => JSON.parse(e)))
 	  } else if (
-		changeCityValue.length &&
-		!selectedCousine.length &&
-		!findRestaurantValue.length &&
-		!filteredPrices.length &&
-		filteredMoods.length &&
-		filteredOptions.length
+		  changeCityValue.length &&
+		  !selectedCousine.length &&
+		  !findRestaurantValue.length &&
+		  !filteredPrices.length &&
+		  filteredMoods.length &&
+		  filteredOptions.length
 	  ) {
-		let result = [];
-		allRestaurantsArr.forEach((e) => {
-			if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
-				return result.push(e)
-			}
-			return result
-		});
+		  let result = [];
+		  allRestaurantsArr.forEach((e) => {
+			  if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
+				  return result.push(e)
+			  }
+			  return result
+		  });
 		  
-		let newMoods = [];
-		filteredMoods.forEach(e => result.forEach((j) => {
-			if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
-				return newMoods.push(JSON.stringify(j))
-			}
-			return newMoods
-		}))
-		newMoods = newMoods.map(e => JSON.parse(e))
-		let newOptions = [];
-		filteredOptions.forEach(e => newMoods.forEach((j) => {
-			if (j.options.includes(e) && !newOptions.includes(JSON.stringify(j))) {
-			   return  newOptions.push(JSON.stringify(j))
-			}
-			return newOptions
-		}))
-		setFilterRestaurants(newOptions.map(e => JSON.parse(e)))
-	  }  else if (
-		changeCityValue.length &&
-		!selectedCousine.length &&
-		!findRestaurantValue.length &&
-		filteredPrices.length &&
-		filteredMoods.length &&
-		filteredOptions.length
+		  let newMoods = [];
+		  filteredMoods.forEach(e => result.forEach((j) => {
+			  if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
+				  return newMoods.push(JSON.stringify(j))
+			  }
+			  return newMoods
+		  }))
+		  newMoods = newMoods.map(e => JSON.parse(e))
+		  let newOptions = [];
+		  filteredOptions.forEach(e => newMoods.forEach((j) => {
+			  if (j.options.includes(e) && !newOptions.includes(JSON.stringify(j))) {
+				  return newOptions.push(JSON.stringify(j))
+			  }
+			  return newOptions
+		  }))
+		  setFilterRestaurants(newOptions.map(e => JSON.parse(e)))
+	  } else if (
+		  changeCityValue.length &&
+		  !selectedCousine.length &&
+		  !findRestaurantValue.length &&
+		  filteredPrices.length &&
+		  filteredMoods.length &&
+		  filteredOptions.length
 	  ) {
-		let result = [];
-		allRestaurantsArr.forEach((e) => {
-			if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
-				return result.push(e)
-			}
-			return result
-		});
+		  let result = [];
+		  allRestaurantsArr.forEach((e) => {
+			  if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
+				  return result.push(e)
+			  }
+			  return result
+		  });
 		  
-		let newMoods = [];
-		filteredMoods.forEach(e => result.forEach((j) => {
-			if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
-				return newMoods.push(JSON.stringify(j))
-			}
-			return newMoods
-		}))
-		newMoods = newMoods.map(e => JSON.parse(e))
-		let newOptions = [];
-		filteredOptions.forEach(e => newMoods.forEach((j) => {
-			if (j.options.includes(e) && !newOptions.includes(JSON.stringify(j))) {
-			   return  newOptions.push(JSON.stringify(j))
-			}
-			return newOptions
-		}))
+		  let newMoods = [];
+		  filteredMoods.forEach(e => result.forEach((j) => {
+			  if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
+				  return newMoods.push(JSON.stringify(j))
+			  }
+			  return newMoods
+		  }))
+		  newMoods = newMoods.map(e => JSON.parse(e))
+		  let newOptions = [];
+		  filteredOptions.forEach(e => newMoods.forEach((j) => {
+			  if (j.options.includes(e) && !newOptions.includes(JSON.stringify(j))) {
+				  return newOptions.push(JSON.stringify(j))
+			  }
+			  return newOptions
+		  }))
 		  newOptions = newOptions.map(e => JSON.parse(e))
+		  let newPrice = [];
+		  filteredPrices.forEach(e => result.forEach((j) => {
+			  if (j.priceInfo === e) {
+				  return newPrice.push(j)
+			  }
+			  return newPrice
+		  }))
+		  setFilterRestaurants(newPrice)
+	  } else if (
+		  changeCityValue.length &&
+		  !selectedCousine.length &&
+		  findRestaurantValue.length &&
+		  filteredPrices.length &&
+		  filteredMoods.length &&
+		  filteredOptions.length
+	  ) {
+		  let result = [];
+		  allRestaurantsArr.forEach((e) => {
+			  if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
+				  return result.push(e)
+			  }
+			  return result
+		  });
+		  
+		  let newMoods = [];
+		  filteredMoods.forEach(e => result.forEach((j) => {
+			  if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
+				  return newMoods.push(JSON.stringify(j))
+			  }
+			  return newMoods
+		  }))
+		  newMoods = newMoods.map(e => JSON.parse(e))
+		  let newOptions = [];
+		  filteredOptions.forEach(e => newMoods.forEach((j) => {
+			  if (j.options.includes(e) && !newOptions.includes(JSON.stringify(j))) {
+				  return newOptions.push(JSON.stringify(j))
+			  }
+			  return newOptions
+		  }))
+		  newOptions = newOptions.map(e => JSON.parse(e))
+		  let newPrice = [];
+		  filteredPrices.forEach(e => result.forEach((j) => {
+			  if (j.priceInfo === e) {
+				  return newPrice.push(j)
+			  }
+			  return newPrice
+		  }))
+		  
+		  let newRestName = []
+		  newPrice.forEach(e => {
+			  if (e.restName.toLowerCase().includes(findRestaurantValue.toLowerCase())) {
+				  return newRestName.push(e)
+			  }
+			  return newRestName
+		  })
+		  setFilterRestaurants(newRestName)
+	  } else if (
+		  changeCityValue.length &&
+		  selectedCousine.length &&
+		  !findRestaurantValue.length &&
+		  filteredPrices.length &&
+		  filteredMoods.length &&
+		  filteredOptions.length
+	  ) {
+		  let result = [];
+		  allRestaurantsArr.forEach((e) => {
+			  if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
+				  return result.push(e)
+			  }
+			  return result
+		  });
+		  
+		  let newMoods = [];
+		  filteredMoods.forEach(e => result.forEach((j) => {
+			  if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
+				  return newMoods.push(JSON.stringify(j))
+			  }
+			  return newMoods
+		  }))
+		  newMoods = newMoods.map(e => JSON.parse(e))
+		  let newOptions = [];
+		  filteredOptions.forEach(e => newMoods.forEach((j) => {
+			  if (j.options.includes(e) && !newOptions.includes(JSON.stringify(j))) {
+				  return newOptions.push(JSON.stringify(j))
+			  }
+			  return newOptions
+		  }))
+		  newOptions = newOptions.map(e => JSON.parse(e))
+		  let newPrice = [];
+		  filteredPrices.forEach(e => result.forEach((j) => {
+			  if (j.priceInfo === e) {
+				  return newPrice.push(j)
+			  }
+			  return newPrice
+		  }))
+		  
+		  let newCousine = [];
+		  selectedCousine.forEach(e => newPrice.forEach((j) => {
+			  if (j.foodTypes.includes(e)) {
+				  return newCousine.push(j)
+			  }
+			  return newCousine
+		  }))
+		  setFilterRestaurants(newCousine)
+	  } else if (
+		  changeCityValue.length &&
+		  !selectedCousine.length &&
+		  !findRestaurantValue.length &&
+		  filteredPrices.length &&
+		  filteredMoods.length &&
+		  filteredOptions.length
+	  ) {
+		let result = [];
+		allRestaurantsArr.forEach((e) => {
+			if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
+				return result.push(e)
+			}
+			return result
+		});
+		  
+		let newMoods = [];
+		filteredMoods.forEach(e => result.forEach((j) => {
+			if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
+				return newMoods.push(JSON.stringify(j))
+			}
+			return newMoods
+		}))
+		newMoods = newMoods.map(e => JSON.parse(e))
+		let newOptions = [];
+		filteredOptions.forEach(e => newMoods.forEach((j) => {
+			if (j.options.includes(e) && !newOptions.includes(JSON.stringify(j))) {
+				return newOptions.push(JSON.stringify(j))
+			}
+			return newOptions
+		}))
+		  
+		newOptions = newOptions.map(e => JSON.parse(e))
 		let newPrice = [];
 		filteredPrices.forEach(e => result.forEach((j) => {
 			if (j.priceInfo === e) {
@@ -1063,102 +1200,6 @@ export default function Homepage(props) {
 			return newPrice
 		}))
 		  setFilterRestaurants(newPrice)
-	  } else if (
-		changeCityValue.length &&
-		!selectedCousine.length &&
-		findRestaurantValue.length &&
-		filteredPrices.length &&
-		filteredMoods.length &&
-		filteredOptions.length
-	  ) {
-		let result = [];
-		allRestaurantsArr.forEach((e) => {
-			if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
-				return result.push(e)
-			}
-			return result
-		});
-		  
-		let newMoods = [];
-		filteredMoods.forEach(e => result.forEach((j) => {
-			if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
-				return newMoods.push(JSON.stringify(j))
-			}
-			return newMoods
-		}))
-		newMoods = newMoods.map(e => JSON.parse(e))
-		let newOptions = [];
-		filteredOptions.forEach(e => newMoods.forEach((j) => {
-			if (j.options.includes(e) && !newOptions.includes(JSON.stringify(j))) {
-			   return  newOptions.push(JSON.stringify(j))
-			}
-			return newOptions
-		}))
-		  newOptions = newOptions.map(e => JSON.parse(e))
-		let newPrice = [];
-		filteredPrices.forEach(e => result.forEach((j) => {
-			if (j.priceInfo === e) {
-				return newPrice.push(j)
-			}
-			return newPrice
-		}))
-		  
-		let newRestName = []
-		newPrice.forEach(e => {
-			if (e.restName.toLowerCase().includes(findRestaurantValue.toLowerCase())) {
-				return newRestName.push(e)
-			}
-			return newRestName
-		})
-		  setFilterRestaurants(newRestName)
-	  } else if (
-		changeCityValue.length &&
-		selectedCousine.length &&
-		!findRestaurantValue.length &&
-		filteredPrices.length &&
-		filteredMoods.length &&
-		filteredOptions.length
-	  ) {
-		let result = [];
-		allRestaurantsArr.forEach((e) => {
-			if ((e.restcity + e.address).toLowerCase().includes(changeCityValue.toLowerCase())) {
-				return result.push(e)
-			}
-			return result
-		});
-		  
-		let newMoods = [];
-		filteredMoods.forEach(e => result.forEach((j) => {
-			if (j.moods.includes(e) && !newMoods.includes(JSON.stringify(j))) {
-				return newMoods.push(JSON.stringify(j))
-			}
-			return newMoods
-		}))
-		newMoods = newMoods.map(e => JSON.parse(e))
-		let newOptions = [];
-		filteredOptions.forEach(e => newMoods.forEach((j) => {
-			if (j.options.includes(e) && !newOptions.includes(JSON.stringify(j))) {
-			   return  newOptions.push(JSON.stringify(j))
-			}
-			return newOptions
-		}))
-		  newOptions = newOptions.map(e => JSON.parse(e))
-		let newPrice = [];
-		filteredPrices.forEach(e => result.forEach((j) => {
-			if (j.priceInfo === e) {
-				return newPrice.push(j)
-			}
-			return newPrice
-		}))
-		  
-		  let newCousine = [];
-		selectedCousine.forEach(e => newPrice.forEach((j) => {
-			if (j.foodTypes.includes(e)) {
-				return newCousine.push(j)
-			}
-			return newCousine
-		}))
-		  setFilterRestaurants(newCousine)
 	  }
   }, [
     selectedCousine,
