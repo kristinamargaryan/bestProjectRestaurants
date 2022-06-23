@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -37,7 +37,7 @@ export default function FilterDialog(props) {
 
 	useEffect(() => {
 		props.findRestaurant(inputValue)
-	  }, [inputValue])
+	}, [inputValue])
 
 	const { width } = useWindowDimensions();
 	const optionsBar = [
@@ -83,7 +83,7 @@ export default function FilterDialog(props) {
 				<li>
 					<h5>Find by restaurnt name</h5>
 					<DebounceInput
-						style={{width: '240px'}}
+						style={{ width: '240px' }}
 						placeholder='Find Restaurant'
 						minLength={2}
 						debounceTimeout={1000}

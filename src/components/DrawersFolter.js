@@ -74,35 +74,6 @@ export default function SwipeableTemporaryDrawer(props) {
   }, [inputValue])
 
 
-  const filterPriceCheckedFunction = (title, bul) => {
-    bul
-      ? setFilteredPrices(
-          filteredPrices.filter((item, index) => {
-            return index != filteredPrices.indexOf(title);
-          })
-        )
-      : setFilteredPrices([...filteredPrices, title]);
-  };
-  const filterOptionsCheckedFunction = (title, bul) => {
-    bul
-      ? setFilteredOptions(
-          filteredOptions.filter((item, index) => {
-            return index != filteredOptions.indexOf(title);
-          })
-        )
-      : setFilteredOptions([...filteredOptions, title]);
-  };
-
-  const filterMoodsCheckedFunction = (title, bul) => {
-    bul
-      ? setFilteredMoods(
-          filteredMoods.filter((item, index) => {
-            return index != filteredMoods.indexOf(title);
-          })
-        )
-      : setFilteredMoods([...filteredMoods, title]);
-  };
-
   const handleClickOpen = () => {
     setShowFilterDialog(!showFilterDialog);
   };
@@ -195,14 +166,14 @@ export default function SwipeableTemporaryDrawer(props) {
                 return (
                   <button
                     style={
-                      filteredPrices.includes(element)
+                      props.filteredPrices.includes(element)
                         ? style1
                         : { fontSize: "17px" }
                     }
                     onClick={(ev) => {
-                      filteredPrices.includes(element)
-                        ? filterPriceCheckedFunction(element, true)
-                        : filterPriceCheckedFunction(element, false);
+                      props.filteredPrices.includes(element)
+                        ? props.filterPriceCheckedFunction(element, true)
+                        : props.filterPriceCheckedFunction(element, false);
                     }}
                   >
                     {element}
@@ -232,12 +203,12 @@ export default function SwipeableTemporaryDrawer(props) {
                   return (
                     <button
                       style={
-                        filteredMoods.includes(element.title) ? style1 : null
+                        props.filteredMoods.includes(element.title) ? style1 : null
                       }
                       onClick={(ev) => {
-                        filteredMoods.includes(element.title)
-                          ? filterMoodsCheckedFunction(element.title, true)
-                          : filterMoodsCheckedFunction(element.title, false);
+                        props.filteredMoods.includes(element.title)
+                          ? props.filterMoodsCheckedFunction(element.title, true)
+                          : props.filterMoodsCheckedFunction(element.title, false);
                       }}
                     >
                       {element.tag}
@@ -264,14 +235,14 @@ export default function SwipeableTemporaryDrawer(props) {
                     return (
                       <button
                         style={
-                          filteredOptions.includes(element.title)
+                          props.filteredOptions.includes(element.title)
                             ? style1
                             : null
                         }
                         onClick={(ev) => {
-                          filteredOptions.includes(element.title)
-                            ? filterOptionsCheckedFunction(element.title, true)
-                            : filterOptionsCheckedFunction(
+                          props.filteredOptions.includes(element.title)
+                            ? props.filterOptionsCheckedFunction(element.title, true)
+                            : props.filterOptionsCheckedFunction(
                                 element.title,
                                 false
                               );
