@@ -117,7 +117,7 @@ export default function PrimarySearchAppBar() {
 	);
 
 	return (
-		<Box marginBottom='80px' sx={{ flexGrow: 1 }}>
+		<Box marginBottom='63px' sx={{ flexGrow: 1 }}>
 			<AppBar color='inherit' position='fixed'>
 				<Toolbar>
 					<Typography

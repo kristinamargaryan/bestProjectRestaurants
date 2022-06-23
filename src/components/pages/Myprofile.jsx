@@ -100,7 +100,6 @@ export default function Myprofile(props) {
     id: currentUser.uid,
   };
 
-
   let componentStatsDefault = () => {
     setOptions([]);
     setMoods([]);
@@ -117,7 +116,6 @@ export default function Myprofile(props) {
     setTime24(false);
   };
   let savechanges = async (e) => {
-    
     e.preventDefault();
     delete userRestPhotos1[restaurantEdit];
     delete userRestParams1[restaurantEdit];
@@ -148,7 +146,7 @@ export default function Myprofile(props) {
 
     updaterAll1();
     updater1();
-    
+
     // componentStatsDefault();
 
     // navigate("MyRest");
@@ -313,59 +311,68 @@ export default function Myprofile(props) {
             Create Restaurant
           </button>
         </div>
-        {userRestParams1 &&
-          userRestaurants().map((item, index) => {
-            return (
-              <div
-                style={{
-                  cursor: "pointer",
-                  height: "auto",
-                  width: "290px",
-                  border: "1px solid #000",
-                  padding: "10px",
-                  borderRadius: "5px",
-                  marginBottom: "10px",
-                }}
-                
-              >
-                <h4
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
+          {userRestParams1 &&
+            userRestaurants().map((item, index) => {
+              return (
+                <div
                   style={{
-                    textAlign: "center",
-                    fontSize: "22px",
-                    margin: "0",
-                    padding: "5px 0",
-                    color: "goldenrod",
+                    cursor: "pointer",
+                    height: "auto",
+                    width: "290px",
+                    border: "1px solid #000",
+                    padding: "10px",
+                    margin: "10px",
+                    borderRadius: "5px",
+                    marginBottom: "10px",
                   }}
                 >
-                  {item.restName}{" "}
-                </h4>
+                  <h4
+                    style={{
+                      textAlign: "center",
+                      fontSize: "22px",
+                      margin: "0",
+                      padding: "5px 0",
+                      color: "goldenrod",
+                    }}
+                  >
+                    {item.restName}{" "}
+                  </h4>
 
-                <img
-                  id={item.restName+item.address}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "block",
-                    maxHeight: "200px",
-                    minHeight: "200px",
-                  }}
-                  src={item.photos.avatar[+item.photos.profilePicture]}
-                  onClick={(ev) => {
-                    ev.preventDefault(); 
-                    setRestaurantEdit(item.restName + item.address);
-                    setFileUrl([]);
-                    setFileUrlmenu([]);
-                    setNowRest(userRestParams1[item.restName + item.address]);
-                    navigate(`/myrestaurants/${ev.target.id}`); 
-                    // navigate(`/${currentUser.uid}`);
-                    // getRestInfo(item);
-                    sessionStorage.setItem("restinfo", JSON.stringify(item));
-                  }}
-                />
-              </div>
-            );
-          })}
-        {open && <CreateEditRestaurantDialog data={{}} onclick={ openFormFunction} />}
+                  <img
+                    id={item.restName + item.address}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                      maxHeight: "200px",
+                      minHeight: "200px",
+                    }}
+                    src={item.photos.avatar[+item.photos.profilePicture]}
+                    onClick={(ev) => {
+                      ev.preventDefault();
+                      setRestaurantEdit(item.restName + item.address);
+                      setFileUrl([]);
+                      setFileUrlmenu([]);
+                      setNowRest(userRestParams1[item.restName + item.address]);
+                      navigate(`/myrestaurants/${ev.target.id}`);
+                      // navigate(`/${currentUser.uid}`);
+                      // getRestInfo(item);
+                      sessionStorage.setItem("restinfo", JSON.stringify(item));
+                    }}
+                  />
+                </div>
+              );
+            })}
+          {open && (
+            <CreateEditRestaurantDialog data={{}} onclick={openFormFunction} />
+          )}
+        </div>
       </div>
 
       {/* x */}
@@ -373,8 +380,8 @@ export default function Myprofile(props) {
   );
 }
 
-
-{/* <div
+{
+  /* <div
 style={{
   display: "flex",
   flexDirection: "column",
@@ -558,4 +565,5 @@ style={{
     </div>
   </div>
 </div>
-</div> */}
+</div> */
+}
