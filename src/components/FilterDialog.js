@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -25,6 +26,35 @@ import NightlifeIcon from "@mui/icons-material/Nightlife";
 import "../App.css";
 import useWindowDimensions from "../components/WindowResize";
 import { DebounceInput } from "react-debounce-input";
+=======
+import React, { useState, useEffect } from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import CachedIcon from '@mui/icons-material/Cached';
+import FoodTypeMenu from '../components/FoodTypeMenu';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import WineBarIcon from '@mui/icons-material/WineBar';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import GroupsIcon from '@mui/icons-material/Groups';
+import CelebrationIcon from '@mui/icons-material/Celebration';
+import ChildCareIcon from '@mui/icons-material/ChildCare';
+import TableBarIcon from '@mui/icons-material/TableBar';
+import EventSeatIcon from '@mui/icons-material/EventSeat';
+import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
+import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
+import CellWifiIcon from '@mui/icons-material/CellWifi';
+import CreditScoreIcon from '@mui/icons-material/CreditScore';
+import DeckIcon from '@mui/icons-material/Deck';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import AccessibleIcon from '@mui/icons-material/Accessible';
+import SportsBarIcon from '@mui/icons-material/SportsBar';
+import NightlifeIcon from '@mui/icons-material/Nightlife';
+import '../App.css';
+import useWindowDimensions from '../components/WindowResize';
+import { DebounceInput } from 'react-debounce-input';
+>>>>>>> 5030fd3528c494f2fa9e2d38c6e32a319fab0527
 
 export default function FilterDialog(props) {
   const [inputValue, setInputValue] = useState("");
@@ -38,9 +68,15 @@ export default function FilterDialog(props) {
     color: "#black",
   };
 
+<<<<<<< HEAD
   useEffect(() => {
     props.findRestaurant(inputValue);
   }, [inputValue]);
+=======
+	useEffect(() => {
+		props.findRestaurant(inputValue)
+	}, [inputValue])
+>>>>>>> 5030fd3528c494f2fa9e2d38c6e32a319fab0527
 
   const { width } = useWindowDimensions();
   const optionsBar = [
@@ -67,6 +103,7 @@ export default function FilterDialog(props) {
 
   const prices = ["$", "$$", "$$$", "$$$$", "$$$$$"];
 
+<<<<<<< HEAD
   return (
     <div
       style={{
@@ -107,6 +144,38 @@ export default function FilterDialog(props) {
             style={{ height: "50px", width: "90%" }}
           />
         </li>
+=======
+	return (
+		<div
+			style={{
+				display: width <= 850 ? 'none' : 'block',
+				border: '1px solid',
+				maxWidth: '280px',
+				minWidth: '280px',
+				borderRadius: '8px',
+				boxShadow: '0 0 15px black',
+				maxHeight: '500px',
+				position: 'sticky',
+				top: '70px',
+				backgroundColor: '#fff'
+			}}
+		>
+			<ul className='filterList'>
+				<li>
+					<h5>Find by restaurnt name</h5>
+					<DebounceInput
+						style={{ width: '240px' }}
+						placeholder='Find Restaurant'
+						minLength={2}
+						debounceTimeout={1000}
+						onChange={(e) => setInputValue(e.target.value)}
+					/>
+				</li>
+				<li>
+					<h5>Find by type of food</h5>
+					<FoodTypeMenu selectedCousineChange={props.selectedCousineChange} style={{ height: '50px', width: '90%' }} />
+				</li>
+>>>>>>> 5030fd3528c494f2fa9e2d38c6e32a319fab0527
 
         <li className="selectPrice">
           <h5>Select Price</h5>

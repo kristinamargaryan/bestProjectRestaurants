@@ -16,10 +16,11 @@ function RestaurantInfoDialogTopPart(props) {
 	const { width } = useWindowDimensions();
 
 	const aboutRest = [
-		{ title: 'City:', path: data.city },
+		{ title: 'City:', path: data.restcity },
 		{ title: 'Adress:', path: data.address },
 		{ title: 'Price:', path: data.priceInfo },
 	];
+	console.log('d', data)
 
 	return (
 		<MaindContainer>
