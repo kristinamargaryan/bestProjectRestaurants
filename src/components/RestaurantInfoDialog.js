@@ -79,9 +79,6 @@ export default function RestaurantInfoDialog(props) {
               >
                 Gallary
               </Button>
-              <Button style={{ minWidth: "100px" }} variant="contained">
-                Opinion
-              </Button>
             </div>
             {showMenu && (
               <div

@@ -110,7 +110,8 @@ export function MyRestaurantsGallaryPhotos(props) {
               <DeleteIcon
                 id={index}
                 onClick={deletePhotoAvatar}
-                style={{ color: "red" }}
+                style={{ color: "red", cursor: 'pointer'
+              }}
               />
             </li>
           );
@@ -196,7 +197,8 @@ export function MyRestaurantsMenuPhotos(props) {
               />
               <DeleteIcon
                 id={index}
-                style={{ color: "red" }}
+                style={{ color: "red",cursor: 'pointer'
+              }}
                 onClick={deletePhotomenu}
               />
             </li>

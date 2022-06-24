@@ -25,8 +25,7 @@ color='#519259'
   return (
     <Stack direction="row" spacing={2}>
       <Button 
-        style={{
-          fontSize:'11px',
+        style={{ 
           borderRadius:'15px',
           color: "white",
           marginLeft: "5px",

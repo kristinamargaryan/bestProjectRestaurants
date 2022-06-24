@@ -59,7 +59,7 @@ export default function UpdateProfile() {
   }
 
   return (
-    <div style={{ height: 'calc(100vh - 363px)' }}>
+    <div style={{ height: 'calc(100vh - 200px)' }}>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />

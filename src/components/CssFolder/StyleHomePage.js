@@ -52,7 +52,7 @@ export const InputPart = styled.div`
 export const SearchInput = styled.input`
 	font-size: 25px;
 	background-color: rgba(0, 0, 0, 0.616);
-	color: ##C078FF;
+	color: #fff;
 	outline: none;
 	border: none;
 	border: 1px solid #fff;
@@ -63,7 +63,6 @@ export const SearchInput = styled.input`
 	border-bottom-left-radius: 5px;
 	border-right: none;
 	
-
 	&::placeholder {
 		color: #fff;
 		font-size: 24px;

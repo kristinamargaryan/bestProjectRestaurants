@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   form_left: {
-    width: '100vh',
+    width: '800px',
     display:  'flex',
     flexDirection: 'column',
   },
@@ -39,37 +39,57 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-start",
     paddingBottom:"5px",
-    '@media (max-width: 1000px)': {
+    '@media (max-width: 1300px)': {
       flexDirection: 'column'
     }
   },
   inputOne:{
     fontSize:'20px', 
-    maxWidth:'80%',
-    '@media (max-width: 1000px)': {
-      maxWidth:'60%',
+    width:'400px',
+    '@media (max-width: 1300px)': {
+      width:'620px',
+    },
+   
+     '@media (max-width: 1050px)': {
+      width:'60%',
+    },
+    '@media (max-width: 800px)': {
+      maxWidth:'50%',
     },
   },
  inputTwo:{
     fontSize:'20px', 
-    maxWidth:'80%',
-    marginLeft:'3px',
-
-     '@media (max-width: 1000px)': {
+    width:'400px',
+    marginLeft:'5px',
+    '@media (max-width: 1300px)':{
       marginLeft:'0px',
       marginTop:'3px',
-      maxWidth:'60%',
-    }
+      width:'620px',
+    },
+    
+    '@media (max-width: 1050px)': {
+      marginLeft:'0px',
+      marginTop:'3px',
+      width:'60%',
+    },
+    '@media (max-width: 800px)': {
+      maxWidth:'50%',
+    },
   },
   
   textarea:{
     fontSize:'24px', 
-    maxWidth:'99%',
-    '@media (max-width: 1200px)': {
-      maxWidth:'85%',
+    height:'400px',
+    width:'100%',
+    resize:'none',
+    '@media (max-width: 1300px)': {
+      maxWidth:'80%',
     },
-    '@media (max-width: 1000px)': {
+    '@media (max-width: 1050px)': {
       maxWidth:'60%',
+    },
+    '@media (max-width: 800px)': {
+      maxWidth:'50%',
     },
     
   },

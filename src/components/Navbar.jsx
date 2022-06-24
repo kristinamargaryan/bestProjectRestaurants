@@ -84,12 +84,14 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
+      <div style={{display: 'flex', flexDirection: 'column', padding: '5px', alignItems: 'flex-start'}}>
+              <MenuItem onClick={handleMenuClose}>
         <div onClick={() => navigate(UPDATEPROFILE_ROUTE)}>Update Profile</div>
       </MenuItem>
       <MenuItem onClick={handleLogout}>
         <div>Sign-Out</div>
       </MenuItem>
+      </div>
     </Menu>
   );
 
@@ -110,12 +112,14 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
+      <div style={{display: 'flex', flexDirection: 'column', padding: '5px', alignItems: 'flex-start'}}>
+              <MenuItem onClick={handleMenuClose}>
         <div onClick={() => navigate(UPDATEPROFILE_ROUTE)}>Update Profile</div>
       </MenuItem>
       <MenuItem onClick={handleLogout}>
         <div>Sign-Out</div>
       </MenuItem>
+      </div>
     </Menu>
   );
 
@@ -134,9 +138,9 @@ export default function PrimarySearchAppBar() {
               <img
                 className="imgg"
                 style={{
-                  width: width > 800 ? "252px" : width < 700 ? '90px': '',
+                  width: width > 800 ? "252px" : width < 700 ? '70px': '',
                   
-                  height: width > 800 ? "60px" : width < 700 ? '20px': '',
+                  height: width > 800 ? "60px" : width < 700 ? '17px': '',
                   objectPosition: "center",
                   
               

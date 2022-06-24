@@ -55,10 +55,10 @@ export default function SwipeableTemporaryDrawer(props) {
     useAuth();
 
   let style1 = {
-    backgroundColor: "violet",
+    backgroundColor: "#4C83BB",
   };
   let style2 = {
-    backgroundColor: "blue",
+    backgroundColor: "#4C83BB",
   };
 
   useEffect(() => {

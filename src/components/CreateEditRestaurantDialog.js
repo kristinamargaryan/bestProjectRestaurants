@@ -200,12 +200,13 @@ export default function CreateEditRestaurantDialog(props) {
 	};
 	let enableSendButton = () => {
 		for (let key in sendData) {
-			if (sendData[key] && sendData[key].length === 0) {
-				return true;
-			}
+		  if (sendData[key] && sendData[key].length === 0) {
+			if (key == "fileUrl" || key == "fileUrlmenu") {
+			} else return true;
+		  }
 		}
 		return false;
-	};
+	  };
 	return (
 		<div>
 			<Dialog

@@ -1309,7 +1309,7 @@ export default function Homepage(props) {
                   <SearchInput
                     type="text"
                     label="foolwidth"
-                    placeholder="Ereven, Armenia"
+                    placeholder="City Or Address"
                     onChange={debouncedChange}
                   ></SearchInput>
                   <IconButton>
@@ -1351,18 +1351,8 @@ export default function Homepage(props) {
               filterMoodsCheckedFunction={filterMoodsCheckedFunction}
             />{" "}
             <RestDiv>
-              {filterRestaurants.length !== allRestaurantsArr.length ? (
-                filterRestaurants.length ? (
-                  <div style={{ color: "white" }}>
-                    Find {filterRestaurants.length}{" "}
-                    {filterRestaurants.length > 1
-                      ? "Restaurants"
-                      : "Restaurant"}
-                  </div>
-                ) : (
-                  <div style={{ color: "white" }}>Restaurants Can't Find</div>
-                )
-              ) : null}
+              { !filterRestaurants.length ? <div style={{ color: "white", fontSize: '35px' }}>Restaurants Can't Find</div> : null}
+        
               <ShowAllOrFilteredRestaurants
                 onclick={findSelectedRestaurant}
                 allRestaurantsArr={allRestaurantsArr}
