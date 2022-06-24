@@ -92,7 +92,9 @@ ul li h5 {
   background-color: dimgray;
   width: 110%
 } */
-
+.priceBtn{
+	padding: 1px 10px;
+}
 .filterList button {
 	display: inline-block;
 	vertical-align: middle;

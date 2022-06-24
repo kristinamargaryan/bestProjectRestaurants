@@ -315,6 +315,7 @@ export default function Myprofile(props) {
           style={{
             display: "flex",
             flexWrap: "wrap",
+            justifyContent:'center'
           }}
         >
           {userRestParams1 &&

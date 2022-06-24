@@ -21,10 +21,10 @@ export const InfoPath = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-color: red;
-	color: #fff;
-	padding: 7px;
+	background-color:#9FBB7D;
+	color: #000;
 	border-radius: 5px;
+	padding:10px 40px
 `;
 
 export const AboutRest = styled.div`
@@ -42,11 +42,13 @@ export const InfoTitle = styled.h5`
 export const InfoHref = styled.a`
 	display: flex;
 	align-items: center;
+	color:#000;
+	text-decoration:none
 `;
 
 export const InfoPath2 = styled.div`
-	color: #000;
-	font-size: 18px;
+	
+	font-size: 14px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: left;

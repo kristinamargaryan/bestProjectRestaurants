@@ -20,8 +20,29 @@ function ShowAllOrFilteredRestaurants(props) {
                           }
                         />
                         <OwnRestContent>
-                          <RestContTitle>{restaurant.restName}</RestContTitle>
+                          <RestContTitle style={{
+                            marginBottom:'15px'
+                          }}>{restaurant.restName}</RestContTitle>
+                          
+                          <div >
+                            <span style={{ color: "green" }}>Price:</span>{" "}
+                            {restaurant.priceInfo}
+                          </div>
+                          <div style={{
+                            margin:'5px 0px'
+                          }} >
+                            <span style={{ color: "green" }}>Tel:</span>{" "}
+                            {restaurant.phoneNumber}
+                          </div>
                           <div>
+                            <span style={{ color: "green" }}>Cousine:</span>{" "}
+                            {restaurant.foodTypes.join(", ")}
+                          </div>
+                          <div style={{
+                            width:'100%',
+                            display:'flex',
+                            justifyContent:'right'
+                          }}>
                             {restaurant.openTime &&
                             restaurant.closeTime &&
                             props.RestaurantOpenOrClose(
@@ -40,14 +61,6 @@ function ShowAllOrFilteredRestaurants(props) {
                                 Closed
                               </span>
                             )}
-                          </div>
-                          <div>
-                            <span style={{ color: "green" }}>price:</span>{" "}
-                            {restaurant.priceInfo}
-                          </div>
-                          <div>
-                            <span style={{ color: "green" }}>cousine:</span>{" "}
-                            {restaurant.foodTypes.join(", ")}
                           </div>
                         </OwnRestContent>
                       </OwnRest>

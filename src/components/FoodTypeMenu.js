@@ -36,6 +36,8 @@ function getStyles(name, personName, theme) {
       personName.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
+
+       
   };
 }
 
@@ -60,8 +62,10 @@ export default function MultipleSelectPlaceholder(props) {
 
   return (
     <div>
-      <FormControl sx={{ width: "90%" }}>
+      <FormControl sx={{marginLeft:'5px',background:'#F0E6FF', width: "90%",outline:'1px solid rgb(59 115 170)' }}>
         <Select
+       
+        
           multiple
           displayEmpty
           value={personName}
@@ -79,6 +83,7 @@ export default function MultipleSelectPlaceholder(props) {
         >
           {foodTypesList.map((item) => (
             <MenuItem
+            
               key={item.value}
               value={item.value}
               style={getStyles(item.value, personName, theme)}
